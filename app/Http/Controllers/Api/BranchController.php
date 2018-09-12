@@ -9,23 +9,22 @@ use App\Http\Transformers\BranchTransformer;
 class BranchController extends ApiController
 {
     protected $validationRules = [
-        'name'  => 'required',
-        'address'  => 'required',
+        'name'        => 'required',
+        'address'     => 'required',
         'tax_number'  => 'required',
-        'city_id'  => 'required',
-        'district_id'  => 'required',
-        'ward_id'  => 'required',
-        'type'  => 'required',
+        'city_id'     => 'required',
+        'district_id' => 'required',
+        'ward_id'     => 'required',
+        'type'        => 'required',
     ];
     protected $validationMessages = [
-        'name.required'  => 'Tên không được để trống',
-        'address.required'  => 'Địa chỉ không được để trống',
+        'name.required'        => 'Tên không được để trống',
+        'address.required'     => 'Địa chỉ không được để trống',
         'tax_number.required'  => 'Mã số thuế không được để trống',
-        'city_id.required'  => 'Vui lòng chọn Thành phố',
-        'district_id.required'  => 'Vui lòng chọn Quận-Huyện',
-        'ward_id.required'  => 'Vui lòng chọn Xã-Phường',
-        'type.required'  => 'Loại chi nhánh không được để trống',
-        
+        'city_id.required'     => 'Vui lòng chọn Thành phố',
+        'district_id.required' => 'Vui lòng chọn Quận-Huyện',
+        'ward_id.required'     => 'Vui lòng chọn Xã-Phường',
+        'type.required'        => 'Loại chi nhánh không được để trống',
     ];
 
     /**

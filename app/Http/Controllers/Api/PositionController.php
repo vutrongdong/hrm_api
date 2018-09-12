@@ -9,7 +9,7 @@ use App\Http\Transformers\PositionTransformer;
 class PositionController extends ApiController
 {
     protected $validationRules = [
-        'name'  => 'required|unique:positions',
+        'name' => 'required|unique:positions',
     ];
     protected $validationMessages = [
         'name.required' => 'Tên chức vụ không được để trống',

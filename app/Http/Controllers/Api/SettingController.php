@@ -16,9 +16,9 @@ class SettingController extends ApiController
     protected $validationMessages = [
         'name.required'  => 'Tên không được để trống',
         'slug.required'  => 'Slug không được để trống',
-        'value.required'  => 'Giá trị không được để trống',
-        'name.unique'   => 'Tên đã tồn tại trên hệ thống',
-        'slug.unique'   => 'Slug đã tồn tại trên hệ thống',
+        'value.required' => 'Giá trị không được để trống',
+        'name.unique'    => 'Tên đã tồn tại trên hệ thống',
+        'slug.unique'    => 'Slug đã tồn tại trên hệ thống',
     ];
 
     /**

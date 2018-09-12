@@ -9,12 +9,12 @@ use App\Http\Transformers\DepartmentTransformer;
 class DepartmentController extends ApiController
 {
     protected $validationRules = [
-        'name'  => 'required|unique:departments',
-        'branch_id'  => 'required',
+        'name'      => 'required|unique:departments',
+        'branch_id' => 'required',
     ];
     protected $validationMessages = [
-        'name.required' => 'Tên phòng ban không được để trống',
-        'name.unique'   => 'Tên phòng ban đã tồn tại trên hệ thống',
+        'name.required'      => 'Tên phòng ban không được để trống',
+        'name.unique'        => 'Tên phòng ban đã tồn tại trên hệ thống',
         'branch_id.required' => 'Vui lòng chọn chi nhánh',
     ];
     /**
