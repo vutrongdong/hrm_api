@@ -8,6 +8,13 @@ use App\Http\Transformers\PositionTransformer;
 
 class PositionController extends ApiController
 {
+    protected $validationRules = [
+        'name'  => 'required|unique:positions',
+    ];
+    protected $validationMessages = [
+        'name.required' => 'Tên chức vụ không được để trống',
+        'name.unique'   => 'Tên chức vụ đã tồn tại trên hệ thống',
+    ];
     /**
      * PositionController constructor.
      * @param PositionRepository $position
@@ -48,7 +55,7 @@ class PositionController extends ApiController
     {
         try {
             // $this->authorize('user.create');
-            // $this->validate($request, $this->validationRules, $this->validationMessages);
+            $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
 
             return $this->successResponse($data);
@@ -68,7 +75,7 @@ class PositionController extends ApiController
     {
         try {
             // $this->authorize('user.update');
-            // $this->validate($request, $this->validationRules, $this->validationMessages);
+            $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
             
             return $this->successResponse($model);

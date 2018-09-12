@@ -28,8 +28,23 @@ class UserSeeder extends Seeder
                 ]
             ]);
         }
+
         if (!DB::table('role_users')->where('user_id', 1)->where('role_id', 1)->first()) {
             DB::table('role_users')->insert(['user_id' => 1, 'role_id' => 1]);
         }
+
+        DB::table('department_user')->insert([
+            [
+                'user_id' => 1,
+                'department_id' => 1,
+                'position_id' => 7
+            ],
+
+            [
+                'user_id' => 1,
+                'department_id' => 2,
+                'position_id' => 6
+            ],
+        ]);
     }
 }

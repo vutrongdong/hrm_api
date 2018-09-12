@@ -26,7 +26,7 @@ $router->group(['middleware' => 'auth'], function ($router) {
     resource('/branches', 'BranchController', $router);
     
     resource('/departments', 'DepartmentController', $router);
-    $router->get('/departments/branches/{id}', 'DepartmentController@getByBranch');
+    // $router->get('/departments/branches/{id}', 'DepartmentController@getByBranch');
     
     resource('/positions', 'PositionController', $router);
 });

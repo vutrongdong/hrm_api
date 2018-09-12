@@ -44,6 +44,6 @@ class BranchTransformer extends TransformerAbstract
         if (is_null($branch)) {
             return $this->null();
         }
-        return $this->collection($branch->departments, new UserTransformer);
+        return $this->collection($branch->departments, new DepartmentTransformer);
     }
 }

@@ -8,7 +8,7 @@ use App\User;
 class UserTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        'roles'
+        'roles', 'departments', 'positions'
     ];
 
     public function transform(User $user = null)
@@ -31,5 +31,21 @@ class UserTransformer extends TransformerAbstract
             return $this->null();
         }
         return $this->collection($user->roles, new RoleTransformer);
+    }
+
+    public function includeDepartments(User $user = null)
+    {
+        if (is_null($user)) {
+            return $this->null();
+        }
+        return $this->collection($user->departments, new DepartmentTransformer);
+    }
+
+    public function includePositions(User $user = null)
+    {
+        if (is_null($user)) {
+            return $this->null();
+        }
+        return $this->collection($user->positions, new PositionTransformer);
     }
 }

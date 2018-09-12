@@ -14,8 +14,8 @@ class RoleController extends ApiController
         'permissions' => 'nullable|array'
     ];
     protected $validationMessages = [
-        'name.required'     => 'Tên không được để trông',
-        'slug.required'     => 'Slug không được để trông',
+        'name.required'     => 'Tên không được để trống',
+        'slug.required'     => 'Slug không được để trống',
         'permissions.array' => 'Danh sách quyền không đúng định dạng array'
     ];
     /**

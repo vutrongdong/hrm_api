@@ -8,6 +8,15 @@ use App\Http\Transformers\DepartmentTransformer;
 
 class DepartmentController extends ApiController
 {
+    protected $validationRules = [
+        'name'  => 'required|unique:departments',
+        'branch_id'  => 'required',
+    ];
+    protected $validationMessages = [
+        'name.required' => 'Tên phòng ban không được để trống',
+        'name.unique'   => 'Tên phòng ban đã tồn tại trên hệ thống',
+        'branch_id.required' => 'Vui lòng chọn chi nhánh',
+    ];
     /**
      * DepartmentController constructor.
      * @param DepartmentRepository $department
@@ -43,7 +52,7 @@ class DepartmentController extends ApiController
     {
         try {
             // $this->authorize('user.create');
-            // $this->validate($request, $this->validationRules, $this->validationMessages);
+            $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
 
             return $this->successResponse($data);
@@ -63,7 +72,7 @@ class DepartmentController extends ApiController
     {
          try {
             // $this->authorize('user.update');
-            // $this->validate($request, $this->validationRules, $this->validationMessages);
+            $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
             
             return $this->successResponse($model);
@@ -95,8 +104,8 @@ class DepartmentController extends ApiController
         }
     }
 
-    public function getByBranch(Request $request, $cID)
-    {
-        return $this->model->getByBranch($cID);
-    }
+    // public function getByBranch(Request $request, $cID)
+    // {
+    //     return $this->model->getByBranch($cID);
+    // }
 }

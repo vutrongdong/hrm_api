@@ -14,4 +14,9 @@ class Position extends Model
         'name',
         'status'
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(\App\User::class, 'department_user');
+    }
 }

@@ -8,6 +8,19 @@ use App\Http\Transformers\SettingTransformer;
 
 class SettingController extends ApiController
 {
+    protected $validationRules = [
+        'name'  => 'required|unique:settings',
+        'slug'  => 'required|unique:settings',
+        'value' => 'required',
+    ];
+    protected $validationMessages = [
+        'name.required'  => 'Tên không được để trống',
+        'slug.required'  => 'Slug không được để trống',
+        'value.required'  => 'Giá trị không được để trống',
+        'name.unique'   => 'Tên đã tồn tại trên hệ thống',
+        'slug.unique'   => 'Slug đã tồn tại trên hệ thống',
+    ];
+
     /**
      * SettingController constructor.
      * @param SettingRepository $setting
@@ -48,7 +61,7 @@ class SettingController extends ApiController
     {
         try {
             // $this->authorize('user.create');
-            // $this->validate($request, $this->validationRules, $this->validationMessages);
+            $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
 
             return $this->successResponse($data);
@@ -75,7 +88,7 @@ class SettingController extends ApiController
     {
         try {
             // $this->authorize('user.update');
-            // $this->validate($request, $this->validationRules, $this->validationMessages);
+            $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
             
             return $this->successResponse($model);

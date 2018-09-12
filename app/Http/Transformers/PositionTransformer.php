@@ -7,6 +7,10 @@ use App\Repositories\Positions\Position;
 
 class PositionTransformer extends TransformerAbstract
 {
+    protected $availableIncludes = [
+        'users'
+    ];
+
     public function transform(Position $position = null)
     {
         if (is_null($position)) {
@@ -18,5 +22,14 @@ class PositionTransformer extends TransformerAbstract
             'name'          => $position->name,
             'status'        => $position->status,
         ];
+    }
+
+    public function includeUsers(Position $position = null)
+    {
+        if (is_null($position)) {
+            return $this->null();
+        }
+
+        return $this->collection($position->users, new UserTransformer);
     }
 }

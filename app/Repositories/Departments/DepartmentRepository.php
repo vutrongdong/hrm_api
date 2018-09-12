@@ -26,8 +26,8 @@ class DepartmentRepository extends BaseRepository
     * @param  int    $cID
     * @return array
     */
-    public function getByBranch(int $cID)
-    {
-        return $this->model->where('branch_id', $cID)->get();
-    }
+    // public function getByBranch(int $cID)
+    // {
+    //     return $this->model->where('branch_id', $cID)->get();
+    // }
 }
