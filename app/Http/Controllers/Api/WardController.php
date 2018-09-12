@@ -12,6 +12,10 @@ class WardController extends ApiController
         $this->model = $ward;
     }
 
+    /**
+     * 
+     */
+
     public function getByDistrict(Request $request, $cID)
     {
         return $this->model->getByDistrict($cID);

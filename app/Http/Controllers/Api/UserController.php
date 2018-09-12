@@ -70,8 +70,8 @@ class UserController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
 
-            return $this->successResponse($data);
-            // return $data->id;
+            // return $this->successResponse($data);
+            return $data;
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
