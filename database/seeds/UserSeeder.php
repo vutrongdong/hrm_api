@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
     {
         if (!\App\User::find(1)) {
             factory(\App\User::class)->create([
-                'name'     => 'SupperAdmin',
+                'name'     => 'SuperAdmin',
                 'email'    => 'admin@nht.com',
                 'password' => 'admin'
             ]);

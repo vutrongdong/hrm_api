@@ -89,6 +89,8 @@ $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 $app->register(ElfSundae\Laravel\Hashid\HashidServiceProvider::class);
 $app->register(Barryvdh\Cors\ServiceProvider::class);
 
+$app->register(Appzcoder\LumenRoutesList\RoutesCommandServiceProvider::class);
+
 /*
 |--------------------------------------------------------------------------
 | load the config

@@ -10,19 +10,33 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-$router->group([
-    'middleware' => 'auth'
-], function ($router) {
+$router->group(['middleware' => 'auth'], function ($router) {
     resource('/users', 'UserController', $router);
     $router->get('/profile', 'ProfileController@index');
     $router->put('/profile', 'ProfileController@update');
     $router->put('/profile/change-password', 'ProfileController@changePassword');
     $router->get('/permissions', 'PermissionController@index');
     resource('/roles', 'RoleController', $router);
+
+    $router->get('/cities', 'CityController@index');
+    $router->get('/districts/city/{id}', 'DistrictController@getByCity');
+    $router->get('/wards/districts/{id}', 'WardController@getByDistrict');
+
+    resource('/settings', 'SettingController', $router);
+    resource('/branches', 'BranchController', $router);
+    
+    resource('/departments', 'DepartmentController', $router);
+    $router->get('/departments/branches/{id}', 'DepartmentController@getByBranch');
+    
+    resource('/positions', 'PositionController', $router);
 });
+
 
 $router->post('login', 'LoginController@login');
 $router->post('register', 'RegisterController@register');
+
+
+
 
 /**
  * resource router helper

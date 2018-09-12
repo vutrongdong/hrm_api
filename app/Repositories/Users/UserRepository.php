@@ -25,4 +25,15 @@ class UserRepository extends BaseRepository
     {
         $this->model = $user;
     }
+
+    public function store($data)
+    {
+        $user = $this->model->create($data);
+        return $user;
+    }
+
+    public function addOrUpdateUserDepartment($id, $data)
+    {
+        
+    }
 }

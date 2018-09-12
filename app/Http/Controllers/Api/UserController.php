@@ -71,6 +71,7 @@ class UserController extends ApiController
             $data = $this->model->store($request->all());
 
             return $this->successResponse($data);
+            // return $data->id;
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
@@ -94,7 +95,7 @@ class UserController extends ApiController
 
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
-            return $this->errorResponse([
+            return $this    ->errorResponse([
                 'errors' => $validationException->validator->errors(),
                 'exception' => $validationException->getMessage()
             ]);
