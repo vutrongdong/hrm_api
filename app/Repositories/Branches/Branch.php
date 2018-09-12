@@ -29,4 +29,9 @@ class Branch extends Model
         'ward_id',
         'status',
     ];
+
+    public function departments()
+    {
+        return $this->hasMany(\App\Repositories\Departments\Department::class);
+    }
 }

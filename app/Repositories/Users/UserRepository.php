@@ -54,11 +54,9 @@ class UserRepository extends BaseRepository
             $length = count($data['department_id']);
             for ($i = 0; $i < $length; $i++) { 
                 DB::table('department_user')->insert([
-                    [
                         'user_id' => $id,
                         'department_id' => $data['department_id'][$i],
                         'position_id' => $data['position_id'][$i]
-                    ]
                 ]);
             }
         }

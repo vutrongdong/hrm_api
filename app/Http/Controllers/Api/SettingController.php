@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Repositories\Settings\SettingRepository;
+use App\Http\Transformers\SettingTransformer;
 
 class SettingController extends ApiController
 {
@@ -14,6 +15,7 @@ class SettingController extends ApiController
     public function __construct(SettingRepository $setting)
     {
         $this->model = $setting;
+        $this->setTransformer(new SettingTransformer);
     }
 
     /**
@@ -21,19 +23,45 @@ class SettingController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->model->getAll();
+        // $this->authorize('branch.view');
+        $pageSize = $request->get('limit', 25);
+        return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
     }
 
     public function show($id)
     {
-        return $this->model->getById($id);
+        try {
+            // $this->authorize('user.view');
+            return $this->successResponse($this->model->getById($id));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
     }
 
     public function store(Request $request)
     {
-        return $this->model->store($request->all());
+        try {
+            // $this->authorize('user.create');
+            // $this->validate($request, $this->validationRules, $this->validationMessages);
+            $data = $this->model->store($request->all());
+
+            return $this->successResponse($data);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors' => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage()
+            ]);
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
     }
 
     /**
@@ -45,8 +73,17 @@ class SettingController extends ApiController
      */
     public function update($id, Request $request)
     {
-        try{
-            return $this->model->update($id, $request->all());
+        try {
+            // $this->authorize('user.update');
+            // $this->validate($request, $this->validationRules, $this->validationMessages);
+            $model = $this->model->update($id, $request->all());
+            
+            return $this->successResponse($model);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this    ->errorResponse([
+                'errors' => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage()
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -58,8 +95,10 @@ class SettingController extends ApiController
 
     public function destroy($id)
     {
-        try{
+         try{
+            // $this->authorize('user.delete');
             $this->model->delete($id);
+
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();

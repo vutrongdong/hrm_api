@@ -30,7 +30,6 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         'date_of_birth', 
         'email',  
         'avatar', 
-        'password', 
         'status'
     ];
 
