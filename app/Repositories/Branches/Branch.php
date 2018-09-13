@@ -26,7 +26,6 @@ class Branch extends Model
         'type',
         'city_id',
         'district_id',
-        'ward_id',
         'status',
     ];
 

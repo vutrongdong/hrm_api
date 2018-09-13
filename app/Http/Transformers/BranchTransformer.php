@@ -34,7 +34,6 @@ class BranchTransformer extends TransformerAbstract
             'type'          => $branch->type,
             'city_id'       => $branch->city_id,
             'district_id'   => $branch->district_id,
-            'ward_id'       => $branch->ward_id,
             'status'        => $branch->status,
         ];
     }
