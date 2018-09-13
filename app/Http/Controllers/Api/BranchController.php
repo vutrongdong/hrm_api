@@ -11,21 +11,25 @@ class BranchController extends ApiController
     protected $validationRules = [
         'name'        => 'required',
         'address'     => 'required',
-        'tax_number'  => 'required|unique:branches',
-        'city_id'     => 'required',
-        'district_id' => 'required',
-        'ward_id'     => 'required',
+        'tax_number'  => 'required|unique:branches,tax_number',
+        'city_id'     => 'required|exists:branches',
+        'district_id' => 'required|exists:branches',
         'type'        => 'required',
+        'email'       => 'required|email|unique:branches,email',
     ];
     protected $validationMessages = [
         'name.required'        => 'Tên không được để trống',
         'address.required'     => 'Địa chỉ không được để trống',
-        'tax_number.required'  => 'Mã số thuế không được để trống',
         'city_id.required'     => 'Vui lòng chọn Thành phố',
+        'city_id.exists'       => 'Thành phố không tồn tại trên hệ thống',
         'district_id.required' => 'Vui lòng chọn Quận-Huyện',
-        'ward_id.required'     => 'Vui lòng chọn Xã-Phường',
+        'district_id.exists'   => 'Quận-Huyện không tồn tại trên hệ thống',
         'type.required'        => 'Loại chi nhánh không được để trống',
+        'tax_number.required'  => 'Mã số thuế không được để trống',
         'tax_number.unique'    => 'Mã số thuế đã tồn tại trên hệ thống',
+        'email.required'       => 'Email không được để trông',
+        'email.email'          => 'Email không đúng định dạng',
+        'email.unique'         => 'Email đã tồn tại trên hệ thống',
     ];
 
     /**
@@ -86,6 +90,7 @@ class BranchController extends ApiController
 
     public function update($id, Request $request)
     {
+        $this->validationRules['tax_number'] .= ',' . $id;
         try {
             $this->authorize('branch.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);

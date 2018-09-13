@@ -27,10 +27,9 @@ class CreateBranchesTable extends Migration
             $table->string('zalo', 50);
             $table->string('tax_number', 20);
             $table->string('bank', 100);
-            $table->unsignedTinyInteger('type')->default(1);
+            $table->boolean('type')->default(0);
             $table->unsignedInteger('city_id')->index();
             $table->unsignedInteger('district_id')->index();
-            $table->unsignedInteger('ward_id')->index();
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });

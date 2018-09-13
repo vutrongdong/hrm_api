@@ -8,7 +8,7 @@ use App\Repositories\Cities\City;
 class CityTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        'districts'
+        'districts', 'branches'
     ];
 
     public function transform(City $city = null)
@@ -34,5 +34,14 @@ class CityTransformer extends TransformerAbstract
         }
 
         return $this->collection($city->districts, new DistrictTransformer);
+    }
+    
+    public function includeBranches(City $city = null)
+    {
+        if (is_null($city)) {
+            return $this->null();
+        }
+
+        return $this->collection($city->branches, new BranchTransformer);
     }
 }

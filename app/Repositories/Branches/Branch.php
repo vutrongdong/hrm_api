@@ -34,4 +34,14 @@ class Branch extends Model
     {
         return $this->hasMany(\App\Repositories\Departments\Department::class);
     }
+
+    public function city()
+    {
+        return $this->belongsTo(\App\Repositories\Cities\City::class);
+    }   
+
+    public function district()
+    {
+        return $this->belongsTo(\App\Repositories\Districts\District::class);
+    }
 }

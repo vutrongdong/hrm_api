@@ -9,13 +9,14 @@ use App\Http\Transformers\DepartmentTransformer;
 class DepartmentController extends ApiController
 {
     protected $validationRules = [
-        'name'      => 'required|unique:departments',
-        'branch_id' => 'required',
+        'name'      => 'required|unique:departments,name',
+        'branch_id' => 'required|exists:departments',
     ];
     protected $validationMessages = [
         'name.required'      => 'Tên phòng ban không được để trống',
         'name.unique'        => 'Tên phòng ban đã tồn tại trên hệ thống',
         'branch_id.required' => 'Vui lòng chọn chi nhánh',
+        'branch_id.exists'   => 'Chi nhánh không tồn tại trên hệ thống',
     ];
     /**
      * DepartmentController constructor.
@@ -70,7 +71,8 @@ class DepartmentController extends ApiController
 
     public function update($id, Request $request)
     {
-         try {
+        $this->validationRules['name'] .= ',' . $id;
+        try {
             $this->authorize('department.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());

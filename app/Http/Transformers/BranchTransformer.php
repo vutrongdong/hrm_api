@@ -8,7 +8,7 @@ use App\Repositories\Branches\Branch;
 class BranchTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        'departments'
+        'departments', 'city', 'district'
     ];
 
     public function transform(Branch $branch = null)
@@ -45,5 +45,21 @@ class BranchTransformer extends TransformerAbstract
             return $this->null();
         }
         return $this->collection($branch->departments, new DepartmentTransformer);
+    } 
+    
+    public function includeCity(Branch $branch = null)
+    {
+        if (is_null($branch)) {
+            return $this->null();
+        }
+        return $this->item($branch->city, new CityTransformer);
+    } 
+
+    public function includeDistrict(Branch $branch = null)
+    {
+        if (is_null($branch)) {
+            return $this->null();
+        }
+        return $this->item($branch->district, new DistrictTransformer);
     }
 }

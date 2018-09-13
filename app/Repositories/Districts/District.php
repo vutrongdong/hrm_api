@@ -27,6 +27,11 @@ class District extends Model
         return $this->belongsTo(\App\Repositories\Cities\City::class);
     }
 
+    public function branches()
+    {
+        return $this->hasMany(\App\Repositories\Branches\Branch::class);
+    }
+
     /**
      * Relationship with user
      * @return [type] [description]

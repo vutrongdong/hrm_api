@@ -9,8 +9,8 @@ use App\Http\Transformers\SettingTransformer;
 class SettingController extends ApiController
 {
     protected $validationRules = [
-        'name'  => 'required|unique:settings',
-        'slug'  => 'required|unique:settings',
+        'name'  => 'required|unique:settings,name',
+        'slug'  => 'required|unique:settings,slug',
         'value' => 'required',
     ];
     protected $validationMessages = [
@@ -86,6 +86,8 @@ class SettingController extends ApiController
      */
     public function update($id, Request $request)
     {
+        $this->validationRules['name'] .= ',' . $id;
+        $this->validationRules['slug'] .= ',' . $id;
         try {
             // $this->authorize('user.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
