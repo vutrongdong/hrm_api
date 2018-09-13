@@ -19,15 +19,12 @@ $router->group(['middleware' => 'auth'], function ($router) {
     resource('/roles', 'RoleController', $router);
 
     $router->get('/cities', 'CityController@index');
-    $router->get('/districts/city/{id}', 'DistrictController@getByCity');
-    $router->get('/wards/districts/{id}', 'WardController@getByDistrict');
+    $router->get('/districts', 'DistrictController@index');
+    $router->get('/wards', 'WardController@index');
 
     resource('/settings', 'SettingController', $router);
     resource('/branches', 'BranchController', $router);
-    
     resource('/departments', 'DepartmentController', $router);
-    // $router->get('/departments/branches/{id}', 'DepartmentController@getByBranch');
-    
     resource('/positions', 'PositionController', $router);
 });
 

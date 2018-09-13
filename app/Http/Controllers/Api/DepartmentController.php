@@ -29,7 +29,7 @@ class DepartmentController extends ApiController
 
     public function index(Request $request)
     {
-        // $this->authorize('branch.view');
+        $this->authorize('department.view');
         $pageSize = $request->get('limit', 25);
         return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
     }
@@ -37,7 +37,7 @@ class DepartmentController extends ApiController
     public function show($id)
     {
         try {
-            // $this->authorize('user.view');
+            $this->authorize('department.view');
             return $this->successResponse($this->model->getById($id));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -51,7 +51,7 @@ class DepartmentController extends ApiController
     public function store(Request $request)
     {
         try {
-            // $this->authorize('user.create');
+            $this->authorize('department.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
 
@@ -71,7 +71,7 @@ class DepartmentController extends ApiController
     public function update($id, Request $request)
     {
          try {
-            // $this->authorize('user.update');
+            $this->authorize('department.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
             
@@ -103,9 +103,4 @@ class DepartmentController extends ApiController
             throw $t;
         }
     }
-
-    // public function getByBranch(Request $request, $cID)
-    // {
-    //     return $this->model->getByBranch($cID);
-    // }
 }

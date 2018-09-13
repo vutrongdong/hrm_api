@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Repositories\Cities\CityRepository;
+use App\Http\Transformers\CityTransformer;
 
 class CityController extends ApiController
 {
@@ -14,6 +15,7 @@ class CityController extends ApiController
     public function __construct(CityRepository $city)
     {
         $this->model = $city;
+        $this->setTransformer(new CityTransformer);
     }
 
     /**
@@ -21,8 +23,10 @@ class CityController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->model->getAll();
+        // $this->authorize('branch.view');
+        $pageSize = $request->get('limit', 25);
+        return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
     }
 }

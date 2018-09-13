@@ -17,6 +17,9 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         \App\User::class => \App\Policies\UserPolicy::class,
         \App\Repositories\Roles\Role::class => \App\Policies\RolePolicy::class,
+        \App\Repositories\Branches\Branch::class => \App\Policies\BranchPolicy::class,
+        \App\Repositories\Departments\Department::class => \App\Policies\DepartmentPolicy::class,
+        \App\Repositories\Positions\Position::class => \App\Policies\PositionPolicy::class,
     ];
 
     /**
@@ -77,6 +80,21 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('role.create', 'App\Policies\RolePolicy@create');
         Gate::define('role.update', 'App\Policies\RolePolicy@update');
         Gate::define('role.delete', 'App\Policies\RolePolicy@delete');
+        // branch gate
+        Gate::define('branch.view', 'App\Policies\BranchPolicy@view');
+        Gate::define('branch.create', 'App\Policies\BranchPolicy@create');
+        Gate::define('branch.update', 'App\Policies\BranchPolicy@update');
+        Gate::define('branch.delete', 'App\Policies\BranchPolicy@delete');
+        // department gate
+        Gate::define('department.view', 'App\Policies\DepartmentPolicy@view');
+        Gate::define('department.create', 'App\Policies\DepartmentPolicy@create');
+        Gate::define('department.update', 'App\Policies\DepartmentPolicy@update');
+        Gate::define('department.delete', 'App\Policies\DepartmentPolicy@delete');
+        // position gate
+        Gate::define('position.view', 'App\Policies\PositionPolicy@view');
+        Gate::define('position.create', 'App\Policies\PositionPolicy@create');
+        Gate::define('position.update', 'App\Policies\PositionPolicy@update');
+        Gate::define('position.delete', 'App\Policies\PositionPolicy@delete');
     }
 
     /**

@@ -20,14 +20,4 @@ class DepartmentRepository extends BaseRepository
     {
         $this->model = $department;
     }
-
-    /**
-    * Listing district by city
-    * @param  int    $cID
-    * @return array
-    */
-    // public function getByBranch(int $cID)
-    // {
-    //     return $this->model->where('branch_id', $cID)->get();
-    // }
 }

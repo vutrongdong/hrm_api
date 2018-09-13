@@ -11,7 +11,7 @@ class BranchController extends ApiController
     protected $validationRules = [
         'name'        => 'required',
         'address'     => 'required',
-        'tax_number'  => 'required',
+        'tax_number'  => 'required|unique:branches',
         'city_id'     => 'required',
         'district_id' => 'required',
         'ward_id'     => 'required',
@@ -25,6 +25,7 @@ class BranchController extends ApiController
         'district_id.required' => 'Vui lòng chọn Quận-Huyện',
         'ward_id.required'     => 'Vui lòng chọn Xã-Phường',
         'type.required'        => 'Loại chi nhánh không được để trống',
+        'tax_number.unique'    => 'Mã số thuế đã tồn tại trên hệ thống',
     ];
 
     /**
@@ -44,7 +45,7 @@ class BranchController extends ApiController
      */
     public function index(Request $request)
     {
-        // $this->authorize('branch.view');
+        $this->authorize('branch.view');
         $pageSize = $request->get('limit', 25);
         return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
     }
@@ -52,7 +53,7 @@ class BranchController extends ApiController
     public function show($id)
     {
         try {
-            // $this->authorize('user.view');
+            $this->authorize('branch.view');
             return $this->successResponse($this->model->getById($id));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -66,7 +67,7 @@ class BranchController extends ApiController
     public function store(Request $request)
     {
         try {
-            // $this->authorize('user.create');
+            $this->authorize('branch.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
 
@@ -86,7 +87,7 @@ class BranchController extends ApiController
     public function update($id, Request $request)
     {
         try {
-            // $this->authorize('user.update');
+            $this->authorize('branch.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
             
@@ -108,7 +109,7 @@ class BranchController extends ApiController
     public function destroy($id)
     {
         try{
-            // $this->authorize('user.delete');
+            $this->authorize('branch.delete');
             $this->model->delete($id);
 
             return $this->deleteResponse();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Repositories\Districts\DistrictRepository;
+use App\Http\Transformers\DistrictTransformer;
 
 class DistrictController extends ApiController
 {
@@ -14,6 +15,7 @@ class DistrictController extends ApiController
     public function __construct(DistrictRepository $district)
     {
         $this->model = $district;
+        $this->setTransformer(new DistrictTransformer);
     }
 
     /**
@@ -21,8 +23,10 @@ class DistrictController extends ApiController
      *
      * @return \Illuminate\Http\Response
      */
-    public function getByCity(Request $request, $cID)
+    public function index(Request $request)
     {
-        return $this->model->getByCity($cID);
+        // $this->authorize('branch.view');
+        $pageSize = $request->get('limit', 25);
+        return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
     }
 }

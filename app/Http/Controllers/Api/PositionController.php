@@ -32,7 +32,7 @@ class PositionController extends ApiController
     */
     public function index(Request $request)
     {
-        // $this->authorize('branch.view');
+        $this->authorize('position.view');
         $pageSize = $request->get('limit', 25);
         return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
     }
@@ -40,7 +40,7 @@ class PositionController extends ApiController
     public function show($id)
     {
         try {
-            // $this->authorize('user.view');
+            $this->authorize('position.view');
             return $this->successResponse($this->model->getById($id));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -54,7 +54,7 @@ class PositionController extends ApiController
     public function store(Request $request)
     {
         try {
-            // $this->authorize('user.create');
+            $this->authorize('position.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
 
@@ -74,7 +74,7 @@ class PositionController extends ApiController
     public function update($id, Request $request)
     {
         try {
-            // $this->authorize('user.update');
+            $this->authorize('position.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
             
@@ -96,7 +96,7 @@ class PositionController extends ApiController
     public function destroy($id)
     {
         try{
-            // $this->authorize('user.delete');
+            $this->authorize('position.delete');
             $this->model->delete($id);
 
             return $this->deleteResponse();
