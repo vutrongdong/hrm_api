@@ -15,9 +15,6 @@ class UserRepository extends BaseRepository
      */
     protected $model;
 
-    // const STATUS_DISABLE = 0;
-    // const STATUS_ENABLE = 1;
-
     /**
      * UserRepository constructor.
      * @param User $user
@@ -30,7 +27,7 @@ class UserRepository extends BaseRepository
     public function store($data)
     {
         $user = $this->model->create($data);
-        $this->storeOrUpdateDepartmentUser($user->id, $data);
+        $this->storeDepartmentUser($user->id, $data);
         return $user;
     }
 
@@ -42,12 +39,12 @@ class UserRepository extends BaseRepository
         }
         $record = $this->getById($id);
         $this->destroyDepartmentUser($id);
-        $this->storeOrUpdateDepartmentUser($id, $data);
+        $this->storeDepartmentUser($id, $data);
         $record->fill($data)->save();
         return $record;
     }
 
-    public function storeOrUpdateDepartmentUser($id, $data)
+    public function storeDepartmentUser($id, $data)
     {
         if (!empty($data['department_id']) && !empty($data['position_id'])) {
             $length = count($data['department_id']);

@@ -25,8 +25,20 @@ class CityController extends ApiController
      */
     public function index(Request $request)
     {
-        // $this->authorize('branch.view');
         $pageSize = $request->get('limit', 25);
         return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
+    }
+
+    public function show($id)
+    {
+        try {
+            return $this->successResponse($this->model->getById($id));
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
     }
 }

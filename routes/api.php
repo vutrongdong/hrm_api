@@ -18,7 +18,9 @@ $router->group(['middleware' => 'auth'], function ($router) {
     $router->get('/permissions', 'PermissionController@index');
     resource('/roles', 'RoleController', $router);
 
-    $router->get('/cities', 'CityController@index');
+    // $router->get('/cities', 'CityController@index');
+    resource('/cities', 'CityController', $router);
+    
     $router->get('/districts', 'DistrictController@index');
     $router->get('/wards', 'WardController@index');
 
