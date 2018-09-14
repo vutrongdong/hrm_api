@@ -25,8 +25,9 @@ class CityController extends ApiController
      */
     public function index(Request $request)
     {
-        $pageSize = $request->get('limit', 25);
-        return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
+        // $pageSize = $request->get('limit', 25);
+        // return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
+        return $this->successResponse($this->model->getAll($request->all()));
     }
 
     public function show($id)

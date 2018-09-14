@@ -26,7 +26,8 @@ class DistrictController extends ApiController
     public function index(Request $request)
     {
         // $this->authorize('branch.view');
-        $pageSize = $request->get('limit', 25);
-        return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
+        // $pageSize = $request->get('limit', 25);
+        // return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
+        return $this->successResponse($this->model->getAll($request->all()));
     }
 }
