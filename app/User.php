@@ -50,6 +50,16 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         'password',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        self::created(function ($model) {
+            $model->code = hashid_encode($model->id);
+            $model->save();
+        });
+    }
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = app('hash')->make($value);
