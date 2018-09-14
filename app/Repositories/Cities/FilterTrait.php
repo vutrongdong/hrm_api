@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Roles;
+namespace App\Repositories\Cities;
 
 trait FilterTrait
 {

@@ -3,9 +3,15 @@
 namespace App\Repositories\Departments;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Repositories\Entity;
 
-class Department extends Model
+class Department extends Entity
 {
+    use FilterTrait, PresentationTrait;
+
+    const STATUS_ENABLE = 1;
+    const STATUS_DISABLE = 0;
+
     /**
      * Fillable definition
      * @var array

@@ -18,6 +18,8 @@ class SettingTransformer extends TransformerAbstract
             'name'          => $setting->name,
             'slug'          => $setting->slug,
             'value'         => $setting->value,
+            'status'        => $setting->status,
+            'status_txt'    => $setting->getStatus(),
         ];
     }
 }

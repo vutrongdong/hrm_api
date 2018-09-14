@@ -16,7 +16,6 @@ class AlterUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedInteger('city_id')->after('password')->index();
             $table->unsignedInteger('district_id')->after('city_id')->index();
-            $table->unsignedInteger('ward_id')->after('district_id')->index();
         });
     }
 

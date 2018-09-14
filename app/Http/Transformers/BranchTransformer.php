@@ -32,9 +32,11 @@ class BranchTransformer extends TransformerAbstract
             'tax_number'    => $branch->tax_number,
             'bank'          => $branch->bank,
             'type'          => $branch->type,
+            'type_txt'      => $branch->getType(),
             'city_id'       => $branch->city_id,
             'district_id'   => $branch->district_id,
             'status'        => $branch->status,
+            'status_txt'    => $branch->getStatus()
         ];
     }
 

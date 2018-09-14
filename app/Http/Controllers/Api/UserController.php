@@ -9,18 +9,22 @@ use App\Http\Transformers\UserTransformer;
 class UserController extends ApiController
 {
     protected $validationRules = [
-        'name'  => 'required',
-        'email' => 'required|email|unique:users,email',
+        'name'     => 'required',
+        'email'    => 'required|email|unique:users,email',
         'password' => 'required|min:6|confirmed',
+        'gender'   => 'in:0,1,2',
+        'status'   => 'in:0,1,2',
     ];
     protected $validationMessages = [
-        'name.required'  => 'Tên không được để trông',
-        'email.required' => 'Email không được để trông',
-        'email.email'    => 'Email không đúng định dạng',
-        'email.unique'   => 'Email đã tồn tại trên hệ thống',
-        'password.required' => 'Mật khẩu không được để trống',
-        'password.min' => 'Mật khẩu phải có ít nhât :min ký tự',
+        'name.required'      => 'Tên không được để trông',
+        'email.required'     => 'Email không được để trông',
+        'email.email'        => 'Email không đúng định dạng',
+        'email.unique'       => 'Email đã tồn tại trên hệ thống',
+        'password.required'  => 'Mật khẩu không được để trống',
+        'password.min'       => 'Mật khẩu phải có ít nhât :min ký tự',
         'password.confirmed' => 'Nhập lại mật khẩu không đúng',
+        'gender.in'          => 'Giới tính không hợp lệ',
+        'status.in'          => 'Trạng thái không hợp lệ',
     ];
     /**
      * UserController constructor.

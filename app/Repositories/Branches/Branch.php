@@ -3,9 +3,17 @@
 namespace App\Repositories\Branches;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Repositories\Entity;
 
-class Branch extends Model
+class Branch extends Entity
 {
+    use FilterTrait, PresentationTrait;
+
+    const STATUS_ENABLE = 1;
+    const STATUS_DISABLE = 0;
+
+    const BRANCH_MAIN = 1;
+    const BRANCH_NOT_MAIN = 0;
     /**
      * Fillable definition
      * @var array

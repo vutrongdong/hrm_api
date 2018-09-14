@@ -10,10 +10,12 @@ class PositionController extends ApiController
 {
     protected $validationRules = [
         'name' => 'required|unique:positions,name',
+        'status'    => 'required|in:0,1',
     ];
     protected $validationMessages = [
         'name.required' => 'Tên chức vụ không được để trống',
         'name.unique'   => 'Tên chức vụ đã tồn tại trên hệ thống',
+        'status.in'     => 'Trạng thái không hợp lệ',
     ];
     /**
      * PositionController constructor.

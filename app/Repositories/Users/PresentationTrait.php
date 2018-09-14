@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories\Users;
 
 trait PresentationTrait
@@ -35,5 +36,30 @@ trait PresentationTrait
     public function isSuperAdmin()
     {
         return $this->hasAccess(['admin.super-admin']);
+    }
+
+    
+    public function getGender()
+    {
+        switch ($this->gender) {
+            case self::GENDER_MALE:
+                return 'Nam';
+                break;
+            case self::GENDER_FEMALE:
+                return 'Nữ';
+                break;
+            default:
+                return 'Khác';
+                break;
+        }
+    }
+
+    public function getStatus()
+    {
+        if ($this->status == self::STATUS_ENABLE) {
+            return 'Kích hoạt';
+        } else {
+            return 'Không kích hoạt';
+        }
     }
 }

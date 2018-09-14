@@ -11,12 +11,14 @@ class DepartmentController extends ApiController
     protected $validationRules = [
         'name'      => 'required|unique:departments,name',
         'branch_id' => 'required|exists:departments',
+        'status'    => 'required|in:0,1',
     ];
     protected $validationMessages = [
         'name.required'      => 'Tên phòng ban không được để trống',
         'name.unique'        => 'Tên phòng ban đã tồn tại trên hệ thống',
         'branch_id.required' => 'Vui lòng chọn chi nhánh',
         'branch_id.exists'   => 'Chi nhánh không tồn tại trên hệ thống',
+        'status.in'          => 'Trạng thái không hợp lệ',
     ];
     /**
      * DepartmentController constructor.

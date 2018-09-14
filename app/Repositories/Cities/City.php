@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class City extends Model
 {
+    use FilterTrait;
     /**
      * Disable timestamps
      * @var boolean
      */
-    public $timestamps = false;
 
     /**
      * Fillable definition

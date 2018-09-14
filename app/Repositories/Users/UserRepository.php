@@ -4,7 +4,6 @@ namespace App\Repositories\Users;
 
 use App\User;
 use DB;
-// use App\User;
 
 use App\Repositories\BaseRepository;
 
@@ -16,8 +15,8 @@ class UserRepository extends BaseRepository
      */
     protected $model;
 
-    const STATUS_DISABLE = 0;
-    const STATUS_ENABLE = 1;
+    // const STATUS_DISABLE = 0;
+    // const STATUS_ENABLE = 1;
 
     /**
      * UserRepository constructor.

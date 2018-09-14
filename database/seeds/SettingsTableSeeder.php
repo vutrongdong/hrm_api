@@ -11,8 +11,7 @@ class SettingsTableSeeder extends Seeder
     */
     public function run()
     {
-        DB::statement("
-            INSERT INTO `settings` (`id`, `slug`, `name`, `value`) VALUES
+        DB::statement("INSERT INTO `settings` (`id`, `name`, `slug`, `value`) VALUES
             (1, 'name', 'name', 'Triplan'),
             (2, 'description', 'description', 'description_Triplan'),
             (3, 'about', 'about', 'about_Triplan'),
@@ -24,10 +23,7 @@ class SettingsTableSeeder extends Seeder
             (9, 'instagram', 'instagram', 'instagram_Triplan'),
             (10, 'zalo', 'zalo', 'zalo_Triplan'),
             (11, 'tax_number', 'tax_number', 'tax_number_Triplan'),
-            (12, 'bank', 'bank', 'bank_Triplan'),
-            (13, 'city_id', 'city_id', '2'),
-            (14, 'district_id', 'district_id', '4'),
-            (15, 'status', 'status', '1')
+            (12, 'bank', 'bank', 'bank_Triplan')
             ");
     }
 }

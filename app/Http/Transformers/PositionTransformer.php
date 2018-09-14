@@ -21,6 +21,7 @@ class PositionTransformer extends TransformerAbstract
             'id'            => $position->id,
             'name'          => $position->name,
             'status'        => $position->status,
+            'status_txt'    => $position->getStatus(),
         ];
     }
 

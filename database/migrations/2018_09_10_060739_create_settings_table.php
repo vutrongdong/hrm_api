@@ -18,6 +18,7 @@ class CreateSettingsTable extends Migration
             $table->string('name',30)->unique();
             $table->string('slug', 35)->unique();
             $table->string('value');
+            $table->boolean('status')->default(1);
             $table->timestamps();
         });
     }

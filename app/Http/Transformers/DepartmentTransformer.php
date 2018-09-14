@@ -21,6 +21,7 @@ class DepartmentTransformer extends TransformerAbstract
             'id'            => $department->id,
             'name'          => $department->name,
             'status'        => $department->status,
+            'status_txt'    => $department->getStatus(),
         ];
     }
 

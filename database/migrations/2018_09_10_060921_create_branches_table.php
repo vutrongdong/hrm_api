@@ -25,7 +25,7 @@ class CreateBranchesTable extends Migration
             $table->string('facebook', 50);
             $table->string('instagram', 50);
             $table->string('zalo', 50);
-            $table->string('tax_number', 20);
+            $table->string('tax_number', 20)->unique();
             $table->string('bank', 100);
             $table->boolean('type')->default(0);
             $table->unsignedInteger('city_id')->index();

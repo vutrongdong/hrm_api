@@ -12,22 +12,25 @@ class BranchController extends ApiController
         'name'        => 'required',
         'address'     => 'required',
         'tax_number'  => 'required|unique:branches,tax_number',
-        'city_id'     => 'exists:branches',
-        'district_id' => 'exists:branches',
-        'type'        => 'required',
         'email'       => 'required|email|unique:branches,email',
+        'city_id'     => 'exists:branches,city_id',
+        'district_id' => 'exists:branches,district_id',
+        'type'        => 'required|in:0,1',
+        'status'      => 'required|in:0,1',
     ];
     protected $validationMessages = [
         'name.required'        => 'Tên không được để trống',
-        'address.required'     => 'Địa chỉ không được để trống',
-        'city_id.exists'       => 'Thành phố không tồn tại trên hệ thống',
-        'district_id.exists'   => 'Quận-Huyện không tồn tại trên hệ thống',
-        'type.required'        => 'Loại chi nhánh không được để trống',
         'tax_number.required'  => 'Mã số thuế không được để trống',
         'tax_number.unique'    => 'Mã số thuế đã tồn tại trên hệ thống',
         'email.required'       => 'Email không được để trông',
         'email.email'          => 'Email không đúng định dạng',
         'email.unique'         => 'Email đã tồn tại trên hệ thống',
+        'address.required'     => 'Địa chỉ không được để trống',
+        'city_id.exists'       => 'Thành phố không tồn tại trên hệ thống',
+        'district_id.exists'   => 'Quận-Huyện không tồn tại trên hệ thống',
+        'type.required'        => 'Loại chi nhánh không được để trống',
+        'type.in'              => 'Loại chi nhánh không hợp lệ',
+        'status.in'            => 'Trạng thái không hợp lệ',
     ];
 
     /**
@@ -89,6 +92,7 @@ class BranchController extends ApiController
     public function update($id, Request $request)
     {
         $this->validationRules['tax_number'] .= ',' . $id;
+        $this->validationRules['email'] .= ',' . $id;
         try {
             $this->authorize('branch.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);

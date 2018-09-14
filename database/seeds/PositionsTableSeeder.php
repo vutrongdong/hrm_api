@@ -12,14 +12,14 @@ class PositionsTableSeeder extends Seeder
     public function run()
     {
         DB::statement("
-            INSERT INTO `positions` (`id`, `name`, `status`) VALUES
-            (1, 'Giám đốc', 1), 
-            (2, 'Phó Giám đốc', 1),
-            (3, 'Giám đốc điều hành', 1),
-            (4, 'Trưởng phòng', 1), 
-            (5, 'Nhân viên', 1),
-            (6, 'Thực tập sinh', 1),
-            (7, 'Cộng tác viên', 1) 
+            INSERT INTO `positions` (`id`, `name`) VALUES
+            (1, 'Giám đốc'), 
+            (2, 'Phó Giám đốc'),
+            (3, 'Giám đốc điều hành'),
+            (4, 'Trưởng phòng'), 
+            (5, 'Nhân viên'),
+            (6, 'Thực tập sinh'),
+            (7, 'Cộng tác viên') 
             ");
     }
 }

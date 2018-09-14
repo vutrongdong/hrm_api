@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class District extends Model
 {
+    use FilterTrait;
     /**
      * Disable timestamps
      * @var boolean

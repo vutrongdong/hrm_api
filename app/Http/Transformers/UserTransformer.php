@@ -22,6 +22,10 @@ class UserTransformer extends TransformerAbstract
             'name'        => $user->name,
             'email'       => $user->email,
             'phone'       => $user->phone,
+            'gender'      => $user->gender,
+            'gender_txt'  => $user->getGender(),
+            'status'      => $user->status,
+            'status_txt'  => $user->getStatus(),
         ];
     }
 

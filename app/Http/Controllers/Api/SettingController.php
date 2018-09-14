@@ -9,9 +9,10 @@ use App\Http\Transformers\SettingTransformer;
 class SettingController extends ApiController
 {
     protected $validationRules = [
-        'name'  => 'required|unique:settings,name',
-        'slug'  => 'required|unique:settings,slug',
-        'value' => 'required',
+        'name'   => 'required|unique:settings,name',
+        'slug'   => 'required|unique:settings,slug',
+        'value'  => 'required',
+        'status' => 'required|in:0,1',
     ];
     protected $validationMessages = [
         'name.required'  => 'Tên không được để trống',
@@ -19,6 +20,7 @@ class SettingController extends ApiController
         'value.required' => 'Giá trị không được để trống',
         'name.unique'    => 'Tên đã tồn tại trên hệ thống',
         'slug.unique'    => 'Slug đã tồn tại trên hệ thống',
+        'status.in'      => 'Trạng thái không hợp lệ',
     ];
 
     /**
@@ -38,7 +40,7 @@ class SettingController extends ApiController
      */
     public function index(Request $request)
     {
-        // $this->authorize('branch.view');
+        $this->authorize('setting.view');
         $pageSize = $request->get('limit', 25);
         return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
     }
@@ -46,7 +48,7 @@ class SettingController extends ApiController
     public function show($id)
     {
         try {
-            // $this->authorize('user.view');
+            $this->authorize('setting.view');
             return $this->successResponse($this->model->getById($id));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -60,7 +62,7 @@ class SettingController extends ApiController
     public function store(Request $request)
     {
         try {
-            // $this->authorize('user.create');
+            $this->authorize('setting.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
 
@@ -89,7 +91,7 @@ class SettingController extends ApiController
         $this->validationRules['name'] .= ',' . $id;
         $this->validationRules['slug'] .= ',' . $id;
         try {
-            // $this->authorize('user.update');
+            $this->authorize('setting.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
             
@@ -111,7 +113,7 @@ class SettingController extends ApiController
     public function destroy($id)
     {
          try{
-            // $this->authorize('user.delete');
+            $this->authorize('setting.delete');
             $this->model->delete($id);
 
             return $this->deleteResponse();

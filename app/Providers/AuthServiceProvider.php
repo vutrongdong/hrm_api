@@ -17,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         \App\User::class => \App\Policies\UserPolicy::class,
         \App\Repositories\Roles\Role::class => \App\Policies\RolePolicy::class,
+        \App\Repositories\Settings\Setting::class => \App\Policies\SettingPolicy::class,
         \App\Repositories\Branches\Branch::class => \App\Policies\BranchPolicy::class,
         \App\Repositories\Departments\Department::class => \App\Policies\DepartmentPolicy::class,
         \App\Repositories\Positions\Position::class => \App\Policies\PositionPolicy::class,
@@ -80,6 +81,11 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('role.create', 'App\Policies\RolePolicy@create');
         Gate::define('role.update', 'App\Policies\RolePolicy@update');
         Gate::define('role.delete', 'App\Policies\RolePolicy@delete');
+        // setting gate
+        Gate::define('setting.view', 'App\Policies\SettingPolicy@view');
+        Gate::define('setting.create', 'App\Policies\SettingPolicy@create');
+        Gate::define('setting.update', 'App\Policies\SettingPolicy@update');
+        Gate::define('setting.delete', 'App\Policies\SettingPolicy@delete');
         // branch gate
         Gate::define('branch.view', 'App\Policies\BranchPolicy@view');
         Gate::define('branch.create', 'App\Policies\BranchPolicy@create');

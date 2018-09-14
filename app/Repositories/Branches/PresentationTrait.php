@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Roles;
+namespace App\Repositories\Branches;
 
 trait PresentationTrait
 {
@@ -27,5 +27,23 @@ trait PresentationTrait
     private function hasPermission(string $permission) : bool
     {
         return $this->permissions[$permission] ?? false;
+    }
+
+    public function getStatus()
+    {
+        if ($this->status == self::STATUS_ENABLE) {
+            return 'Hiển thị';
+        } else {
+            return 'Không hiển thị';
+        }
+    }
+
+    public function getType()
+    {
+        if ($this->type == self::BRANCH_MAIN) {
+            return 'Chi nhánh chính';
+        } else {
+            return 'Chi nhánh phụ';
+        }
     }
 }
