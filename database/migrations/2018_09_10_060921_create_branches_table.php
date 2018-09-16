@@ -16,21 +16,21 @@ class CreateBranchesTable extends Migration
         Schema::create('branches', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 50);
-            $table->string('description');
-            $table->text('about');
-            $table->string('phone', 12);
             $table->string('address', 150);
-            $table->string('website', 50);
+            $table->string('phone', 12)->nullable();
+            $table->string('website', 50)->nullable();
             $table->string('email', 30)->unique();
-            $table->string('facebook', 50);
-            $table->string('instagram', 50);
-            $table->string('zalo', 50);
+            $table->string('facebook', 50)->nullable();
+            $table->string('instagram', 50)->nullable();
+            $table->string('zalo', 50)->nullable();
+            $table->string('description')->nullable();
+            $table->text('about')->nullable();
             $table->string('tax_number', 20)->unique();
-            $table->string('bank', 100);
+            $table->string('bank', 100)->nullable();
+            $table->unsignedInteger('city_id')->nullable();
+            $table->unsignedInteger('district_id')->nullable();
             $table->boolean('type')->default(0);
-            $table->unsignedInteger('city_id')->index();
-            $table->unsignedInteger('district_id')->index();
-            $table->tinyInteger('status')->default(1);
+            $table->unsignedTinyInteger('status')->nullable()->default(1);
             $table->timestamps();
         });
     }

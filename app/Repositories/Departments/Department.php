@@ -11,6 +11,10 @@ class Department extends Entity
 
     const STATUS_ENABLE = 1;
     const STATUS_DISABLE = 0;
+    const STATUS = [
+        self::STATUS_ENABLE,
+        self::STATUS_DISABLE
+    ];
 
     /**
      * Fillable definition

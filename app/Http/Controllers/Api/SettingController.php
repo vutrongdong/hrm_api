@@ -12,7 +12,7 @@ class SettingController extends ApiController
         'name'   => 'required|unique:settings,name',
         'slug'   => 'required|unique:settings,slug',
         'value'  => 'required',
-        'status' => 'required|in:0,1',
+        'status' => 'boolean',
     ];
     protected $validationMessages = [
         'name.required'  => 'Tên không được để trống',
@@ -20,8 +20,9 @@ class SettingController extends ApiController
         'value.required' => 'Giá trị không được để trống',
         'name.unique'    => 'Tên đã tồn tại trên hệ thống',
         'slug.unique'    => 'Slug đã tồn tại trên hệ thống',
-        'status.in'      => 'Trạng thái không hợp lệ',
+        'status.boolean' => 'Trạng thái không hợp lệ',
     ];
+
 
     /**
      * SettingController constructor.

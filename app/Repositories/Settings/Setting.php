@@ -11,6 +11,7 @@ class Setting extends Entity
 
     const STATUS_ENABLE = 1;
     const STATUS_DISABLE = 0;
+
     /**
      * The attributes that are mass assignable.
      *

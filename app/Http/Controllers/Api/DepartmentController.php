@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Repositories\Departments\Department;
 use App\Repositories\Departments\DepartmentRepository;
 use App\Http\Transformers\DepartmentTransformer;
 
@@ -11,7 +12,7 @@ class DepartmentController extends ApiController
     protected $validationRules = [
         'name'      => 'required|unique:departments,name',
         'branch_id' => 'required|exists:departments',
-        'status'    => 'required|in:0,1',
+        'status'    => 'in:',
     ];
     protected $validationMessages = [
         'name.required'      => 'Tên phòng ban không được để trống',
@@ -20,13 +21,17 @@ class DepartmentController extends ApiController
         'branch_id.exists'   => 'Chi nhánh không tồn tại trên hệ thống',
         'status.in'          => 'Trạng thái không hợp lệ',
     ];
+
+    protected $departmentStatus;
+
     /**
      * DepartmentController constructor.
      * @param DepartmentRepository $department
      */
-    public function __construct(DepartmentRepository $department)
+    public function __construct(DepartmentRepository $department, Department $departmentStatus)
     {
         $this->model = $department;
+        $this->departmentStatus = $departmentStatus;
         $this->setTransformer(new DepartmentTransformer);
     }
 
@@ -53,6 +58,7 @@ class DepartmentController extends ApiController
 
     public function store(Request $request)
     {
+        $this->validationRules['status'] .= $this->departmentStatus->getAllStatus();
         try {
             $this->authorize('department.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
@@ -74,6 +80,7 @@ class DepartmentController extends ApiController
     public function update($id, Request $request)
     {
         $this->validationRules['name'] .= ',' . $id;
+        $this->validationRules['status'] .= $this->departmentStatus->getAllStatus();
         try {
             $this->authorize('department.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);

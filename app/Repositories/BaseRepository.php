@@ -1,6 +1,8 @@
 <?php
 namespace App\Repositories;
 
+use DB;
+
 abstract class BaseRepository implements EntityInterface
 {
 

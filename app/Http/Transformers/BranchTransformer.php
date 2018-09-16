@@ -36,7 +36,7 @@ class BranchTransformer extends TransformerAbstract
             'city_id'       => $branch->city_id,
             'district_id'   => $branch->district_id,
             'status'        => $branch->status,
-            'status_txt'    => $branch->getStatus()
+            'status_txt'    => $branch->getStatus(),
         ];
     }
 

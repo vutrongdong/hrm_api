@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Repositories\Branches\Branch;
 use App\Repositories\Branches\BranchRepository;
 use App\Http\Transformers\BranchTransformer;
 
@@ -13,10 +14,10 @@ class BranchController extends ApiController
         'address'     => 'required',
         'tax_number'  => 'required|unique:branches,tax_number',
         'email'       => 'required|email|unique:branches,email',
-        'city_id'     => 'exists:branches,city_id',
-        'district_id' => 'exists:branches,district_id',
-        'type'        => 'required|in:0,1',
-        'status'      => 'required|in:0,1',
+        'city_id'     => 'exists:cities,id',
+        'district_id' => 'exists:districts,id',
+        'type'        => 'boolean',
+        'status'      => 'in:',
     ];
     protected $validationMessages = [
         'name.required'        => 'Tên không được để trống',
@@ -28,18 +29,20 @@ class BranchController extends ApiController
         'address.required'     => 'Địa chỉ không được để trống',
         'city_id.exists'       => 'Thành phố không tồn tại trên hệ thống',
         'district_id.exists'   => 'Quận-Huyện không tồn tại trên hệ thống',
-        'type.required'        => 'Loại chi nhánh không được để trống',
-        'type.in'              => 'Loại chi nhánh không hợp lệ',
+        'type.boolean'         => 'Loại chi nhánh không hợp lệ',
         'status.in'            => 'Trạng thái không hợp lệ',
     ];
+
+    protected $branchStatus;
 
     /**
      * BranchController constructor.
      * @param BranchRepository $branch
      */
-    public function __construct(BranchRepository $branch)
+    public function __construct(BranchRepository $branch, Branch $branchStatus)
     {
         $this->model = $branch;
+        $this->branchStatus = $branchStatus;
         $this->setTransformer(new BranchTransformer);
     }
     
@@ -71,6 +74,7 @@ class BranchController extends ApiController
 
     public function store(Request $request)
     {
+        $this->validationRules['status'] .= $this->branchStatus->getAllStatus();
         try {
             $this->authorize('branch.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
@@ -93,6 +97,7 @@ class BranchController extends ApiController
     {
         $this->validationRules['tax_number'] .= ',' . $id;
         $this->validationRules['email'] .= ',' . $id;
+        $this->validationRules['status'] .= $this->branchStatus->getAllStatus();
         try {
             $this->authorize('branch.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);

@@ -17,7 +17,7 @@ class CreateDepartmentUserTable extends Migration
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('department_id');
             $table->unsignedInteger('position_id'); 
-            $table->tinyInteger('status')->default(1);
+            $table->unsignedTinyInteger('status')->default(1);
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade')->onUpdate('cascade');

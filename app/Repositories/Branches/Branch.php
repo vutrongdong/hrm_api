@@ -11,6 +11,10 @@ class Branch extends Entity
 
     const STATUS_ENABLE = 1;
     const STATUS_DISABLE = 0;
+    const STATUS = [
+        self::STATUS_ENABLE,
+        self::STATUS_DISABLE
+    ];
 
     const BRANCH_MAIN = 1;
     const BRANCH_NOT_MAIN = 0;

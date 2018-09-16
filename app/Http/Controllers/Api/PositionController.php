@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Repositories\Positions\Position;
 use App\Repositories\Positions\PositionRepository;
 use App\Http\Transformers\PositionTransformer;
 
@@ -10,20 +11,23 @@ class PositionController extends ApiController
 {
     protected $validationRules = [
         'name' => 'required|unique:positions,name',
-        'status'    => 'required|in:0,1',
+        'status'    => 'in:',
     ];
     protected $validationMessages = [
         'name.required' => 'Tên chức vụ không được để trống',
         'name.unique'   => 'Tên chức vụ đã tồn tại trên hệ thống',
         'status.in'     => 'Trạng thái không hợp lệ',
     ];
+
+    protected $positionStatus;
     /**
      * PositionController constructor.
      * @param PositionRepository $position
      */
-    public function __construct(PositionRepository $position)
+    public function __construct(PositionRepository $position, Position $positionStatus)
     {
         $this->model = $position;
+        $this->positionStatus = $positionStatus;
         $this->setTransformer(new PositionTransformer);
     }
 
@@ -55,6 +59,7 @@ class PositionController extends ApiController
 
     public function store(Request $request)
     {
+        $this->validationRules['status'] .= $this->positionStatus->getAllStatus();
         try {
             $this->authorize('position.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
@@ -76,6 +81,7 @@ class PositionController extends ApiController
     public function update($id, Request $request)
     {
         $this->validationRules['name'] .= ',' . $id;
+        $this->validationRules['status'] .= $this->positionStatus->getAllStatus();
         try {
             $this->authorize('position.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
