@@ -6,16 +6,16 @@ trait PresentationTrait
 {
     public function getStatus()
     {
-        return $this->status === self::STATUS_ENABLE ? 'Hiển thị' : 'Không hiển thị';
+        return self::DISPLAY_STATUS[$this->status ?? self::ENABLE];
     }
 
     public function getType()
     {
-        return $this->type === self::BRANCH_MAIN ? 'Chi nhánh chính' : 'Chi nhánh phụ';
+        return self::DISPLAY_BRANCH[$this->type ?? self::NOT_MAIN];
     }
 
     public function getAllStatus()
     {
-        return implode(',', self::STATUS);
+        return implode(',', self::ALL_STATUS);
     }
 }

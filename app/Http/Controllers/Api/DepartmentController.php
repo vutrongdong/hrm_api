@@ -11,7 +11,7 @@ class DepartmentController extends ApiController
 {
     protected $validationRules = [
         'name'      => 'required|unique:departments,name',
-        'branch_id' => 'required|exists:departments',
+        'branch_id' => 'required|exists:branches,id',
         'status'    => 'in:',
     ];
     protected $validationMessages = [

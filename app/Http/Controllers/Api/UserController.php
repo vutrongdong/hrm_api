@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Repositories\Users\UserRepository;
 use Illuminate\Http\Request;
+use App\User;
 use App\Http\Transformers\UserTransformer;
 
 class UserController extends ApiController
@@ -12,8 +13,8 @@ class UserController extends ApiController
         'name'     => 'required',
         'email'    => 'required|email|unique:users,email',
         'password' => 'required|min:6|confirmed',
-        'gender'   => 'in:0,1,2',
-        'status'   => 'in:0,1,2',
+        'gender'   => 'in:',
+        'status'   => 'in:',
     ];
     protected $validationMessages = [
         'name.required'      => 'Tên không được để trông',
@@ -26,13 +27,16 @@ class UserController extends ApiController
         'gender.in'          => 'Giới tính không hợp lệ',
         'status.in'          => 'Trạng thái không hợp lệ',
     ];
+
+    protected $userStatus;
     /**
      * UserController constructor.
      * @param UserRepository $user
      */
-    public function __construct(UserRepository $user)
+    public function __construct(UserRepository $user, User $userStatus)
     {
         $this->model = $user;
+        $this->userStatus = $userStatus;
         $this->setTransformer(new UserTransformer);
     }
 
@@ -69,6 +73,8 @@ class UserController extends ApiController
 
     public function store(Request $request)
     {
+        $this->validationRules['status'] .= $this->userStatus->getAllStatus();
+        $this->validationRules['gender'] .= $this->userStatus->getAllGender();
         try {
             $this->authorize('user.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
@@ -89,7 +95,10 @@ class UserController extends ApiController
     public function update(Request $request, $id)
     {
         $this->validationRules['email'] .= ',' . $id;
+        $this->validationRules['status'] .= $this->userStatus->getAllStatus();
+        $this->validationRules['gender'] .= $this->userStatus->getAllGender();
         unset($this->validationRules['password']);
+        
         try {
             $this->authorize('user.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);

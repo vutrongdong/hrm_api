@@ -16,12 +16,32 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
 {
     use Authenticatable, Authorizable, HasApiTokens, FilterTrait, PresentationTrait;
 
-    const GENDER_FEMALE = 0;
-    const GENDER_MALE = 1;
-    const GENDER_OTHER = 2;
+    const FEMALE = 0;
+    const MALE = 1;
+    const OTHER = 2;
 
-    const STATUS_ENABLE = 1;
-    const STATUS_DISABLE = 0;
+    const ALL_GENDER = [
+        self::FEMALE,
+        self::MALE,
+        self::OTHER,
+    ];
+    const DISPLAY_GENDER = [
+        self::FEMALE => 'Nữ',
+        self::MALE => 'Nam',
+        self::OTHER => 'Khác'
+    ];
+
+    const DISABLE = 0;
+    const ENABLE = 1;
+
+    const ALL_STATUS = [
+        self::DISABLE,
+        self::ENABLE,
+    ];
+    const DISPLAY_STATUS = [
+        self::DISABLE => 'Không kích hoạt',
+        self::ENABLE => 'Kích hoạt',
+    ]; 
 
     /**
      * The attributes that are mass assignable.

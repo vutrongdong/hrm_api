@@ -6,15 +6,11 @@ trait PresentationTrait
 {
     public function getStatus()
     {
-        if ($this->status == self::STATUS_ENABLE) {
-            return 'Hiển thị';
-        } else {
-            return 'Không hiển thị';
-        }
+        return self::DISPLAY_STATUS[$this->status ?? self::DISABLE];
     }
     
     public function getAllStatus()
     {
-        return implode(',', self::STATUS);
+        return implode(',', self::ALL_STATUS);
     }
 }

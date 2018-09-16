@@ -10,7 +10,7 @@ use App\Http\Transformers\BranchTransformer;
 class BranchController extends ApiController
 {
     protected $validationRules = [
-        'name'        => 'required',
+        'name'        => 'required|alpha',
         'address'     => 'required',
         'tax_number'  => 'required|unique:branches,tax_number',
         'email'       => 'required|email|unique:branches,email',
@@ -21,6 +21,7 @@ class BranchController extends ApiController
     ];
     protected $validationMessages = [
         'name.required'        => 'Tên không được để trống',
+        'name.alpha'           => 'Tên không hợp lệ',
         'tax_number.required'  => 'Mã số thuế không được để trống',
         'tax_number.unique'    => 'Mã số thuế đã tồn tại trên hệ thống',
         'email.required'       => 'Email không được để trông',

@@ -20,6 +20,7 @@ class DepartmentTransformer extends TransformerAbstract
         return [
             'id'            => $department->id,
             'name'          => $department->name,
+            'branch_id'     => $department->branch_id,
             'status'        => $department->status,
             'status_txt'    => $department->getStatus(),
         ];

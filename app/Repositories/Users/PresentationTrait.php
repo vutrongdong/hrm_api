@@ -41,25 +41,21 @@ trait PresentationTrait
     
     public function getGender()
     {
-        switch ($this->gender) {
-            case self::GENDER_MALE:
-                return 'Nam';
-                break;
-            case self::GENDER_FEMALE:
-                return 'Nữ';
-                break;
-            default:
-                return 'Khác';
-                break;
-        }
+        return self::DISPLAY_GENDER[$this->gender ?? self::FEMALE];
     }
 
     public function getStatus()
     {
-        if ($this->status == self::STATUS_ENABLE) {
-            return 'Kích hoạt';
-        } else {
-            return 'Không kích hoạt';
-        }
+        return self::DISPLAY_STATUS[$this->status ?? self::DISABLE];
+    }
+
+    public function getAllStatus()
+    {
+        return implode(',', self::ALL_STATUS);
+    }
+
+    public function getAllGender()
+    {
+        return implode(',', self::ALL_GENDER);
     }
 }

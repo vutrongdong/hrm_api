@@ -9,15 +9,25 @@ class Branch extends Entity
 {
     use FilterTrait, PresentationTrait;
 
-    const STATUS_ENABLE = 1;
-    const STATUS_DISABLE = 0;
-    const STATUS = [
-        self::STATUS_ENABLE,
-        self::STATUS_DISABLE
+    const DISABLE = 0;
+    const ENABLE = 1;
+
+    const ALL_STATUS = [
+        self::DISABLE,
+        self::ENABLE,
+    ];
+    const DISPLAY_STATUS = [
+        self::DISABLE => 'Không hiển thị',
+        self::ENABLE => 'Hiển thị',
     ];
 
-    const BRANCH_MAIN = 1;
-    const BRANCH_NOT_MAIN = 0;
+    const NOT_MAIN = 0;
+    const MAIN = 1;
+
+    const DISPLAY_BRANCH = [
+        self::NOT_MAIN => 'Chi nhánh phụ',
+        self::MAIN => 'Chi nhánh chính',
+    ];
     /**
      * Fillable definition
      * @var array

@@ -16,10 +16,10 @@ class SettingController extends ApiController
     ];
     protected $validationMessages = [
         'name.required'  => 'Tên không được để trống',
-        'slug.required'  => 'Slug không được để trống',
-        'value.required' => 'Giá trị không được để trống',
         'name.unique'    => 'Tên đã tồn tại trên hệ thống',
+        'slug.required'  => 'Slug không được để trống',
         'slug.unique'    => 'Slug đã tồn tại trên hệ thống',
+        'value.required' => 'Giá trị không được để trống',
         'status.boolean' => 'Trạng thái không hợp lệ',
     ];
 
@@ -89,7 +89,8 @@ class SettingController extends ApiController
      */
     public function update($id, Request $request)
     {
-        $this->validationRules['name'] .= ',' . $id;
+        $test = $this->validationRules['name'] .= ',' . $id;
+        // dd($test);
         $this->validationRules['slug'] .= ',' . $id;
         try {
             $this->authorize('setting.update');

@@ -6,6 +6,6 @@ trait PresentationTrait
 {
 	public function getStatus()
 	{
-		return $this->status === self::STATUS_ENABLE ? 'Hiển thị' : 'Không hiển thị';
+        return self::DISPLAY_STATUS[$this->status ?? self::DISABLE];
 	}
 }
