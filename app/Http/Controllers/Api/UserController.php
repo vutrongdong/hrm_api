@@ -28,16 +28,16 @@ class UserController extends ApiController
         'status.in'          => 'Trạng thái không hợp lệ',
     ];
 
-    protected $userStatus;
     /**
      * UserController constructor.
      * @param UserRepository $user
      */
-    public function __construct(UserRepository $user, User $userStatus)
+    public function __construct(UserRepository $user)
     {
         $this->model = $user;
-        $this->userStatus = $userStatus;
         $this->setTransformer(new UserTransformer);
+        $this->validationRules['gender'] .= User::getAllGender();
+        $this->validationRules['status'] .= User::getAllStatus();
     }
 
     /**
@@ -73,8 +73,6 @@ class UserController extends ApiController
 
     public function store(Request $request)
     {
-        $this->validationRules['status'] .= $this->userStatus->getAllStatus();
-        $this->validationRules['gender'] .= $this->userStatus->getAllGender();
         try {
             $this->authorize('user.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
@@ -95,8 +93,6 @@ class UserController extends ApiController
     public function update(Request $request, $id)
     {
         $this->validationRules['email'] .= ',' . $id;
-        $this->validationRules['status'] .= $this->userStatus->getAllStatus();
-        $this->validationRules['gender'] .= $this->userStatus->getAllGender();
         unset($this->validationRules['password']);
         
         try {

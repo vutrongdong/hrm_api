@@ -19,16 +19,15 @@ class PositionController extends ApiController
         'status.in'     => 'Trạng thái không hợp lệ',
     ];
 
-    protected $positionStatus;
     /**
      * PositionController constructor.
      * @param PositionRepository $position
      */
-    public function __construct(PositionRepository $position, Position $positionStatus)
+    public function __construct(PositionRepository $position)
     {
         $this->model = $position;
-        $this->positionStatus = $positionStatus;
         $this->setTransformer(new PositionTransformer);
+        $this->validationRules['status'] .= Position::getAllStatus();
     }
 
     /**
@@ -59,7 +58,6 @@ class PositionController extends ApiController
 
     public function store(Request $request)
     {
-        $this->validationRules['status'] .= $this->positionStatus->getAllStatus();
         try {
             $this->authorize('position.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
@@ -81,7 +79,6 @@ class PositionController extends ApiController
     public function update($id, Request $request)
     {
         $this->validationRules['name'] .= ',' . $id;
-        $this->validationRules['status'] .= $this->positionStatus->getAllStatus();
         try {
             $this->authorize('position.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);

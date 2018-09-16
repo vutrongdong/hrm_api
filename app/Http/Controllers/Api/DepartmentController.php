@@ -22,17 +22,15 @@ class DepartmentController extends ApiController
         'status.in'          => 'Trạng thái không hợp lệ',
     ];
 
-    protected $departmentStatus;
-
     /**
      * DepartmentController constructor.
      * @param DepartmentRepository $department
      */
-    public function __construct(DepartmentRepository $department, Department $departmentStatus)
+    public function __construct(DepartmentRepository $department)
     {
         $this->model = $department;
-        $this->departmentStatus = $departmentStatus;
         $this->setTransformer(new DepartmentTransformer);
+        $this->validationRules['status'] .= Department::getAllStatus();
     }
 
     public function index(Request $request)
@@ -58,7 +56,6 @@ class DepartmentController extends ApiController
 
     public function store(Request $request)
     {
-        $this->validationRules['status'] .= $this->departmentStatus->getAllStatus();
         try {
             $this->authorize('department.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
@@ -80,7 +77,6 @@ class DepartmentController extends ApiController
     public function update($id, Request $request)
     {
         $this->validationRules['name'] .= ',' . $id;
-        $this->validationRules['status'] .= $this->departmentStatus->getAllStatus();
         try {
             $this->authorize('department.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);

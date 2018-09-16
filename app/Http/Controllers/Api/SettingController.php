@@ -23,7 +23,6 @@ class SettingController extends ApiController
         'status.boolean' => 'Trạng thái không hợp lệ',
     ];
 
-
     /**
      * SettingController constructor.
      * @param SettingRepository $setting

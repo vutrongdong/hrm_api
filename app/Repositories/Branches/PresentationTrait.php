@@ -14,7 +14,7 @@ trait PresentationTrait
         return self::DISPLAY_BRANCH[$this->type ?? self::NOT_MAIN];
     }
 
-    public function getAllStatus()
+    public static function getAllStatus()
     {
         return implode(',', self::ALL_STATUS);
     }

@@ -40,11 +40,11 @@ class BranchController extends ApiController
      * BranchController constructor.
      * @param BranchRepository $branch
      */
-    public function __construct(BranchRepository $branch, Branch $branchStatus)
+    public function __construct(BranchRepository $branch)
     {
         $this->model = $branch;
-        $this->branchStatus = $branchStatus;
         $this->setTransformer(new BranchTransformer);
+        $this->validationRules['status'] .= Branch::getAllStatus();
     }
     
     /**
@@ -75,7 +75,6 @@ class BranchController extends ApiController
 
     public function store(Request $request)
     {
-        $this->validationRules['status'] .= $this->branchStatus->getAllStatus();
         try {
             $this->authorize('branch.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
@@ -98,7 +97,6 @@ class BranchController extends ApiController
     {
         $this->validationRules['tax_number'] .= ',' . $id;
         $this->validationRules['email'] .= ',' . $id;
-        $this->validationRules['status'] .= $this->branchStatus->getAllStatus();
         try {
             $this->authorize('branch.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
