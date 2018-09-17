@@ -10,15 +10,12 @@ class SettingController extends ApiController
 {
     protected $validationRules = [
         'name'   => 'required|unique:settings,name',
-        'slug'   => 'required|unique:settings,slug',
         'value'  => 'required',
         'status' => 'boolean',
     ];
     protected $validationMessages = [
         'name.required'  => 'Tên không được để trống',
         'name.unique'    => 'Tên đã tồn tại trên hệ thống',
-        'slug.required'  => 'Slug không được để trống',
-        'slug.unique'    => 'Slug đã tồn tại trên hệ thống',
         'value.required' => 'Giá trị không được để trống',
         'status.boolean' => 'Trạng thái không hợp lệ',
     ];
