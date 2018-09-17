@@ -86,8 +86,6 @@ class SettingController extends ApiController
     public function update($id, Request $request)
     {
         $test = $this->validationRules['name'] .= ',' . $id;
-        // dd($test);
-        $this->validationRules['slug'] .= ',' . $id;
         try {
             $this->authorize('setting.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
