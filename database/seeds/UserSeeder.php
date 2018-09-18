@@ -19,6 +19,22 @@ class UserSeeder extends Seeder
             ]);
         }
 
+        if (!\App\User::find(2)) {
+            factory(\App\User::class)->create([
+                'name'     => 'Tuấn Anh',
+                'email'    => 'tuananh@nht.com',
+                'password' => 'tuananh'
+            ]);
+        }
+
+        if (!\App\User::find(3)) {
+            factory(\App\User::class)->create([
+                'name'     => 'Tuấn Em',
+                'email'    => 'tuanem@nht.com',
+                'password' => 'tuanem'
+            ]);
+        }
+
         if (!\App\Repositories\Roles\Role::find(1)) {
             factory(App\Repositories\Roles\Role::class)->create([
                 'name' => 'Super admin',
