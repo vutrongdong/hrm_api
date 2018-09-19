@@ -44,15 +44,15 @@ class Plan extends Entity
         'status',
     ];
 
-    public function departments()
+    public function details()
     {
-        return $this->hasMany(\App\Repositories\Departments\Department::class, 'plan_details', 'id');
+        return $this->hasMany(\App\Repositories\Plan_details\Plan_detail::class);
     }
 
-    public function positions()
-    {
-        return $this->hasMany(\App\Repositories\Positions\Position::class, 'plan_details', 'id');
-    }
+    // public function positions()
+    // {
+    //     return $this->hasMany(\App\Repositories\Positions\Position::class, 'id');
+    // }
 
     // public function city()
     // {

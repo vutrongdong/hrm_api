@@ -8,7 +8,7 @@ use App\Repositories\Plans\Plan;
 class PlanTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        'departments', 'positions'
+        'details'
     ];
 
     public function transform(Plan $plan = null)
@@ -28,21 +28,30 @@ class PlanTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeDepartments(Plan $plan = null)
+    // public function includeDepartments(Plan $plan = null)
+    // {
+    //     if (is_null($plan)) {
+    //         return $this->null();
+    //     }
+
+    //     return $this->collection($plan->departments, new DepartmentTransformer);
+    // }   
+
+    public function includeDetails(Plan $plan = null)
     {
         if (is_null($plan)) {
             return $this->null();
         }
 
-        return $this->collection($plan->departments, new DepartmentTransformer);
+        return $this->collection($plan->details, new Plan_detailTransformer);
     }  
 
-    public function includePositions(Plan $plan = null)
-    {
-        if (is_null($plan)) {
-            return $this->null();
-        }
+    // public function includePositions(Plan $plan = null)
+    // {
+    //     if (is_null($plan)) {
+    //         return $this->null();
+    //     }
 
-        return $this->collection($plan->positions, new PositionTransformer);
-    }
+    //     return $this->collection($plan->positions, new PositionTransformer);
+    // }
 }

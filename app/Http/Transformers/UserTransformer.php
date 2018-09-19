@@ -18,15 +18,19 @@ class UserTransformer extends TransformerAbstract
         }
 
         return [
-            'id'          => $user->id,
-            'code'        => $user->code,
-            'name'        => $user->name,
-            'email'       => $user->email,
-            'phone'       => $user->phone,
-            'gender'      => $user->gender,
-            'gender_txt'  => $user->getGender(),
-            'status'      => $user->status,
-            'status_txt'  => $user->getStatus(),
+            'id'            => $user->id,
+            'code'          => $user->code,
+            'name'          => $user->name,
+            'qualification' => $user->qualification,
+            'address'       => $user->address,
+            'email'         => $user->email,
+            'phone'         => $user->phone,
+            'date_of_birth' => $user->date_of_birth,
+            'avatar'        => $user->avatar,
+            'gender'        => $user->gender,
+            'gender_txt'    => $user->getGender(),
+            'status'        => $user->status,
+            'status_txt'    => $user->getStatus(),
         ];
     }
 

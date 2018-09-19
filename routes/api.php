@@ -33,6 +33,7 @@ $router->group(['middleware' => 'auth'], function ($router) {
     resource('/contracts', 'ContractController', $router);
     resource('/plans', 'PlanController', $router);
     resource('/candidates', 'CandidateController', $router);
+    resource('/plan_details', 'Plan_detailController', $router);
 });
 
 

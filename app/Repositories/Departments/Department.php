@@ -49,8 +49,13 @@ class Department extends Entity
         return $this->belongsToMany(\App\User::class, 'department_user');
     }
 
+    // public function branches()
+    // {
+    //     return $this->hasMany(\App\Repositories\Branches\Branch::class);
+    // }  
+
     public function branches()
     {
-        return $this->hasMany(\App\Repositories\Branches\Branch::class);
+        return $this->belongsToMany(\App\Repositories\Branches\Branch::class);
     }
 }
