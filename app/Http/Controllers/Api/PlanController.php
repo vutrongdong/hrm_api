@@ -10,13 +10,18 @@ use App\Http\Transformers\PlanTransformer;
 class PlanController extends ApiController
 {
     protected $validationRules = [
-        'title'     => 'required|unique:plans,title',
-        'status'    => 'in:',
+        'title'       => 'required|unique:plans,title',
+        'date_start'  => 'date_format:"d-m-Y"|before:date_end',
+        'date_end'    => 'date_format:"d-m-Y"',
+        'status'      => 'in:',
     ];
     protected $validationMessages = [
-        'title.required' => 'Tiêu đề không được để trống',
-        'title.unique'   => 'Tiêu đề đã tồn tại trên hệ thống',
-        'status.in'      => 'Trạng thái không hợp lệ',
+        'title.required'            => 'Tiêu đề không được để trống',
+        'title.unique'              => 'Tiêu đề đã tồn tại trên hệ thống',
+        'date_start.date_format'    => 'Ngày bắt đầu phải theo định dạng DD-MM-YYYY',
+        'date_start.before'         => 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc',
+        'date_end.date_format'      => 'Ngày kết thúc phải theo định dạng DD-MM-YYYY',
+        'status.in'                 => 'Trạng thái không hợp lệ',
     ];
 
     /**

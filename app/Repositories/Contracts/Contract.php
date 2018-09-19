@@ -53,6 +53,16 @@ class Contract extends Entity
         'status',
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+
+        self::created(function ($model) {
+            $model->code = hashid_encode($model->id);
+            $model->save();
+        });
+    }
+
     public function users()
     {
         return $this->belongsToMany(\App\User::class, 'contract_user');

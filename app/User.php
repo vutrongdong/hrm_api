@@ -95,19 +95,24 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
 
     public function departments()
     {
-        return $this->belongsToMany(\App\Repositories\Departments\Department::class, 'department_user');
-    }
+        return $this->belongsToMany(\App\Repositories\Departments\Department::class, 'department_user')->withPivot([]);
+    }   
 
-    public function positions()
-    {
-        return $this->belongsToMany(\App\Repositories\Positions\Position::class, 'department_user');
-    }
+    // public function branches()
+    // {
+    //     return $this->belongsToMany(\App\Repositories\Branches\Branch::class, 'department_user');
+    // }
 
     public function contracts()
     {
         return $this->belongsToMany(\App\Repositories\Contracts\Contract::class, 'contract_user');
     }
 
+    // public function positions()
+    // {
+    //     return $this->belongsToMany(\App\Repositories\Positions\Position::class, 'department_user');
+    // }
+    
     public function validateForPassportPasswordGrant($password)
     {
         if ($password == $this->password || app('hash')->check($password, $this->password)) {
