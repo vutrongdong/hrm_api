@@ -48,19 +48,4 @@ class Plan extends Entity
     {
         return $this->hasMany(\App\Repositories\Plan_details\Plan_detail::class);
     }
-
-    // public function positions()
-    // {
-    //     return $this->hasMany(\App\Repositories\Positions\Position::class, 'id');
-    // }
-
-    // public function city()
-    // {
-    //     return $this->belongsTo(\App\Repositories\Cities\City::class);
-    // }   
-
-    // public function district()
-    // {
-    //     return $this->belongsTo(\App\Repositories\Districts\District::class);
-    // }
 }

@@ -20,4 +20,30 @@ class CandidateRepository extends BaseRepository
     {
         $this->model = $candidate;
     }
+
+    public function update($id, $data, $excepts = [], $only = [])
+    {
+        $record = parent::update($id, $data);
+        $interview_by = array_get($data, 'interview_by', []);
+        if ($interview_by) {
+            $this->storeOrUpdateInterview($record, $interview_by);
+        }
+        return $record;
+    }
+
+
+    public function store($data)
+    {
+        $candidate = parent::store($data);
+        $interview_by = array_get($data, 'interview_by', []);
+        if ($interview_by) {
+            $this->storeOrUpdateInterview($candidate, $interview_by);
+        }
+        return $candidate;
+    }
+
+    public function storeOrUpdateInterview(Candidate $candidate, array $data)
+    {
+        $candidate->users()->sync($data);
+    }
 }

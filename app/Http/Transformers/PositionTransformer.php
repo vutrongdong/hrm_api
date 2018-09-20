@@ -4,6 +4,7 @@ namespace App\Http\Transformers;
 
 use League\Fractal\TransformerAbstract;
 use App\Repositories\Positions\Position;
+use App\Repositories\Departments\DepartmentRepository;
 
 class PositionTransformer extends TransformerAbstract
 {
@@ -17,12 +18,19 @@ class PositionTransformer extends TransformerAbstract
             return [];
         }
 
-        return [
+        $data = [
             'id'            => $position->id,
             'name'          => $position->name,
             'status'        => $position->status,
             'status_txt'    => $position->getStatus(),
         ];
+
+        if ($position->pivot && $position->pivot->department_id) {
+            $data['department_id'] = $position->pivot->department_id;
+            $data['department_name'] = app()->make(DepartmentRepository::class)->getById($data['department_id'])->name;
+        }
+
+        return $data;
     }
 
     public function includeUsers(Position $position = null)

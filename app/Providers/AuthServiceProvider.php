@@ -21,6 +21,9 @@ class AuthServiceProvider extends ServiceProvider
         \App\Repositories\Branches\Branch::class => \App\Policies\BranchPolicy::class,
         \App\Repositories\Departments\Department::class => \App\Policies\DepartmentPolicy::class,
         \App\Repositories\Positions\Position::class => \App\Policies\PositionPolicy::class,
+        \App\Repositories\Plans\Plan::class => \App\Policies\PlanPolicy::class,
+        \App\Repositories\Contracts\Contract::class => \App\Policies\ContractPolicy::class,
+        \App\Repositories\Candidates\Candidate::class => \App\Policies\CandidatePolicy::class,
     ];
 
     /**
@@ -63,6 +66,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         LumenPassport::routes($this->app);
         LumenPassport::tokensExpireIn(\Carbon\Carbon::now()->addYears(1));
+        // Somewhere in your application service provider or bootstrap process
+        LumenPassport::allowMultipleTokens();
     }
 
     /**
@@ -101,6 +106,21 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('position.create', 'App\Policies\PositionPolicy@create');
         Gate::define('position.update', 'App\Policies\PositionPolicy@update');
         Gate::define('position.delete', 'App\Policies\PositionPolicy@delete');
+        // plan gate
+        Gate::define('plan.view', 'App\Policies\PlanPolicy@view');
+        Gate::define('plan.create', 'App\Policies\PlanPolicy@create');
+        Gate::define('plan.update', 'App\Policies\PlanPolicy@update');
+        Gate::define('plan.delete', 'App\Policies\PlanPolicy@delete');
+        // contract gate
+        Gate::define('contract.view', 'App\Policies\ContractPolicy@view');
+        Gate::define('contract.create', 'App\Policies\ContractPolicy@create');
+        Gate::define('contract.update', 'App\Policies\ContractPolicy@update');
+        Gate::define('contract.delete', 'App\Policies\ContractPolicy@delete');
+        // candidate gate
+        Gate::define('candidate.view', 'App\Policies\CandidatePolicy@view');
+        Gate::define('candidate.create', 'App\Policies\CandidatePolicy@create');
+        Gate::define('candidate.update', 'App\Policies\CandidatePolicy@update');
+        Gate::define('candidate.delete', 'App\Policies\CandidatePolicy@delete');
     }
 
     /**

@@ -10,15 +10,19 @@ use App\Http\Transformers\CandidateTransformer;
 class CandidateController extends ApiController
 {
     protected $validationRules = [
-        'name'      => 'required',
-        'email'     => 'email|unique:candidates,email',
-        'status'    => 'in:',
+        'name'             => 'required',
+        'email'            => 'email|unique:candidates,email',
+        'status'           => 'in:',
+        'interview_by'     => 'array',
+        'interview_by'     => 'exists:users,id',
     ];
     protected $validationMessages = [
-        'name.required'      => 'Tên ứng viên không được để trống',
-        'email.email'        => 'Email không đúng định dạng',
-        'email.unique'       => 'Email đã tồn tại trên hệ thống',
-        'status.in'          => 'Trạng thái không hợp lệ',
+        'name.required'             => 'Tên ứng viên không được để trống',
+        'email.email'               => 'Email không đúng định dạng',
+        'email.unique'              => 'Email đã tồn tại trên hệ thống',
+        'status.in'                 => 'Trạng thái không hợp lệ',
+        'interview_by.array'        => 'Người phỏng vấn không hợp lệ',
+        'interview_by.exists'       => 'Người phỏng vấn không tồn tại trên hệ thống',
     ];
 
     /**
@@ -39,7 +43,7 @@ class CandidateController extends ApiController
     */
     public function index(Request $request)
     {
-        // $this->authorize('plan.view');
+        $this->authorize('candidate.view');
         $pageSize = $request->get('limit', 25);
         return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
     }
@@ -47,7 +51,7 @@ class CandidateController extends ApiController
     public function show($id)
     {
         try {
-            // $this->authorize('plan.view');
+            $this->authorize('candidate.view');
             return $this->successResponse($this->model->getById($id));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -61,7 +65,7 @@ class CandidateController extends ApiController
     public function store(Request $request)
     {
         try {
-            // $this->authorize('plan.create');
+            $this->authorize('candidate.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
 
@@ -82,7 +86,7 @@ class CandidateController extends ApiController
     {
         $this->validationRules['email'] .= ',' . $id;
         try {
-            // $this->authorize('plan.update');
+            $this->authorize('candidate.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
             
@@ -104,7 +108,7 @@ class CandidateController extends ApiController
     public function destroy($id)
     {
         try{
-            // $this->authorize('plan.delete');
+            $this->authorize('candidate.delete');
             $this->model->delete($id);
 
             return $this->deleteResponse();

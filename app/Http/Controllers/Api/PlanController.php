@@ -42,7 +42,7 @@ class PlanController extends ApiController
     */
     public function index(Request $request)
     {
-        // $this->authorize('plan.view');
+        $this->authorize('plan.view');
         $pageSize = $request->get('limit', 25);
         return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
     }
@@ -50,7 +50,7 @@ class PlanController extends ApiController
     public function show($id)
     {
         try {
-            // $this->authorize('plan.view');
+            $this->authorize('plan.view');
             return $this->successResponse($this->model->getById($id));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -64,7 +64,7 @@ class PlanController extends ApiController
     public function store(Request $request)
     {
         try {
-            // $this->authorize('plan.create');
+            $this->authorize('plan.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
 
@@ -85,7 +85,7 @@ class PlanController extends ApiController
     {
         $this->validationRules['title'] .= ',' . $id;
         try {
-            // $this->authorize('plan.update');
+            $this->authorize('plan.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
             
@@ -107,7 +107,7 @@ class PlanController extends ApiController
     public function destroy($id)
     {
         try{
-            // $this->authorize('plan.delete');
+            $this->authorize('plan.delete');
             $this->model->delete($id);
 
             return $this->deleteResponse();

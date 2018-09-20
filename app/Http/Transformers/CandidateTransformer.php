@@ -7,9 +7,9 @@ use App\Repositories\Candidates\Candidate;
 
 class CandidateTransformer extends TransformerAbstract
 {
-    // protected $availableIncludes = [
-    //     'users'
-    // ];
+    protected $availableIncludes = [
+        'users'
+    ];
 
     public function transform(Candidate $candidate = null)
     {
@@ -32,12 +32,12 @@ class CandidateTransformer extends TransformerAbstract
         ];
     }
 
-    // public function includeUsers(Candidate $candidate = null)
-    // {
-    //     if (is_null($candidate)) {
-    //         return $this->null();
-    //     }
+    public function includeUsers(Candidate $candidate = null)
+    {
+        if (is_null($candidate)) {
+            return $this->null();
+        }
 
-    //     return $this->collection($candidate->users, new UserTransformer);
-    // }
+        return $this->collection($candidate->users, new UserTransformer);
+    }
 }

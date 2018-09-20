@@ -40,6 +40,11 @@ class DepartmentController extends ApiController
         return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
     }
 
+    public function getByBranch(Request $request, $id)
+    {
+        return $this->model->getByBranch($id);
+    }
+
     public function show($id)
     {
         try {

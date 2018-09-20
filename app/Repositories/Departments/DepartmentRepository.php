@@ -20,4 +20,9 @@ class DepartmentRepository extends BaseRepository
     {
         $this->model = $department;
     }
+
+    public function getByBranch(int $id)
+    {
+        return $this->model->where('branch_id', $id)->get();
+    }
 }
