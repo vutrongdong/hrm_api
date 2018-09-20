@@ -46,18 +46,7 @@ class Candidate extends Entity
         'status',
     ];
 
-    // public function departments()
-    // {
-    //     return $this->hasMany(\App\Repositories\Departments\Department::class);
-    // }
-
-    // public function city()
-    // {
-    //     return $this->belongsTo(\App\Repositories\Cities\City::class);
-    // }   
-
-    // public function district()
-    // {
-    //     return $this->belongsTo(\App\Repositories\Districts\District::class);
-    // }
+    public function users() {
+        return $this->belongsToMany(\App\User::class, 'interview', 'candidate_id', 'interview_by');
+    }
 }

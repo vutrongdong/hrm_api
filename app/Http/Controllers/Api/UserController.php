@@ -10,22 +10,30 @@ use App\Http\Transformers\UserTransformer;
 class UserController extends ApiController
 {
     protected $validationRules = [
-        'name'     => 'required',
-        'email'    => 'required|email|unique:users,email',
-        'password' => 'required|min:6|confirmed',
-        'gender'   => 'in:',
-        'status'   => 'in:',
+        'name'                          => 'required',
+        'email'                         => 'required|email|unique:users,email',
+        'password'                      => 'required|min:6|confirmed',
+        'gender'                        => 'in:',
+        'status'                        => 'in:',
+        'departments'                   => 'array',
+        'departments.*.department_id'   => 'exists:departments,id',
+        'departments.*.position_id'     => 'exists:positions,id',
+        'departments.*.status'          => 'in:',
     ];
     protected $validationMessages = [
-        'name.required'      => 'Tên không được để trông',
-        'email.required'     => 'Email không được để trông',
-        'email.email'        => 'Email không đúng định dạng',
-        'email.unique'       => 'Email đã tồn tại trên hệ thống',
-        'password.required'  => 'Mật khẩu không được để trống',
-        'password.min'       => 'Mật khẩu phải có ít nhât :min ký tự',
-        'password.confirmed' => 'Nhập lại mật khẩu không đúng',
-        'gender.in'          => 'Giới tính không hợp lệ',
-        'status.in'          => 'Trạng thái không hợp lệ',
+        'name.required'                         => 'Tên không được để trông',
+        'email.required'                        => 'Email không được để trông',
+        'email.email'                           => 'Email không đúng định dạng',
+        'email.unique'                          => 'Email đã tồn tại trên hệ thống',
+        'password.required'                     => 'Mật khẩu không được để trống',
+        'password.min'                          => 'Mật khẩu phải có ít nhât :min ký tự',
+        'password.confirmed'                    => 'Nhập lại mật khẩu không đúng',
+        'gender.in'                             => 'Giới tính không hợp lệ',
+        'status.in'                             => 'Trạng thái không hợp lệ',
+        'departments.array'                     => 'Phòng ban không hợp lệ',
+        'departments.*.department_id.exists'    => 'Phòng ban không tồn tại trên hệ thống',
+        'departments.*.position_id.exists'      => 'Chức vụ không tồn tại trên hệ thống',
+        'departments.*.status.in'               => 'Trạng thái không hợp lệ',
     ];
 
     /**
@@ -38,6 +46,7 @@ class UserController extends ApiController
         $this->setTransformer(new UserTransformer);
         $this->validationRules['gender'] .= User::getAllGender();
         $this->validationRules['status'] .= User::getAllStatus();
+        $this->validationRules['departments.*.status'] .= User::getAllStatus();
     }
 
     /**

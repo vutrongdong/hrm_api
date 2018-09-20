@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\User;
-use App\Repositories\plans\plan;
+use App\Repositories\Plans\Plan;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PlanPolicy
@@ -14,7 +14,7 @@ class PlanPolicy
      * Determine whether the user can view the Plan.
      *
      * @param  \App\User  $user
-     * @param  \App\Repositories\Categories\plan $plan
+     * @param  \App\Repositories\Categories\Plan $plan
      * @return mixed
      */
     public function view(User $user, Plan $plan = null)
@@ -37,7 +37,7 @@ class PlanPolicy
      * Determine whether the user can update the Plan.
      *
      * @param  \App\User  $user
-     * @param  \App\Repositories\Categories\plan  $plan
+     * @param  \App\Repositories\Categories\Plan  $plan
      * @return mixed
      */
     public function update(User $user, Plan $plan = null)
@@ -49,7 +49,7 @@ class PlanPolicy
      * Determine whether the user can delete the Plan.
      *
      * @param  \App\User  $user
-     * @param  \App\Repositories\Categories\plan  $plan
+     * @param  \App\Repositories\Categories\Plan  $plan
      * @return mixed
      */
     public function delete(User $user, Plan $plan = null)

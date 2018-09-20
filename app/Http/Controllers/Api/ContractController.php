@@ -37,7 +37,7 @@ class ContractController extends ApiController
     */
     public function index(Request $request)
     {
-        // $this->authorize('contract.view');
+        $this->authorize('contract.view');
         $pageSize = $request->get('limit', 25);
         return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
     }
@@ -45,7 +45,7 @@ class ContractController extends ApiController
     public function show($id)
     {
         try {
-            // $this->authorize('contract.view');
+            $this->authorize('contract.view');
             return $this->successResponse($this->model->getById($id));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -59,7 +59,7 @@ class ContractController extends ApiController
     public function store(Request $request)
     {
         try {
-            // $this->authorize('contract.create');
+            $this->authorize('contract.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
 
@@ -80,7 +80,7 @@ class ContractController extends ApiController
     {
         $this->validationRules['title'] .= ',' . $id;
         try {
-            // $this->authorize('contract.update');
+            $this->authorize('contract.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
             
@@ -102,7 +102,7 @@ class ContractController extends ApiController
     public function destroy($id)
     {
         try{
-            // $this->authorize('contract.delete');
+            $this->authorize('contract.delete');
             $this->model->delete($id);
 
             return $this->deleteResponse();

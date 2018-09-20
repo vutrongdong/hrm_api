@@ -68,4 +68,34 @@ return [
             'delete' => 'Xóa chức vụ'
         ]
     ],    
+
+    'plan' => [
+        'title' => 'Quản lý kế hoạch tuyển dụng',
+        'list' => [
+            'view' => 'Xem kế hoạch',
+            'create' => 'Tạo mới kế hoạch',
+            'update' => 'Sửa kế hoạch',
+            'delete' => 'Xóa kế hoạch'
+        ]
+    ],    
+
+    'contract' => [
+        'title' => 'Quản lý hợp đồng',
+        'list' => [
+            'view' => 'Xem hợp đồng',
+            'create' => 'Tạo mới hợp đồng',
+            'update' => 'Sửa hợp đồng',
+            'delete' => 'Xóa hợp đồng'
+        ]
+    ],  
+    
+    'candidate' => [
+        'title' => 'Quản lý hồ sơ ứng viên',
+        'list' => [
+            'view' => 'Xem hồ sơ ứng viên',
+            'create' => 'Tạo mới hồ sơ ứng viên',
+            'update' => 'Sửa hồ sơ ứng viên',
+            'delete' => 'Xóa hồ sơ ứng viên'
+        ]
+    ],    
 ];
