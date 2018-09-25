@@ -20,4 +20,9 @@ class PositionRepository extends BaseRepository
     {
         $this->model = $position;
     }
+
+    public function getAllStatus()
+    {
+        return implode(',', Position::ALL_STATUS);
+    }
 }

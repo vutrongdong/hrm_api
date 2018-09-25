@@ -20,4 +20,9 @@ class BranchRepository extends BaseRepository
     {
         $this->model = $branch;
     }
+
+    public function getAllStatus()
+    {
+        return implode(',', Branch::ALL_STATUS);
+    }
 }

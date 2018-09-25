@@ -9,12 +9,12 @@ class Plan extends Entity
 {
     use FilterTrait, PresentationTrait;
 
-    const CREATED = 0;
-    const WAIT_APPROVE = 1;
-    const APPROVED = 2;
-    const NOT_APPROVE = 3;
-    const DONE = 4;
-    const DELETED = 5;
+    const CREATED           = 0;
+    const WAIT_APPROVE      = 1;
+    const APPROVED          = 2;
+    const NOT_APPROVE       = 3;
+    const DONE              = 4;
+    const DELETED           = 5;
 
     const ALL_STATUS = [
         self::CREATED,
@@ -25,12 +25,12 @@ class Plan extends Entity
         self::DELETED,
     ];
     const DISPLAY_STATUS = [
-        self::CREATED => 'Mới',
-        self::WAIT_APPROVE => 'Chờ duyệt',
-        self::APPROVED => 'Duyệt',
-        self::NOT_APPROVE => 'Không duyệt',
-        self::DONE => 'Hoàn thành',
-        self::DELETED => 'Xóa',
+        self::CREATED           => 'Mới',
+        self::WAIT_APPROVE      => 'Chờ duyệt',
+        self::APPROVED          => 'Duyệt',
+        self::NOT_APPROVE       => 'Không duyệt',
+        self::DONE              => 'Hoàn thành',
+        self::DELETED           => 'Xóa',
     ];
     /**
      * Fillable definition
@@ -46,6 +46,6 @@ class Plan extends Entity
 
     public function details()
     {
-        return $this->hasMany(\App\Repositories\Plan_details\Plan_detail::class);
+        return $this->hasMany(\App\Repositories\PlanDetails\PlanDetail::class);
     }
 }

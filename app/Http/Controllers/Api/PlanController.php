@@ -11,16 +11,16 @@ class PlanController extends ApiController
 {
     protected $validationRules = [
         'title'       => 'required|unique:plans,title',
-        'date_start'  => 'date_format:"d-m-Y"|before:date_end',
-        'date_end'    => 'date_format:"d-m-Y"',
+        'date_start'  => 'date|before:date_end',
+        'date_end'    => 'date',
         'status'      => 'in:',
     ];
     protected $validationMessages = [
         'title.required'            => 'Tiêu đề không được để trống',
         'title.unique'              => 'Tiêu đề đã tồn tại trên hệ thống',
-        'date_start.date_format'    => 'Ngày bắt đầu phải theo định dạng DD-MM-YYYY',
+        'date_start.date_format'    => 'Ngày bắt đầu không hợp lệ',
         'date_start.before'         => 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc',
-        'date_end.date_format'      => 'Ngày kết thúc phải theo định dạng DD-MM-YYYY',
+        'date_end.date_format'      => 'Ngày kết thúc không hợp lệ',
         'status.in'                 => 'Trạng thái không hợp lệ',
     ];
 
@@ -30,9 +30,8 @@ class PlanController extends ApiController
      */
     public function __construct(PlanRepository $plan)
     {
-        $this->model = $plan;
+        $this->plan = $plan;
         $this->setTransformer(new PlanTransformer);
-        $this->validationRules['status'] .= Plan::getAllStatus();
     }
 
     /**
@@ -44,14 +43,14 @@ class PlanController extends ApiController
     {
         $this->authorize('plan.view');
         $pageSize = $request->get('limit', 25);
-        return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
+        return $this->successResponse($this->plan->getByQuery($request->all(), $pageSize));
     }
 
     public function show($id)
     {
         try {
             $this->authorize('plan.view');
-            return $this->successResponse($this->model->getById($id));
+            return $this->successResponse($this->plan->getById($id));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -63,10 +62,11 @@ class PlanController extends ApiController
 
     public function store(Request $request)
     {
+        $this->validationRules['status'] .= $this->plan->getAllStatus();
         try {
             $this->authorize('plan.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $data = $this->model->store($request->all());
+            $data = $this->plan->store($request->all());
 
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -84,10 +84,11 @@ class PlanController extends ApiController
     public function update($id, Request $request)
     {
         $this->validationRules['title'] .= ',' . $id;
+        $this->validationRules['status'] .= $this->plan->getAllStatus();
         try {
             $this->authorize('plan.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $model = $this->model->update($id, $request->all());
+            $model = $this->plan->update($id, $request->all());
             
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -108,7 +109,7 @@ class PlanController extends ApiController
     {
         try{
             $this->authorize('plan.delete');
-            $this->model->delete($id);
+            $this->plan->delete($id);
 
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

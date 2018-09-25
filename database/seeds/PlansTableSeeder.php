@@ -12,10 +12,10 @@ class PlansTableSeeder extends Seeder
     public function run()
     {
         DB::statement("
-            INSERT INTO `plans` (`id`, `title`) VALUES
-            (1, 'Tuyển lập trình viên dự án HRM '), 
-            (2, 'Tuyển lập trình viên dự án CRM '), 
-            (3, 'Tuyển nhân viên kế toán')
+            INSERT INTO `plans` (`id`, `title`, `created_at`, `updated_at`) VALUES
+            (1, 'Tuyển lập trình viên dự án HRM ', '2018-09-21', '2018-09-21'), 
+            (2, 'Tuyển lập trình viên dự án CRM ', '2018-09-21', '2018-09-21'), 
+            (3, 'Tuyển nhân viên kế toán', '2018-09-21', '2018-09-21')
             ");
 
         DB::table('plan_details')->insert([

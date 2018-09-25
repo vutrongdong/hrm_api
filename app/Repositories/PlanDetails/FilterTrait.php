@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Plan_details;
+namespace App\Repositories\PlanDetails;
 
 trait FilterTrait
 {

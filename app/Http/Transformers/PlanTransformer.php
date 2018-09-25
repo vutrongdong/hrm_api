@@ -25,6 +25,8 @@ class PlanTransformer extends TransformerAbstract
             'content'       => $plan->content,
             'status'        => $plan->status,
             'status_txt'    => $plan->getStatus(),
+            'created_at'    => $plan->created_at,
+            'updated_at'    => $plan->updated_at,
         ];
     }
 
@@ -43,7 +45,7 @@ class PlanTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        return $this->collection($plan->details, new Plan_detailTransformer);
+        return $this->collection($plan->details, new PlanDetailTransformer);
     }  
 
     // public function includePositions(Plan $plan = null)

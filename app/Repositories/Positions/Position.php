@@ -9,16 +9,16 @@ class Position extends Entity
 {
     use FilterTrait, PresentationTrait;
 
-    const ENABLE = 1;
-    const DISABLE = 0;
+    const ENABLE    = 1;
+    const DISABLE   = 0;
 
     const ALL_STATUS = [
         self::DISABLE,
         self::ENABLE,
     ];
     const DISPLAY_STATUS = [
-        self::DISABLE => 'Không hiển thị',
-        self::ENABLE => 'Hiển thị',
+        self::DISABLE   => 'Không hiển thị',
+        self::ENABLE    => 'Hiển thị',
     ];
 
     /**

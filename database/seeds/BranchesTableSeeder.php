@@ -11,10 +11,10 @@ class BranchesTableSeeder extends Seeder
     */
     public function run()
     {
-        DB::statement("INSERT INTO `branches` (`id`, `name`, `description`, `about`, `phone`, `address`, `website`, `email`, `facebook`, `instagram`, `zalo`, `tax_number`, `bank`, `type`, `city_id`, `district_id`) VALUES
+        DB::statement("INSERT INTO `branches` (`id`, `name`, `description`, `about`, `phone`, `address`, `website`, `email`, `facebook`, `instagram`, `zalo`, `tax_number`, `bank`, `type`, `city_id`, `district_id`, `created_at`, `updated_at`) VALUES
 
-            (1, 'Chi nhánh Cát Linh', 'description_1', 'about_1', 'phone_1', 'address_1', 'website_1', 'email_1', 'facebook_1', 'instagram_1', 'zalo_1', 'tax_number_1', 'bank_1', 1, 2, 4),
-            (2, 'Chi nhánh Láng Hạ', 'description_2', 'about_2', 'phone_2', 'address_2', 'website_2', 'email_2', 'facebook_2', 'instagram_2', 'zalo_2', 'tax_number_2', 'bank_2', 0, 2, 4)
+            (1, 'Chi nhánh Cát Linh', 'description_CatLinh', 'about_CatLinh', '0971234567', 'Cát Linh', 'catlinh.com.vn', 'catlinh@nht.com', 'FB_CatLinh', 'Insta_CatLinh', 'Zalo_CatLinh', '123456', 'CatLinhBank', 1, 2, 4, '2018-09-21', '2018-09-21'),
+            (2, 'Chi nhánh Láng Hạ', 'description_LangHa', 'about_LangHa', '01691234567', 'Láng Hạ', 'langha.com.vn', 'langha@nht.com', 'FB_LangHa', 'Insta_LangHa', 'Zalo_LangHa', '654321', 'LangHaBank', 0, 2, 4, '2018-09-21', '2018-09-21')
 
             ");
     }

@@ -7,16 +7,16 @@ use App\Repositories\Entity;
 class Department extends Entity {
 	use FilterTrait, PresentationTrait;
 
-	const ENABLE = 1;
-	const DISABLE = 0;
+	const ENABLE 	= 1;
+	const DISABLE 	= 0;
 
 	const ALL_STATUS = [
 		self::DISABLE,
 		self::ENABLE,
 	];
 	const DISPLAY_STATUS = [
-		self::DISABLE => 'Không hiển thị',
-		self::ENABLE => 'Hiển thị',
+		self::DISABLE 	=> 'Không hiển thị',
+		self::ENABLE 	=> 'Hiển thị',
 	];
 
 	/**
@@ -29,19 +29,13 @@ class Department extends Entity {
 		'status',
 	];
 
-	// public function scopeQ($query, $value = null)
-	// {
-	//     if ($value) {
-	//         return $query->where('name', 'like', "%{$value}%");
-	//     }
-	//     return $query;
-	// }
-
-	public function branch() {
+	public function branch()
+	{
 		return $this->belongsTo(\App\Repositories\Branches\Branch::class);
 	}
 
-	public function users() {
+	public function users()
+	{
 		return $this->belongsToMany(\App\User::class, 'department_user')->withPivot(['position_id', 'status']);
 	}
 }

@@ -34,9 +34,13 @@ class BranchTransformer extends TransformerAbstract
             'type'          => $branch->type,
             'type_txt'      => $branch->getType(),
             'city_id'       => $branch->city_id,
+            'city_name'     => $branch->city->name,
             'district_id'   => $branch->district_id,
+            'district_name' => $branch->district->name,
             'status'        => $branch->status,
             'status_txt'    => $branch->getStatus(),
+            'created_at'    => $branch->created_at,
+            'updated_at'    => $branch->updated_at,
         ];
     }
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Repositories\Departments\Department;
+use App\Repositories\Branches\Branch;
 use App\Repositories\Departments\DepartmentRepository;
 use App\Http\Transformers\DepartmentTransformer;
 
@@ -28,28 +29,28 @@ class DepartmentController extends ApiController
      */
     public function __construct(DepartmentRepository $department)
     {
-        $this->model = $department;
+        $this->department = $department;
         $this->setTransformer(new DepartmentTransformer);
-        $this->validationRules['status'] .= Department::getAllStatus();
     }
 
     public function index(Request $request)
     {
         $this->authorize('department.view');
         $pageSize = $request->get('limit', 25);
-        return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
+        return $this->successResponse($this->department->getByQuery($request->all(), $pageSize));
     }
 
     public function getByBranch(Request $request, $id)
     {
-        return $this->model->getByBranch($id);
+        $this->authorize('department.view');
+        return $this->successResponse($this->department->getByBranch($id));
     }
 
     public function show($id)
     {
         try {
             $this->authorize('department.view');
-            return $this->successResponse($this->model->getById($id));
+            return $this->successResponse($this->department->getById($id));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -61,10 +62,11 @@ class DepartmentController extends ApiController
 
     public function store(Request $request)
     {
+        $this->validationRules['status'] .= $this->department->getAllStatus();
         try {
             $this->authorize('department.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $data = $this->model->store($request->all());
+            $data = $this->department->store($request->all());
 
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -82,10 +84,11 @@ class DepartmentController extends ApiController
     public function update($id, Request $request)
     {
         $this->validationRules['name'] .= ',' . $id;
+        $this->validationRules['status'] .= $this->department->getAllStatus();
         try {
             $this->authorize('department.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $model = $this->model->update($id, $request->all());
+            $model = $this->department->update($id, $request->all());
             
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -105,7 +108,7 @@ class DepartmentController extends ApiController
     public function destroy($id)
     {
         try{
-            $this->model->delete($id);
+            $this->department->delete($id);
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();

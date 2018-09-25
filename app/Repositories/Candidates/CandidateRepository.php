@@ -21,16 +21,15 @@ class CandidateRepository extends BaseRepository
         $this->model = $candidate;
     }
 
-    public function update($id, $data, $excepts = [], $only = [])
+    public function getAllStatus()
     {
-        $record = parent::update($id, $data);
-        $interview_by = array_get($data, 'interview_by', []);
-        if ($interview_by) {
-            $this->storeOrUpdateInterview($record, $interview_by);
-        }
-        return $record;
-    }
+        return implode(',', Candidate::ALL_STATUS);
+    } 
 
+    public function getAllType()
+    {
+        return implode(',', Candidate::ALL_TYPE);
+    }
 
     public function store($data)
     {
@@ -40,6 +39,16 @@ class CandidateRepository extends BaseRepository
             $this->storeOrUpdateInterview($candidate, $interview_by);
         }
         return $candidate;
+    }
+
+    public function update($id, $data, $excepts = [], $only = [])
+    {
+        $record = parent::update($id, $data);
+        $interview_by = array_get($data, 'interview_by', []);
+        if ($interview_by) {
+            $this->storeOrUpdateInterview($record, $interview_by);
+        }
+        return $record;
     }
 
     public function storeOrUpdateInterview(Candidate $candidate, array $data)

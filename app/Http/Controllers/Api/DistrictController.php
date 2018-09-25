@@ -14,7 +14,7 @@ class DistrictController extends ApiController
      */
     public function __construct(DistrictRepository $district)
     {
-        $this->model = $district;
+        $this->district = $district;
         $this->setTransformer(new DistrictTransformer);
     }
 
@@ -27,7 +27,7 @@ class DistrictController extends ApiController
     {
         // $this->authorize('branch.view');
         // $pageSize = $request->get('limit', 25);
-        // return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
-        return $this->successResponse($this->model->getAll($request->all()));
+        // return $this->successResponse($this->district->getByQuery($request->all(), $pageSize));
+        return $this->successResponse($this->district->getAll($request->all()));
     }
 }

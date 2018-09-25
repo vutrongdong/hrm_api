@@ -16,10 +16,14 @@ class CreateContractsTable extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code', 10);
-            $table->unsignedTinyInteger('type');
             $table->string('title', 100);
-            // $table->unsignedTinyInteger('month_effective')->nullable();
-            $table->unsignedTinyInteger('status')->nullable()->default(1);
+            $table->unsignedTinyInteger('type');
+            $table->string('link')->nullable();
+            $table->date('date_sign');
+            $table->date('date_effective');
+            $table->date('date_expiration')->nullable();
+            $table->unsignedInteger('user_id');
+            $table->unsignedTinyInteger('status')->nullable()->default(0);
             $table->timestamps();
         });
     }

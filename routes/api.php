@@ -32,9 +32,10 @@ $router->group(['middleware' => 'auth'], function ($router) {
     $router->get('/departments/branches/{id}', 'DepartmentController@getByBranch');
     resource('/positions', 'PositionController', $router);
     resource('/contracts', 'ContractController', $router);
+    // resource('/contract_users', 'ContractUserController', $router);
     resource('/plans', 'PlanController', $router);
     resource('/candidates', 'CandidateController', $router);
-    resource('/plan_details', 'Plan_detailController', $router);
+    resource('/plan_details', 'PlanDetailController', $router);
 });
 
 

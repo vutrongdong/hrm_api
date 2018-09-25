@@ -12,28 +12,39 @@ class CandidateController extends ApiController
     protected $validationRules = [
         'name'             => 'required',
         'email'            => 'email|unique:candidates,email',
-        'status'           => 'in:',
+        'phone'            => 'digits_between:10,12',
+        'date_apply'       => 'date',
+        'plan_id'          => 'required|exists:plans,id',
+        'position_id'      => 'required|exists:positions,id',
+        'time_interview'   => 'datetime',
         'interview_by'     => 'array',
         'interview_by'     => 'exists:users,id',
+        'status'           => 'in:',
     ];
     protected $validationMessages = [
         'name.required'             => 'Tên ứng viên không được để trống',
         'email.email'               => 'Email không đúng định dạng',
         'email.unique'              => 'Email đã tồn tại trên hệ thống',
-        'status.in'                 => 'Trạng thái không hợp lệ',
+        'phone.digits_between'      => 'Số điện thoại không hợp lệ',
+        'date_apply.date'           => 'Ngày nộp hồ sơ không hợp lệ',
+        'plan_id.required'          => 'Kế hoạch không được để trống',
+        'plan_id.exists'            => 'Kế hoạch không tồn tại trên hệ thống',
+        'position_id.required'      => 'Chức vụ không được để trống',
+        'position_id.exists'        => 'Chức vụ không tồn tại trên hệ thống',
+        'time_interview.datetime'   => 'Thời gian phỏng vấn không hợp lệ',
         'interview_by.array'        => 'Người phỏng vấn không hợp lệ',
         'interview_by.exists'       => 'Người phỏng vấn không tồn tại trên hệ thống',
+        'status.in'                 => 'Trạng thái không hợp lệ',
     ];
 
     /**
      * PlanController constructor.
      * @param PlanRepository $plan
      */
-    public function __construct(CandidateRepository $plan)
+    public function __construct(CandidateRepository $candidate)
     {
-        $this->model = $plan;
+        $this->candidate = $candidate;
         $this->setTransformer(new CandidateTransformer);
-        $this->validationRules['status'] .= Candidate::getAllStatus();
     }
 
     /**
@@ -45,14 +56,14 @@ class CandidateController extends ApiController
     {
         $this->authorize('candidate.view');
         $pageSize = $request->get('limit', 25);
-        return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
+        return $this->successResponse($this->candidate->getByQuery($request->all(), $pageSize));
     }
 
     public function show($id)
     {
         try {
             $this->authorize('candidate.view');
-            return $this->successResponse($this->model->getById($id));
+            return $this->successResponse($this->candidate->getById($id));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -64,10 +75,11 @@ class CandidateController extends ApiController
 
     public function store(Request $request)
     {
+        $this->validationRules['status'] .= $this->candidate->getAllStatus();
         try {
             $this->authorize('candidate.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $data = $this->model->store($request->all());
+            $data = $this->candidate->store($request->all());
 
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -85,10 +97,11 @@ class CandidateController extends ApiController
     public function update($id, Request $request)
     {
         $this->validationRules['email'] .= ',' . $id;
+        $this->validationRules['status'] .= $this->candidate->getAllStatus();
         try {
             $this->authorize('candidate.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $model = $this->model->update($id, $request->all());
+            $model = $this->candidate->update($id, $request->all());
             
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -109,7 +122,7 @@ class CandidateController extends ApiController
     {
         try{
             $this->authorize('candidate.delete');
-            $this->model->delete($id);
+            $this->candidate->delete($id);
 
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

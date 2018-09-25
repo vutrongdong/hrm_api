@@ -19,11 +19,14 @@ class DepartmentTransformer extends TransformerAbstract {
 		}
 
 		$data = [
-			'id' => $department->id,
-			'name' => $department->name,
-			'branch_id' => $department->branch_id,
-			'status' => $department->status,
-			'status_txt' => $department->getStatus(),
+			'id' 			=> $department->id,
+			'name' 			=> $department->name,
+			'branch_id' 	=> $department->branch_id,
+			'branch_name'	=> $department->branch->name,
+			'status'		=> $department->status,
+			'status_txt' 	=> $department->getStatus(),
+			// 'created_at'    => $department->created_at,
+			// 'updated_at'    => $department->updated_at,
 		];
 
 		if ($department->pivot && $department->pivot->position_id) {

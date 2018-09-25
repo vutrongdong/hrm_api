@@ -6,6 +6,7 @@ use App\User;
 use DB;
 
 use App\Repositories\BaseRepository;
+use App\Repositories\Contracts\ContractRepository;
 
 class UserRepository extends BaseRepository
 {
@@ -24,12 +25,26 @@ class UserRepository extends BaseRepository
         $this->model = $user;
     }
 
+    public function getAllGender()
+    {
+        return implode(',', User::ALL_GENDER);
+    }
+    public function getAllStatus()
+    {
+        return implode(',', User::ALL_STATUS);
+    }
+
     public function update($id, $data, $excepts = [], $only = [])
     {
         $record = parent::update($id, $data);
         $departments = array_get($data, 'departments', []);
         if ($departments) {
             $this->storeOrUpdateDepartmentUser($record, $departments);
+        }
+
+        $contracts = array_get($data, 'contracts', []);
+        if ($contracts) {
+            $this->updateContract($record, $contracts);
         }
         return $record;
     }
@@ -41,7 +56,23 @@ class UserRepository extends BaseRepository
         if ($departments) {
             $this->storeOrUpdateDepartmentUser($user, $departments);
         }
+
+        $contracts = array_get($data, 'contracts', []);
+        if ($contracts) {
+            $this->storeContract($user, $contracts);
+        }
         return $user;
+    }
+
+    public function storeContract(User $user, $data)
+    {
+        $data['user_id'] = $user->id;
+        app()->make(ContractRepository::class)->store($data);
+    }
+
+    public function updateContract(User $user, $data)
+    {
+        app()->make(ContractRepository::class)->update($data['id'], $data);
     }
 
     /**
@@ -60,15 +91,14 @@ class UserRepository extends BaseRepository
             status
         ]
         => 
-            [department_id => ['position_id' => '', 'status' => '']]*/
+        [department_id => ['position_id' => '', 'status' => '']]*/
         $insertData = [];
         foreach ($data as $key => $value) {
             $insertData[$value['department_id']] = [
                 'position_id' => $value['position_id'],
-                'status' => $value['status']
+                'status' => array_get($data, $key.'.status', 0)
             ];
         }
-
         $user->departments()->sync($insertData);
     }
 }

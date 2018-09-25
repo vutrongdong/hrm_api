@@ -14,7 +14,7 @@ class CityController extends ApiController
      */
     public function __construct(CityRepository $city)
     {
-        $this->model = $city;
+        $this->city = $city;
         $this->setTransformer(new CityTransformer);
     }
 
@@ -26,14 +26,14 @@ class CityController extends ApiController
     public function index(Request $request)
     {
         // $pageSize = $request->get('limit', 25);
-        // return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
-        return $this->successResponse($this->model->getAll($request->all()));
+        // return $this->successResponse($this->city->getByQuery($request->all(), $pageSize));
+        return $this->successResponse($this->city->getAll($request->all()));
     }
 
     public function show($id)
     {
         try {
-            return $this->successResponse($this->model->getById($id));
+            return $this->successResponse($this->city->getById($id));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {

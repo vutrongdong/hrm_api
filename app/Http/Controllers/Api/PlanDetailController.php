@@ -3,31 +3,31 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use App\Repositories\Plan_details\Plan_detail;
-use App\Repositories\Plan_details\Plan_detailRepository;
-use App\Http\Transformers\Plan_detailTransformer;
+use App\Repositories\PlanDetails\PlanDetail;
+use App\Repositories\PlanDetails\PlanDetailRepository;
+use App\Http\Transformers\PlanDetailTransformer;
 
-class Plan_detailController extends ApiController
+class PlanDetailController extends ApiController
 {
     protected $validationRules = [
-        // 'title'     => 'required|unique:plan_details,title',
-        // 'status'    => 'in:',
+        // 'plan_id'           => 'exists:plans,id',
+        'department_id'     => 'exists:departments,id',
+        'position_id'       => 'exists:positions,id',
     ];
     protected $validationMessages = [
-        // 'title.required' => 'Tiêu đề không được để trống',
-        // 'title.unique'   => 'Tiêu đề đã tồn tại trên hệ thống',
-        // 'status.in'      => 'Trạng thái không hợp lệ',
+        // 'plan_id.exists'         => 'Kế hoạch không tồn tại trên hệ thống',
+        'department_id.exists'   => 'Phòng ban không tồn tại trên hệ thống',
+        'position_id.exists'     => 'Chức vụ không tồn tại trên hệ thống',
     ];
 
     /**
-     * Plan_detailController constructor.
-     * @param Plan_detailRepository $plan_detail
+     * PlanDetailController constructor.
+     * @param PlanDetailRepository $planDetail
      */
-    public function __construct(Plan_detailRepository $plan_detail)
+    public function __construct(PlanDetailRepository $planDetail)
     {
-        $this->model = $plan_detail;
-        $this->setTransformer(new Plan_detailTransformer);
-        // $this->validationRules['status'] .= Plan_detail::getAllStatus();
+        $this->planDetail = $planDetail;
+        $this->setTransformer(new PlanDetailTransformer);
     }
 
     /**
@@ -37,16 +37,16 @@ class Plan_detailController extends ApiController
     */
     public function index(Request $request)
     {
-        // $this->authorize('plan_detail.view');
+        // $this->authorize('planDetail.view');
         $pageSize = $request->get('limit', 25);
-        return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
+        return $this->successResponse($this->planDetail->getByQuery($request->all(), $pageSize));
     }
 
     public function show($id)
     {
         try {
-            // $this->authorize('plan_detail.view');
-            return $this->successResponse($this->model->getById($id));
+            // $this->authorize('planDetail.view');
+            return $this->successResponse($this->planDetail->getById($id));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -59,9 +59,9 @@ class Plan_detailController extends ApiController
     public function store(Request $request)
     {
         try {
-            // $this->authorize('plan_detail.create');
+            // $this->authorize('planDetail.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $data = $this->model->store($request->all());
+            $data = $this->planDetail->store($request->all());
 
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -80,9 +80,9 @@ class Plan_detailController extends ApiController
     {
         // $this->validationRules['title'] .= ',' . $id;
         try {
-            // $this->authorize('plan_detail.update');
+            // $this->authorize('planDetail.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $model = $this->model->update($id, $request->all());
+            $model = $this->planDetail->update($id, $request->all());
             
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -102,8 +102,8 @@ class Plan_detailController extends ApiController
     public function destroy($id)
     {
         try{
-            // $this->authorize('plan_detail.delete');
-            $this->model->delete($id);
+            // $this->authorize('planDetail.delete');
+            $this->planDetail->delete($id);
 
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

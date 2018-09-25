@@ -26,7 +26,7 @@ class SettingController extends ApiController
      */
     public function __construct(SettingRepository $setting)
     {
-        $this->model = $setting;
+        $this->setting = $setting;
         $this->setTransformer(new SettingTransformer);
     }
 
@@ -39,14 +39,14 @@ class SettingController extends ApiController
     {
         $this->authorize('setting.view');
         $pageSize = $request->get('limit', 25);
-        return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
+        return $this->successResponse($this->setting->getByQuery($request->all(), $pageSize));
     }
 
     public function show($id)
     {
         try {
             $this->authorize('setting.view');
-            return $this->successResponse($this->model->getById($id));
+            return $this->successResponse($this->setting->getById($id));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -61,7 +61,7 @@ class SettingController extends ApiController
         try {
             $this->authorize('setting.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $data = $this->model->store($request->all());
+            $data = $this->setting->store($request->all());
 
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -89,7 +89,7 @@ class SettingController extends ApiController
         try {
             $this->authorize('setting.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $model = $this->model->update($id, $request->all());
+            $model = $this->setting->update($id, $request->all());
             
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -110,7 +110,7 @@ class SettingController extends ApiController
     {
          try{
             $this->authorize('setting.delete');
-            $this->model->delete($id);
+            $this->setting->delete($id);
 
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

@@ -20,4 +20,14 @@ class ContractRepository extends BaseRepository
     {
         $this->model = $contract;
     }
+
+    public function getAllStatus()
+    {
+        return implode(',', Contract::ALL_STATUS);
+    }   
+
+    public function getAllType()
+    {
+        return implode(',', Contract::ALL_TYPE);
+    }
 }

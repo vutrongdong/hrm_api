@@ -9,12 +9,12 @@ class Setting extends Entity
 {
     use FilterTrait, PresentationTrait;
 
-    const DISABLE = 0;
-    const ENABLE = 1;
+    const DISABLE   = 0;
+    const ENABLE    = 1;
 
     const DISPLAY_STATUS = [
-        self::DISABLE => 'Không kích hoạt',
-        self::ENABLE => 'Kích hoạt',
+        self::DISABLE   => 'Không kích hoạt',
+        self::ENABLE    => 'Kích hoạt',
     ];
 
     /**

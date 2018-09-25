@@ -9,23 +9,28 @@ class Contract extends Entity
 {
     use FilterTrait, PresentationTrait;
 
-    const DISABLE = 0;
-    const ENABLE = 1;
+    const STANDARD      = 0;
+    const TERMINATE     = 1;
+    const RENEW         = 2;
 
     const ALL_STATUS = [
-        self::DISABLE,
-        self::ENABLE,
-    ];
-    const DISPLAY_STATUS = [
-        self::DISABLE => 'Không hiển thị',
-        self::ENABLE => 'Hiển thị',
+        self::STANDARD,
+        self::TERMINATE,
+        self::RENEW,
     ];
 
-    const TRAINING = 0;
-    const COLLABORATOR = 1;
-    const PROBATION = 2;
-    const FORMAL_TERM = 3;
-    const FORMAL_WITHOUT_TERM = 4;
+    const DISPLAY_STATUS = [
+        self::STANDARD      => 'Tiêu chuẩn',
+        self::TERMINATE     => 'Chấm dứt',
+        self::RENEW         => 'Gia hạn',
+    ];
+
+    const TRAINING              = 0;
+    const COLLABORATOR          = 1;
+    const PROBATION             = 2;
+    const FORMAL_TERM           = 3;
+    const FORMAL_WITHOUT_TERM   = 4;
+    const OTHER                 = 5;
 
     const ALL_TYPE = [
         self::TRAINING,
@@ -33,13 +38,15 @@ class Contract extends Entity
         self::PROBATION,
         self::FORMAL_TERM,
         self::FORMAL_WITHOUT_TERM,
+        self::OTHER,
     ];
     const DISPLAY_TYPE = [
-        self::TRAINING => 'Hợp đồng học việc',
-        self::COLLABORATOR => 'Hợp đồng cộng tác viên',
-        self::PROBATION => 'Hợp đồng thử việc',
-        self::FORMAL_TERM => 'Hợp đồng chính thức có thời hạn',
-        self::FORMAL_WITHOUT_TERM => 'Hợp đồng chính thức không thời hạn',
+        self::TRAINING              => 'Học việc',
+        self::COLLABORATOR          => 'Cộng tác viên',
+        self::PROBATION             => 'Thử việc',
+        self::FORMAL_TERM           => 'Có thời hạn',
+        self::FORMAL_WITHOUT_TERM   => 'Không thời hạn',
+        self::OTHER                 => 'Khác',
     ];
 
     /**
@@ -47,9 +54,13 @@ class Contract extends Entity
      * @var array
      */
     protected $fillable = [
-        'code',
         'title',
         'type',
+        'link',
+        'date_sign',
+        'date_effective',
+        'date_expiration',
+        'user_id',
         'status',
     ];
 
@@ -63,8 +74,8 @@ class Contract extends Entity
         });
     }
 
-    public function users()
+    public function user()
     {
-        return $this->belongsToMany(\App\User::class, 'contract_user');
+        return $this->belongsTo(\App\User::class);
     }
 }

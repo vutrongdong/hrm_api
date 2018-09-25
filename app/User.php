@@ -4,7 +4,7 @@ namespace App;
 
 use App\Repositories\Entity;
 use App\Repositories\Users\FilterTrait;
-// use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Repositories\Users\PresentationTrait;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -15,9 +15,9 @@ use Laravel\Passport\HasApiTokens;
 class User extends Entity implements AuthenticatableContract, AuthorizableContract {
 	use Authenticatable, Authorizable, HasApiTokens, FilterTrait, PresentationTrait;
 
-	const FEMALE = 0;
-	const MALE = 1;
-	const OTHER = 2;
+	const FEMALE 	= 0;
+	const MALE 		= 1;
+	const OTHER 	= 2;
 
 	const ALL_GENDER = [
 		self::FEMALE,
@@ -25,21 +25,21 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
 		self::OTHER,
 	];
 	const DISPLAY_GENDER = [
-		self::FEMALE => 'Nữ',
-		self::MALE => 'Nam',
-		self::OTHER => 'Khác',
+		self::FEMALE 	=> 'Nữ',
+		self::MALE 		=> 'Nam',
+		self::OTHER 	=> 'Khác',
 	];
 
-	const DISABLE = 0;
-	const ENABLE = 1;
+	const DISABLE 	= 0;
+	const ENABLE	= 1;
 
 	const ALL_STATUS = [
 		self::DISABLE,
 		self::ENABLE,
 	];
 	const DISPLAY_STATUS = [
-		self::DISABLE => 'Không kích hoạt',
-		self::ENABLE => 'Kích hoạt',
+		self::DISABLE 	=> 'Không kích hoạt',
+		self::ENABLE 	=> 'Kích hoạt',
 	];
 
 	/**
@@ -69,6 +69,8 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
 		'password',
 	];
 
+	protected $date = ['deleted_at'];
+
 	public static function boot() {
 		parent::boot();
 
@@ -93,12 +95,12 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
 		return $this->belongsToMany(\App\Repositories\Departments\Department::class, 'department_user')->withPivot(['position_id', 'status']);
 	}
 
-	public function positions() {
-		return $this->belongsToMany(\App\Repositories\Positions\Position::class, 'department_user')->withPivot(['department_id', 'status']);
-	}
+	// public function positions() {
+	// 	return $this->belongsToMany(\App\Repositories\Positions\Position::class, 'department_user')->withPivot(['department_id', 'status']);
+	// }
 
 	public function contracts() {
-		return $this->belongsToMany(\App\Repositories\Contracts\Contract::class, 'contract_user');
+		return $this->hasMany(\App\Repositories\Contracts\Contract::class);
 	}
 
 	public function candidates() {

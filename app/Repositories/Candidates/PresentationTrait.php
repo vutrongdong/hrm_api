@@ -13,14 +13,4 @@ trait PresentationTrait
     {
         return self::DISPLAY_TYPE[$this->status ?? self::TRAINING];
     }
-
-    public static function getAllStatus()
-    {
-        return implode(',', self::ALL_STATUS);
-    } 
-
-    public static function getAllType()
-    {
-        return implode(',', self::ALL_TYPE);
-    }
 }

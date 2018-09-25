@@ -20,6 +20,8 @@ class SettingTransformer extends TransformerAbstract
             'value'         => $setting->value,
             'status'        => $setting->status,
             'status_txt'    => $setting->getStatus(),
+            'created_at'    => $setting->created_at,
+            'updated_at'    => $setting->updated_at,
         ];
     }
 }

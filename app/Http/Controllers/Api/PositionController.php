@@ -25,9 +25,8 @@ class PositionController extends ApiController
      */
     public function __construct(PositionRepository $position)
     {
-        $this->model = $position;
+        $this->position = $position;
         $this->setTransformer(new PositionTransformer);
-        $this->validationRules['status'] .= Position::getAllStatus();
     }
 
     /**
@@ -39,14 +38,14 @@ class PositionController extends ApiController
     {
         $this->authorize('position.view');
         $pageSize = $request->get('limit', 25);
-        return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
+        return $this->successResponse($this->position->getByQuery($request->all(), $pageSize));
     }
 
     public function show($id)
     {
         try {
             $this->authorize('position.view');
-            return $this->successResponse($this->model->getById($id));
+            return $this->successResponse($this->position->getById($id));
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -58,10 +57,11 @@ class PositionController extends ApiController
 
     public function store(Request $request)
     {
+        $this->validationRules['status'] .= $this->position->getAllStatus();
         try {
             $this->authorize('position.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $data = $this->model->store($request->all());
+            $data = $this->position->store($request->all());
 
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -78,11 +78,12 @@ class PositionController extends ApiController
 
     public function update($id, Request $request)
     {
+        $this->validationRules['status'] .= $this->position->getAllStatus();
         $this->validationRules['name'] .= ',' . $id;
         try {
             $this->authorize('position.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $model = $this->model->update($id, $request->all());
+            $model = $this->position->update($id, $request->all());
             
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -103,7 +104,7 @@ class PositionController extends ApiController
     {
         try{
             $this->authorize('position.delete');
-            $this->model->delete($id);
+            $this->position->delete($id);
 
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

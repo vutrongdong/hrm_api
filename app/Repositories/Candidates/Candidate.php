@@ -9,11 +9,11 @@ class Candidate extends Entity
 {
     use FilterTrait, PresentationTrait;
 
-    const CREATED = 0;
-    const WAIT_RESULT = 1;
-    const FAIL = 2;
-    const PASS = 3;
-    const BLACKLIST = 4;
+    const CREATED       = 0;
+    const WAIT_RESULT   = 1;
+    const FAIL          = 2;
+    const PASS          = 3;
+    const BLACKLIST     = 4;
 
     const ALL_STATUS = [
         self::CREATED,
@@ -23,11 +23,11 @@ class Candidate extends Entity
         self::BLACKLIST,
     ];
     const DISPLAY_STATUS = [
-        self::CREATED => 'Mới',
-        self::WAIT_RESULT => 'Chờ kết quả',
-        self::PASS => 'Trượt',
-        self::FAIL => 'Đỗ',
-        self::BLACKLIST => 'Danh sách đen',
+        self::CREATED       => 'Mới',
+        self::WAIT_RESULT   => 'Chờ kết quả',
+        self::PASS          => 'Trượt',
+        self::FAIL          => 'Đỗ',
+        self::BLACKLIST     => 'Danh sách đen',
     ];
 
     /**

@@ -12,12 +12,12 @@ class CandidatesTableSeeder extends Seeder
     public function run()
     {
         DB::statement("
-            INSERT INTO `candidates` (`name`, `plan_id`, `position_id`, `status`) VALUES
-            ('Nguyễn Văn A', 1, 5, 0), 
-            ('Nguyễn Văn B', 1, 5, 1),
-            ('Nguyễn Văn C', 2, 6, 2),
-            ('Nguyễn Thị D', 2, 6, 3), 
-            ('Nguyễn Thị E', 3, 5, 0)
+            INSERT INTO `candidates` (`name`, `plan_id`, `position_id`, `status`, `created_at`, `updated_at`) VALUES
+            ('Nguyễn Văn A', 1, 5, 0, '2018-09-21', '2018-09-21'), 
+            ('Nguyễn Văn B', 1, 5, 1, '2018-09-21', '2018-09-21'),
+            ('Nguyễn Văn C', 2, 6, 2, '2018-09-21', '2018-09-21'),
+            ('Nguyễn Thị D', 2, 6, 3, '2018-09-21', '2018-09-21'), 
+            ('Nguyễn Thị E', 3, 5, 0, '2018-09-21', '2018-09-21')
             ");
 
         DB::table('interview')->insert([
