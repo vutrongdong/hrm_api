@@ -41,6 +41,6 @@ class ContractTransformer extends TransformerAbstract
     //         return $this->null();
     //     }
 
-    //     return $this->collection($contract->user, new UserTransformer);
+    //     return $this->item($contract->user, new UserTransformer);
     // }
 }

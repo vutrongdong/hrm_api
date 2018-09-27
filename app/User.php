@@ -107,10 +107,6 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
 		return $this->belongsToMany(\App\Repositories\Candidates\Candidate::class, 'interview', 'interview_by', 'candidate_id');
 	}
 
-	public function candidates() {
-		return $this->belongsToMany(\App\Repositories\Candidates\Candidate::class, 'interview', 'interview_by', 'candidate_id');
-	}
-
 	public function validateForPassportPasswordGrant($password) {
 		if ($password == $this->password || app('hash')->check($password, $this->password)) {
 			return true;

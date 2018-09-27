@@ -20,4 +20,9 @@ class DistrictRepository extends BaseRepository
     {
         $this->model = $district;
     }
+
+    public function getByCity(int $id)
+    {
+        return $this->model->where('city_id', $id)->get();
+    }
 }

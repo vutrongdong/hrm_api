@@ -46,11 +46,6 @@ class DepartmentController extends ApiController
         return $this->successResponse($this->department->getByBranch($id));
     }
 
-    public function getByBranch(Request $request, $id)
-    {
-        return $this->model->getByBranch($id);
-    }
-
     public function show($id)
     {
         try {

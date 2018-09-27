@@ -19,6 +19,8 @@ class CreatePlanDetailsTable extends Migration
             $table->unsignedInteger('department_id');
             $table->unsignedInteger('position_id');
             $table->unsignedTinyInteger('quantity');
+
+            $table->foreign('plan_id')->references('id')->on('plans')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

@@ -30,6 +30,7 @@ $router->group(['middleware' => 'auth'], function ($router) {
     resource('/branches', 'BranchController', $router);
     resource('/departments', 'DepartmentController', $router);
     $router->get('/departments/branches/{id}', 'DepartmentController@getByBranch');
+    $router->get('/districts/cities/{id}', 'DistrictController@getByCity');
     resource('/positions', 'PositionController', $router);
     resource('/contracts', 'ContractController', $router);
     // resource('/contract_users', 'ContractUserController', $router);

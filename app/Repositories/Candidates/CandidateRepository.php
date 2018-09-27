@@ -3,6 +3,7 @@
 namespace App\Repositories\Candidates;
 
 use App\Repositories\BaseRepository;
+use App\Events\StoreOrUpdateInterviewEvent;
 
 class CandidateRepository extends BaseRepository
 {
@@ -36,7 +37,7 @@ class CandidateRepository extends BaseRepository
         $candidate = parent::store($data);
         $interview_by = array_get($data, 'interview_by', []);
         if ($interview_by) {
-            $this->storeOrUpdateInterview($candidate, $interview_by);
+            event(new StoreInterviewEvent($candidate, $interview_by));
         }
         return $candidate;
     }
@@ -46,13 +47,8 @@ class CandidateRepository extends BaseRepository
         $record = parent::update($id, $data);
         $interview_by = array_get($data, 'interview_by', []);
         if ($interview_by) {
-            $this->storeOrUpdateInterview($record, $interview_by);
+            event(new StoreOrUpdateInterviewEvent($record, $interview_by));
         }
         return $record;
-    }
-
-    public function storeOrUpdateInterview(Candidate $candidate, array $data)
-    {
-        $candidate->users()->sync($data);
     }
 }

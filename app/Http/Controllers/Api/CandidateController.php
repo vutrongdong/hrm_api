@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use DB;
 use Illuminate\Http\Request;
 use App\Repositories\Candidates\Candidate;
 use App\Repositories\Candidates\CandidateRepository;
@@ -12,11 +13,11 @@ class CandidateController extends ApiController
     protected $validationRules = [
         'name'             => 'required',
         'email'            => 'email|unique:candidates,email',
-        'phone'            => 'digits_between:10,12',
-        'date_apply'       => 'date',
+        'phone'            => 'nullable|digits_between:10,12',
+        'date_apply'       => 'nullable|date',
         'plan_id'          => 'required|exists:plans,id',
         'position_id'      => 'required|exists:positions,id',
-        'time_interview'   => 'datetime',
+        // 'time_interview'   => 'datetime',
         'interview_by'     => 'array',
         'interview_by'     => 'exists:users,id',
         'status'           => 'in:',
@@ -76,20 +77,24 @@ class CandidateController extends ApiController
     public function store(Request $request)
     {
         $this->validationRules['status'] .= $this->candidate->getAllStatus();
+        DB::beginTransaction();
         try {
             $this->authorize('candidate.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->candidate->store($request->all());
-
+            DB::commit();
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollback();
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
                 'exception' => $validationException->getMessage()
             ]);
         } catch (\Exception $e) {
+            DB::rollback();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollback();
             throw $t;
         }
     }
@@ -98,38 +103,47 @@ class CandidateController extends ApiController
     {
         $this->validationRules['email'] .= ',' . $id;
         $this->validationRules['status'] .= $this->candidate->getAllStatus();
+        DB::beginTransaction();
         try {
             $this->authorize('candidate.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->candidate->update($id, $request->all());
-            
+            DB::commit();
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollback();
             return $this    ->errorResponse([
                 'errors' => $validationException->validator->errors(),
                 'exception' => $validationException->getMessage()
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollback();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollback();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollback();
             throw $t;
         }
     }
 
     public function destroy($id)
     {
+        DB::beginTransaction();
         try{
             $this->authorize('candidate.delete');
             $this->candidate->delete($id);
-
+            DB::commit();
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollback();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollback();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollback();
             throw $t;
         }
     }
