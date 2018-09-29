@@ -14,8 +14,15 @@
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
-        'email' => $faker->email,
+        'email' => $faker->unique()->freeEmail,
         'password' => '123456',
-        'remember_token' => str_random(10)
+        'remember_token' => str_random(10),
+        'qualification' => $faker->randomElement(['Đại học', 'Cao đẳng', 'Trung cấp']),
+        'phone' => '0'.$faker->randomNumber($nbDigits = 9),
+        'address' => $faker->address,
+        'date_of_birth' => $faker->date($format = 'Y-m-d', $max = '-18 years'),
+        'avatar' => 'tmp/'.$faker->randomNumber($nbDigits = 9).'.jpg',
+        'gender' => rand(0, 2),
+        'status' => rand(0, 1)
     ];
 });

@@ -27,6 +27,6 @@ class StoreOrUpdateInterviewListener
      */
     public function handle(StoreOrUpdateInterviewEvent $event)
     {
-        $event->candidate->users()->sync($event->interview_by);
+        $event->candidate->users()->sync($event->interviewBy);
     }
 }

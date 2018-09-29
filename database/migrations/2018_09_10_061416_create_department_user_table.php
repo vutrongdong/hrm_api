@@ -16,7 +16,7 @@ class CreateDepartmentUserTable extends Migration
         Schema::create('department_user', function (Blueprint $table) {
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('department_id');
-            $table->unsignedInteger('position_id'); 
+            $table->unsignedInteger('position_id');
             $table->unsignedTinyInteger('status')->default(1);
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');

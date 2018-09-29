@@ -90,7 +90,7 @@ class SettingController extends ApiController
             $this->authorize('setting.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->setting->update($id, $request->all());
-            
+
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this    ->errorResponse([

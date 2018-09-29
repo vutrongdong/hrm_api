@@ -89,7 +89,7 @@ class DepartmentController extends ApiController
             $this->authorize('department.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->department->update($id, $request->all());
-            
+
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this    ->errorResponse([

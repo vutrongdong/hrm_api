@@ -38,7 +38,7 @@ trait PresentationTrait
         return $this->hasAccess(['admin.super-admin']);
     }
 
-    
+
     public function getGender()
     {
         return self::DISPLAY_GENDER[$this->gender ?? self::FEMALE];

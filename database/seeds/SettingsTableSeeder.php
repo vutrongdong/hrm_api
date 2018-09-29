@@ -11,19 +11,80 @@ class SettingsTableSeeder extends Seeder
     */
     public function run()
     {
-        DB::statement("INSERT INTO `settings` (`id`, `name`, `slug`, `value`, `created_at`, `updated_at`) VALUES
-            (1, 'name', 'name', 'Triplan', '2018-09-21', '2018-09-21'),
-            (2, 'description', 'description', 'description_Triplan', '2018-09-21', '2018-09-21'),
-            (3, 'about', 'about', 'about_Triplan', '2018-09-21', '2018-09-21'),
-            (4, 'phone', 'phone', 'phone_Triplan', '2018-09-21', '2018-09-21'),
-            (5, 'address', 'address', 'address_Triplan', '2018-09-21', '2018-09-21'),
-            (6, 'website', 'website', 'website_Triplan', '2018-09-21', '2018-09-21'),
-            (7, 'email', 'email', 'email_Triplan', '2018-09-21', '2018-09-21'),
-            (8, 'facebook', 'facebook', 'facebook_Triplan', '2018-09-21', '2018-09-21'),
-            (9, 'instagram', 'instagram', 'instagram_Triplan', '2018-09-21', '2018-09-21'),
-            (10, 'zalo', 'zalo', 'zalo_Triplan', '2018-09-21', '2018-09-21'),
-            (11, 'tax_number', 'tax_number', 'tax_number_Triplan', '2018-09-21', '2018-09-21'),
-            (12, 'bank', 'bank', 'bank_Triplan', '2018-09-21', '2018-09-21')
-            ");
+        $faker = Faker\Factory::create();
+
+        DB::table('settings')->insert([
+            [
+                'name'  => 'Tên công ty',
+                'slug'  => 'name',
+                'value' => 'Công ty CP TM&DV Nguyên Hà'
+            ],
+
+            [
+                'name'  => 'Địa chỉ',
+                'slug'  => 'Tầng 3, số 102 phố Thái Thịnh, Đống Đa, Hà Nội',
+                'value' => '0938.622.888'
+            ],
+
+            [
+                'name'  => 'Email',
+                'slug'  => 'email',
+                'value' => 'info@nguyenhats.com'
+            ],
+
+            [
+                'name'  => 'Số điện thoại',
+                'slug'  => 'phone',
+                'value' => '0938622888'
+            ],
+
+            [
+                'name'  => 'Website',
+                'slug'  => 'website',
+                'value' => 'http://nguyenhats.com'
+            ],
+
+            [
+                'name'  => 'Mô tả',
+                'slug'  => 'description',
+                'value' => 'Cung cấp dịch vụ phát triển ứng dụng website.'
+            ],
+
+            [
+                'name'  => 'Thông tin',
+                'slug'  => 'about',
+                'value' => 'Chúng tôi là một công ty công nghệ chuyên cung cấp các giải pháp, dịch vụ nền tảng website. Với nhiều năm kinh nghiệm phát triển những hệ thống website E-Commerce lớn như Vatgia, Mytour và rất nhiều dự án website trải rộng khắp các lĩnh vực khiến chúng tôi tự tin vào khả năng đáp ứng của mình.'
+            ],
+
+            [
+                'name'  => 'Facebook',
+                'slug'  => 'facebook',
+                'value' => 'facebook.com/nguyenhatech'
+            ],
+
+            [
+                'name'  => 'Instagram',
+                'slug'  => 'instagram',
+                'value' => $faker->unique()->company
+            ],
+
+            [
+                'name'  => 'Zalo',
+                'slug'  => 'zalo',
+                'value' => $faker->unique()->company
+            ],
+
+            [
+                'name'  => 'Mã số thuế',
+                'slug'  => 'tax_number',
+                'value' => $faker->unique()->ean8
+            ],            
+
+            [
+                'name'  => 'Ngân hàng',
+                'slug'  => 'bank',
+                'value' => 'Maritime Bank'
+            ],
+        ]);
     }
 }

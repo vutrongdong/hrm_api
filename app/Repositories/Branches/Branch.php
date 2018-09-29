@@ -59,7 +59,7 @@ class Branch extends Entity
     public function city()
     {
         return $this->belongsTo(\App\Repositories\Cities\City::class);
-    }   
+    }
 
     public function district()
     {

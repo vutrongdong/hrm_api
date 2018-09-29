@@ -11,30 +11,36 @@ class CandidatesTableSeeder extends Seeder
     */
     public function run()
     {
-        DB::statement("
-            INSERT INTO `candidates` (`name`, `plan_id`, `position_id`, `status`, `created_at`, `updated_at`) VALUES
-            ('Nguyễn Văn A', 1, 5, 0, '2018-09-21', '2018-09-21'), 
-            ('Nguyễn Văn B', 1, 5, 1, '2018-09-21', '2018-09-21'),
-            ('Nguyễn Văn C', 2, 6, 2, '2018-09-21', '2018-09-21'),
-            ('Nguyễn Thị D', 2, 6, 3, '2018-09-21', '2018-09-21'), 
-            ('Nguyễn Thị E', 3, 5, 0, '2018-09-21', '2018-09-21')
-            ");
+        factory(\App\Repositories\Candidates\Candidate::class, 30)->create()->each(function($candidate) {
+            for($i = 0; $i <= rand(1,3); $i++) {
+                $candidate->users()->sync([rand(2, 100)]);
+            }
+        });
+        
+        // DB::statement("
+        //     INSERT INTO `candidates` (`name`, `plan_id`, `position_id`, `status`, `created_at`, `updated_at`) VALUES
+        //     ('Nguyễn Văn A', 1, 5, 0, '2018-09-21', '2018-09-21'),
+        //     ('Nguyễn Văn B', 1, 5, 1, '2018-09-21', '2018-09-21'),
+        //     ('Nguyễn Văn C', 2, 6, 2, '2018-09-21', '2018-09-21'),
+        //     ('Nguyễn Thị D', 2, 6, 3, '2018-09-21', '2018-09-21'),
+        //     ('Nguyễn Thị E', 3, 5, 0, '2018-09-21', '2018-09-21')
+        //     ");
 
-        DB::table('interview')->insert([
-            [
-                'candidate_id' => 1,
-                'interview_by' => 1,
-            ],
+        // DB::table('interview')->insert([
+        //     [
+        //         'candidate_id' => 1,
+        //         'interview_by' => 1,
+        //     ],
 
-            [
-                'candidate_id' => 1,
-                'interview_by' => 2,
-            ],
+        //     [
+        //         'candidate_id' => 1,
+        //         'interview_by' => 2,
+        //     ],
 
-            [
-                'candidate_id' => 2,
-                'interview_by' => 2,
-            ]
-        ]);
+        //     [
+        //         'candidate_id' => 2,
+        //         'interview_by' => 2,
+        //     ]
+        // ]);
     }
 }

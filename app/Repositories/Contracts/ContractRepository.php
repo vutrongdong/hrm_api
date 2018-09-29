@@ -24,7 +24,7 @@ class ContractRepository extends BaseRepository
     public function getAllStatus()
     {
         return implode(',', Contract::ALL_STATUS);
-    }   
+    }
 
     public function getAllType()
     {

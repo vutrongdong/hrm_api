@@ -18,20 +18,20 @@ class CandidateTransformer extends TransformerAbstract
         }
 
         return [
-            'id'               => $candidate->id,
-            'name'             => $candidate->name,
-            'email'            => $candidate->email,
-            'phone'            => $candidate->phone,
-            'source'           => $candidate->source,
-            'date_apply'       => $candidate->date_apply,
-            'time_interview'   => $candidate->time_interview,
-            'plan_id'          => $candidate->plan_id,
-            // 'plan_id_txt'      => $candidate->plan()->name,
-            'position_id'      => $candidate->position_id,
-            'status'           => $candidate->status,
-            'status_txt'       => $candidate->getStatus(),
-            'created_at'       => $candidate->created_at,
-            'updated_at'       => $candidate->updated_at,
+            'id'             => $candidate->id,
+            'name'           => $candidate->name,
+            'email'          => $candidate->email,
+            'phone'          => $candidate->phone,
+            'source'         => $candidate->source,
+            'date_apply'     => $candidate->date_apply,
+            'time_interview' => $candidate->time_interview,
+            'plan_id'        => $candidate->plan_id,
+            // 'plan_id_txt' => $candidate->plan()->name,
+            'position_id'    => $candidate->position_id,
+            'status'         => $candidate->status,
+            'status_txt'     => $candidate->getStatus(),
+            'created_at'     => $candidate->created_at,
+            'updated_at'     => $candidate->updated_at,
         ];
     }
 

@@ -19,10 +19,10 @@ class Plan_detailTransformer extends TransformerAbstract
 
         return [
             'id'            => $plan_detail->id,
-            'plan_id'         => $plan_detail->plan_id,
-            'department_id'    => $plan_detail->department_id,
-            'position_id'      => $plan_detail->position_id,
-            'quantity'       => $plan_detail->quantity,
+            'plan_id'       => $plan_detail->plan_id,
+            'department_id' => $plan_detail->department_id,
+            'position_id'   => $plan_detail->position_id,
+            'quantity'      => $plan_detail->quantity,
         ];
     }
 
@@ -33,7 +33,7 @@ class Plan_detailTransformer extends TransformerAbstract
     //     }
 
     //     return $this->collection($plan_detail->departments, new DepartmentTransformer);
-    // }  
+    // }
 
     // public function includePositions(Plan_detail $plan_detail = null)
     // {

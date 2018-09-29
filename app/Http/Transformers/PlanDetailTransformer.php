@@ -18,14 +18,14 @@ class PlanDetailTransformer extends TransformerAbstract
         }
 
         return [
-            'id'                => $planDetail->id,
-            'plan_id'           => $planDetail->plan_id,
-            'plan_name'         => $planDetail->plan->title,
-            'department_id'     => $planDetail->department_id,
-            'department_name'   => $planDetail->department->name,
-            'position_id'       => $planDetail->position_id,
-            'position_name'     => $planDetail->position->name,
-            'quantity'          => $planDetail->quantity,
+            'id'              => $planDetail->id,
+            'plan_id'         => $planDetail->plan_id,
+            'plan_name'       => $planDetail->plan->title,
+            'department_id'   => $planDetail->department_id,
+            'department_name' => $planDetail->department->name,
+            'position_id'     => $planDetail->position_id,
+            'position_name'   => $planDetail->position->name,
+            'quantity'        => $planDetail->quantity,
         ];
     }
 
@@ -36,5 +36,5 @@ class PlanDetailTransformer extends TransformerAbstract
         }
 
         return $this->item($planDetail->plan, new PlanTransformer);
-    }  
+    }
 }

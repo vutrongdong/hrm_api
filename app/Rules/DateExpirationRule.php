@@ -28,7 +28,7 @@ class DateExpirationRule implements Rule
             return true;
         } else {
             $validator = Validator::make(
-                ['date_expiration' => $value], 
+                ['date_expiration' => $value],
                 ['date_expiration' => 'date|after:'.$this->date_sign.'|after:'.$this->date_effective]
             );
             return $validator->passes();

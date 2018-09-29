@@ -14,14 +14,14 @@ class SettingTransformer extends TransformerAbstract
         }
 
         return [
-            'id'            => $setting->id,
-            'name'          => $setting->name,
-            'slug'          => $setting->slug,
-            'value'         => $setting->value,
-            'status'        => $setting->status,
-            'status_txt'    => $setting->getStatus(),
-            'created_at'    => $setting->created_at,
-            'updated_at'    => $setting->updated_at,
+            'id'         => $setting->id,
+            'name'       => $setting->name,
+            'slug'       => $setting->slug,
+            'value'      => $setting->value,
+            'status'     => $setting->status,
+            'status_txt' => $setting->getStatus(),
+            'created_at' => $setting->created_at,
+            'updated_at' => $setting->updated_at,
         ];
     }
 }

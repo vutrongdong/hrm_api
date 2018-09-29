@@ -11,49 +11,55 @@ class PlansTableSeeder extends Seeder
     */
     public function run()
     {
-        DB::statement("
-            INSERT INTO `plans` (`id`, `title`, `created_at`, `updated_at`) VALUES
-            (1, 'Tuyển lập trình viên dự án HRM ', '2018-09-21', '2018-09-21'), 
-            (2, 'Tuyển lập trình viên dự án CRM ', '2018-09-21', '2018-09-21'), 
-            (3, 'Tuyển nhân viên kế toán', '2018-09-21', '2018-09-21')
-            ");
+        factory(\App\Repositories\Plans\Plan::class, 5)->create()->each(function($plan) {
+            for($i = 0; $i <= rand(1, 3); $i++) {
+                $plan->details()->save(factory(App\Repositories\PlanDetails\PlanDetail::class)->make());
+            }
+        });
 
-        DB::table('plan_details')->insert([
-            [
-                'plan_id' => 1,
-                'department_id' => 2,
-                'position_id' => 5,
-                'quantity' => 3,
-            ],
+        // DB::statement("
+        //     INSERT INTO `plans` (`id`, `title`, `created_at`, `updated_at`) VALUES
+        //     (1, 'Tuyển lập trình viên dự án HRM ', '2018-09-21', '2018-09-21'),
+        //     (2, 'Tuyển lập trình viên dự án CRM ', '2018-09-21', '2018-09-21'),
+        //     (3, 'Tuyển nhân viên kế toán', '2018-09-21', '2018-09-21')
+        //     ");
 
-            [
-                'plan_id' => 1,
-                'department_id' => 2,
-                'position_id' => 6,
-                'quantity' => 2,
-            ],
+        // DB::table('plan_details')->insert([
+        //     [
+        //         'plan_id' => 1,
+        //         'department_id' => 2,
+        //         'position_id' => 5,
+        //         'quantity' => 3,
+        //     ],
 
-            [
-                'plan_id' => 2,
-                'department_id' => 2,
-                'position_id' => 5,
-                'quantity' => 2,
-            ],  
+        //     [
+        //         'plan_id' => 1,
+        //         'department_id' => 2,
+        //         'position_id' => 6,
+        //         'quantity' => 2,
+        //     ],
 
-            [
-                'plan_id' => 2,
-                'department_id' => 2,
-                'position_id' => 6,
-                'quantity' => 1,
-            ], 
+        //     [
+        //         'plan_id' => 2,
+        //         'department_id' => 2,
+        //         'position_id' => 5,
+        //         'quantity' => 2,
+        //     ],
 
-            [
-                'plan_id' => 3,
-                'department_id' => 3,
-                'position_id' => 5,
-                'quantity' => 2,
-            ],
+        //     [
+        //         'plan_id' => 2,
+        //         'department_id' => 2,
+        //         'position_id' => 6,
+        //         'quantity' => 1,
+        //     ],
 
-        ]);
+        //     [
+        //         'plan_id' => 3,
+        //         'department_id' => 3,
+        //         'position_id' => 5,
+        //         'quantity' => 2,
+        //     ],
+
+        // ]);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Events;
+
 use App\User;
 
 class StoreOrUpdateDepartmentUserEvent extends Event

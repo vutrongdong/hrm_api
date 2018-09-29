@@ -22,12 +22,12 @@ class PlanDetail extends Model
     public function plan()
     {
         return $this->belongsTo(\App\Repositories\Plans\Plan::class);
-    }    
+    }
 
     public function department()
     {
         return $this->belongsTo(\App\Repositories\Departments\Department::class);
-    }    
+    }
 
     public function position()
     {

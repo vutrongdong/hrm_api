@@ -83,7 +83,7 @@ class PlanDetailController extends ApiController
             // $this->authorize('planDetail.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->planDetail->update($id, $request->all());
-            
+
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this    ->errorResponse([

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Events;
+
 use App\User;
 
 class UpdateContractUserEvent extends Event

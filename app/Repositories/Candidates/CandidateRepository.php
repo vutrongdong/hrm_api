@@ -25,7 +25,7 @@ class CandidateRepository extends BaseRepository
     public function getAllStatus()
     {
         return implode(',', Candidate::ALL_STATUS);
-    } 
+    }
 
     public function getAllType()
     {

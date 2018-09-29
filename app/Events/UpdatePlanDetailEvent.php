@@ -4,7 +4,7 @@ namespace App\Events;
 
 use App\Repositories\Plans\Plan;
 
-class StorePlanDetailEvent extends Event
+class UpdatePlanDetailEvent extends Event
 {
     public $plan;
 	public $details;
@@ -17,5 +17,6 @@ class StorePlanDetailEvent extends Event
     {
         $this->plan = $plan;
         $this->details = $details;
+        // dd($this->details);
     }
 }

@@ -25,7 +25,7 @@ class StoreOrUpdateDepartmentUserListener
      * @param  ExampleEvent  $event
      * @return void
      */
-    
+
     /**
      * store to department_user table
      * @param  User   $user [description]
@@ -34,22 +34,20 @@ class StoreOrUpdateDepartmentUserListener
      */
     public function handle(StoreOrUpdateDepartmentUserEvent $event)
     {
-        $data = $event->departments;
-
-        /*department_user 
+        /*department_user
         [
             user_id,
             department_id,
             position_id,
             status
         ]
-        => 
+        =>
         [department_id => ['position_id' => '', 'status' => '']]*/
         $insertData = [];
-        foreach ($data as $key => $value) {
+        foreach ($event->departments as $key => $value) {
             $insertData[$value['department_id']] = [
                 'position_id' => $value['position_id'],
-                'status' => array_get($data, $key.'.status', 0)
+                'status' => array_get($event->departments, $key.'.status', 0)
             ];
         }
         $event->user->departments()->sync($insertData);

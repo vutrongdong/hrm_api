@@ -18,12 +18,12 @@ class DistrictTransformer extends TransformerAbstract
         }
 
         return [
-            'id'            => $district->id,
-            'name'          => $district->name,
-            'slug'          => $district->slug,
-            'zipcode'       => $district->zipcode,
-            'order'         => $district->order,
-            'status'        => $district->status
+            'id'      => $district->id,
+            'name'    => $district->name,
+            'slug'    => $district->slug,
+            'zipcode' => $district->zipcode,
+            'order'   => $district->order,
+            'status'  => $district->status
         ];
     }
 
@@ -34,7 +34,7 @@ class DistrictTransformer extends TransformerAbstract
         }
 
         return $this->item($district->city, new CityTransformer);
-    } 
+    }
 
     public function includeBranches(District $district = null)
     {

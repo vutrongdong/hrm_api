@@ -18,15 +18,15 @@ class PlanTransformer extends TransformerAbstract
         }
 
         return [
-            'id'            => $plan->id,
-            'title'         => $plan->title,
-            'date_start'    => $plan->date_start,
-            'date_end'      => $plan->date_end,
-            'content'       => $plan->content,
-            'status'        => $plan->status,
-            'status_txt'    => $plan->getStatus(),
-            'created_at'    => $plan->created_at,
-            'updated_at'    => $plan->updated_at,
+            'id'         => $plan->id,
+            'title'      => $plan->title,
+            'date_start' => $plan->date_start,
+            'date_end'   => $plan->date_end,
+            'content'    => $plan->content,
+            'status'     => $plan->status,
+            'status_txt' => $plan->getStatus(),
+            'created_at' => $plan->created_at,
+            'updated_at' => $plan->updated_at,
         ];
     }
 
@@ -37,7 +37,7 @@ class PlanTransformer extends TransformerAbstract
     //     }
 
     //     return $this->collection($plan->departments, new DepartmentTransformer);
-    // }   
+    // }
 
     public function includeDetails(Plan $plan = null)
     {
@@ -46,7 +46,7 @@ class PlanTransformer extends TransformerAbstract
         }
 
         return $this->collection($plan->details, new PlanDetailTransformer);
-    }  
+    }
 
     // public function includePositions(Plan $plan = null)
     // {

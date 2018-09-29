@@ -13,17 +13,17 @@ class CreateWardsTable extends Migration
      */
     public function up()
     {
-        Schema::create('wards', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 30);
-            $table->string('slug', 35);
-            $table->unsignedMediumInteger('zipcode');
-            $table->unsignedTinyInteger('order');
-            $table->boolean('status')->default(1);
-            
-            $table->unsignedInteger('district_id');
-            $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade')->onUpdate('cascade');
-        });
+        // Schema::create('wards', function (Blueprint $table) {
+        //     $table->increments('id');
+        //     $table->string('name', 30);
+        //     $table->string('slug', 35);
+        //     $table->unsignedMediumInteger('zipcode');
+        //     $table->unsignedTinyInteger('order');
+        //     $table->boolean('status')->default(1);
+
+        //     $table->unsignedInteger('district_id');
+        //     $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade')->onUpdate('cascade');
+        // });
     }
 
     /**

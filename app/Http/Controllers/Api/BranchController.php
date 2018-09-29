@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class BranchController extends ApiController
         'type'        => 'boolean',
         'status'      => 'in:',
     ];
+
     protected $validationMessages = [
         'name.required'        => 'Tên không được để trống',
         'address.required'     => 'Địa chỉ không được để trống',
@@ -46,7 +48,6 @@ class BranchController extends ApiController
         $this->branch = $branch;
         $this->setTransformer(new BranchTransformer);
     }
-    
     /**
      * Display a listing of the resource.
      *
@@ -103,7 +104,7 @@ class BranchController extends ApiController
             $this->authorize('branch.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->branch->update($id, $request->all());
-            
+
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this    ->errorResponse([

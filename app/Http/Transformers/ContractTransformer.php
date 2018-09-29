@@ -18,20 +18,20 @@ class ContractTransformer extends TransformerAbstract
         }
 
         return [
-            'id'                => $contract->id,
-            'code'              => $contract->name,
-            'title'             => $contract->title,
-            'type'              => $contract->type,
-            'type_txt'          => $contract->getType(),
-            'status'            => $contract->status,
-            'status_txt'        => $contract->getStatus(),
-            'date_sign'         => $contract->date_sign,
-            'date_effective'    => $contract->date_effective,
-            'date_expiration'   => $contract->date_expiration,
-            'user_id'           => $contract->user_id,
-            'user_name'         => $contract->user->name,
-            // 'created_at'     => $contract->created_at,
-            // 'updated_at'     => $contract->updated_at,
+            'id'              => $contract->id,
+            'code'            => $contract->name,
+            'title'           => $contract->title,
+            'type'            => $contract->type,
+            'type_txt'        => $contract->getType(),
+            'status'          => $contract->status,
+            'status_txt'      => $contract->getStatus(),
+            'date_sign'       => $contract->date_sign,
+            'date_effective'  => $contract->date_effective,
+            'date_expiration' => $contract->date_expiration,
+            'user_id'         => $contract->user_id,
+            'user_name'       => $contract->user->name,
+            // 'created_at'   => $contract->created_at,
+            // 'updated_at'   => $contract->updated_at,
         ];
     }
 

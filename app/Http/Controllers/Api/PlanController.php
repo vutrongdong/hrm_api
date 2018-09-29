@@ -29,7 +29,7 @@ class PlanController extends ApiController
         'status.in'                             => 'Trạng thái không hợp lệ',
 
         'details.*.department_id.required'      => 'Phòng ban không được để trống',
-        'details.*.department_id.exists'        => 'Phòng ban không tồn tại trên hệ thống',  
+        'details.*.department_id.exists'        => 'Phòng ban không tồn tại trên hệ thống',
         'details.*.position_id.required'        => 'Chức vụ không được để trống',
         'details.*.position_id.exists'          => 'Chức vụ không tồn tại trên hệ thống',
         'details.*.quantity.required'           => 'Số lượng tuyển không được để trống',

@@ -64,7 +64,7 @@ class UserTransformer extends TransformerAbstract
             return $this->null();
         }
         return $this->collection($user->contracts, new ContractTransformer);
-    }     
+    }
 
     public function includeCandidates(User $user = null)
     {
@@ -72,5 +72,5 @@ class UserTransformer extends TransformerAbstract
             return $this->null();
         }
         return $this->collection($user->candidates, new CandidateTransformer);
-    }  
+    }
 }

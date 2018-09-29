@@ -19,12 +19,12 @@ class PositionTransformer extends TransformerAbstract
         }
 
         $data = [
-            'id'            => $position->id,
-            'name'          => $position->name,
-            'status'        => $position->status,
-            'status_txt'    => $position->getStatus(),
-            'created_at'    => $position->created_at,
-            'updated_at'    => $position->updated_at,
+            'id'         => $position->id,
+            'name'       => $position->name,
+            'status'     => $position->status,
+            'status_txt' => $position->getStatus(),
+            'created_at' => $position->created_at,
+            'updated_at' => $position->updated_at,
         ];
 
         if ($position->pivot && $position->pivot->department_id) {

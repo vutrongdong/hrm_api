@@ -27,7 +27,6 @@ class UpdateContractUserListener
      */
     public function handle(UpdateContractUserEvent $event)
     {
-        // dd($event->contract);
         $this->contract->update($event->contract['id'], $event->contract);
     }
 }

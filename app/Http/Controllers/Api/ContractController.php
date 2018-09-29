@@ -103,7 +103,7 @@ class ContractController extends ApiController
             ]);
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->contract->update($id, $request->all());
-            
+
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this    ->errorResponse([

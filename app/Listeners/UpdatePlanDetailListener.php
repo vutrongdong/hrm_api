@@ -5,9 +5,9 @@ namespace App\Listeners;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Repositories\PlanDetails\PlanDetailRepository;
-use App\Events\StorePlanDetailEvent;
+use App\Events\UpdatePlanDetailEvent;
 
-class StorePlanDetailListener
+class UpdatePlanDetailListener
 {
     /**
      * Create the event listener.
@@ -25,17 +25,16 @@ class StorePlanDetailListener
      * @param  ExampleEvent  $event
      * @return void
      */
-    public function handle(StorePlanDetailEvent $event)
+    public function handle(UpdatePlanDetailEvent $event)
     {
         $insertData = [];
         foreach ($event->details as $key => $value) {
             $insertData[] = [
-                'plan_id' => $event->plan->id,
                 'department_id' => $value['department_id'],
                 'position_id' => $value['position_id'],
                 'quantity' => $value['quantity']
             ];
+            $this->planDetail->update($event->details[$key]['id'], $insertData[$key]);
         }
-        $this->planDetail->storeArray($insertData);
     }
 }

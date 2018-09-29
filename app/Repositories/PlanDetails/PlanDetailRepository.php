@@ -22,11 +22,11 @@ class PlanDetailRepository extends BaseRepository
         $this->model = $planDetail;
     }
 
-    public function store($data)
-    {
-        $lastPlanID = DB::table('plans')->latest('id')->first()->id;
-        $data['plan_id'] = $lastPlanID;
-        $planDetail = parent::store($data);
-        return $planDetail;
-    }
+    // public function store($data)
+    // {
+    //     $lastPlanID = DB::table('plans')->latest('id')->first()->id;
+    //     $data['plan_id'] = $lastPlanID;
+    //     $planDetail = parent::store($data);
+    //     return $planDetail;
+    // }
 }

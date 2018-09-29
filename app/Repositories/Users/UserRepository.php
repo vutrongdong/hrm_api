@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Users;
 
-use DB, Event;
+use Event;
 use App\User;
 use App\Repositories\BaseRepository;
 use App\Repositories\Contracts\ContractRepository;

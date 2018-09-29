@@ -47,7 +47,7 @@ class UserController extends ApiController
         'departments.array'                     => 'Phòng ban không hợp lệ',
         'departments.*.department_id.required'  => 'Phòng ban không được để trông',
         'departments.*.department_id.exists'    => 'Phòng ban không tồn tại trên hệ thống',
-        'departments.*.position_id.required'    => 'Chức vụ không được để trông', 
+        'departments.*.position_id.required'    => 'Chức vụ không được để trông',
         'departments.*.position_id.exists'      => 'Chức vụ không tồn tại trên hệ thống',
         'departments.*.status.in'               => 'Trạng thái không hợp lệ',
 

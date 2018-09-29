@@ -84,7 +84,7 @@ class PositionController extends ApiController
             $this->authorize('position.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->position->update($id, $request->all());
-            
+
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this    ->errorResponse([

@@ -20,7 +20,7 @@ class CreateDistrictsTable extends Migration
             $table->unsignedMediumInteger('zipcode');
             $table->unsignedTinyInteger('order');
             $table->boolean('status')->default(1);
-            
+
             $table->unsignedInteger('city_id');
             $table->foreign('city_id')->references('id')->on('cities')->onDelete('cascade')->onUpdate('cascade');
         });
