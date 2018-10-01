@@ -7,15 +7,15 @@ use App\User;
 class UpdateContractUserEvent extends Event
 {
     public $user;
-	public $contract;
+	public $contracts;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user, $contract)
+    public function __construct(User $user, $contracts)
     {
         $this->user = $user;
-        $this->contract = $contract;
+        $this->contracts = $contracts;
     }
 }

@@ -111,6 +111,13 @@ class UserController extends ApiController
             $this->authorize('user.create');
             // $this->validate($request, [
             //     'contract.date_expiration' => new DateExpirationRule($request->contract['date_sign'], $request->contract['date_effective'])
+        // $this->validationRules['contracts.type'] .= app()->make(ContractRepository::class)->getAllType();
+        // $this->validationRules['contracts.status'] .= app()->make(ContractRepository::class)->getAllStatus();
+        DB::beginTransaction();
+        try {
+            $this->authorize('user.create');
+            // $this->validate($request, [
+            //     'contracts.date_expiration' => new DateExpirationRule($request->contract['date_sign'], $request->contract['date_effective'])
             // ]);
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->user->store($request->all());
@@ -135,6 +142,7 @@ class UserController extends ApiController
         $this->validationRules['departments.*.status'] .= $this->user->getAllStatus();
         //$this->validationRules['contracts.type'] .= app()->make(ContractRepository::class)->getAllType();
         //$this->validationRules['contracts.status'] .= app()->make(ContractRepository::class)->getAllStatus();
+
         unset($this->validationRules['password']);
 
         try {
@@ -142,6 +150,7 @@ class UserController extends ApiController
             // dd($request->contract[0]['date_sign']);
             // $this->validate($request, [
             //     'contract.date_expiration' => new DateExpirationRule($request->contract['date_sign'], $request->contract['date_effective'])
+
             // ]);
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->user->update($id, $request->all());

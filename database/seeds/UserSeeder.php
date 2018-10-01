@@ -44,9 +44,9 @@ class UserSeeder extends Seeder
 
         factory(\App\User::class, 100)->create()->each(function($user) {
             $user->departments()->sync([rand(1, 6) => ['position_id' => rand(5, 7)]]);
-            for($i = 0; $i <= rand(1, 3); $i++) {
-                $user->contracts()->save(factory(App\Repositories\Contracts\Contract::class)->make());
-            }
+            // for($i = 0; $i <= rand(1, 2); $i++) {    
+            $user->contracts()->save(factory(App\Repositories\Contracts\Contract::class)->make());
+            // }
         });
 
         if (!\App\Repositories\Roles\Role::find(1)) {
