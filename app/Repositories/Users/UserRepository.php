@@ -7,7 +7,7 @@ use App\User;
 use App\Repositories\BaseRepository;
 use App\Repositories\Contracts\ContractRepository;
 use App\Events\StoreContractUserEvent;
-use App\Events\UpdateContractUserEventactUserEvent;
+use App\Events\UpdateContractUserEvent;
 use App\Events\StoreOrUpdateDepartmentUserEvent;
 
 class UserRepository extends BaseRepository
@@ -45,9 +45,9 @@ class UserRepository extends BaseRepository
             event(new StoreOrUpdateDepartmentUserEvent($record, $departments));
        }
 
-        $contract = array_get($data, 'contract', []);
-        if ($contract) {
-            event(new UpdateContractUserEvent($record, $contract));
+        $contracts = array_get($data, 'contracts', []);
+        if ($contracts) {
+            event(new UpdateContractUserEvent($record, $contracts));
         }
         return $record;
     }
@@ -60,9 +60,9 @@ class UserRepository extends BaseRepository
             event(new StoreOrUpdateDepartmentUserEvent($user, $departments));
         }
 
-        $contract = array_get($data, 'contract', []);
-        if ($contract) {
-            event(new StoreContractUserEvent($user, $contract));
+        $contracts = array_get($data, 'contracts', []);
+        if ($contracts) {
+            event(new StoreContractUserEvent($user, $contracts));
         }
         return $user;
     }

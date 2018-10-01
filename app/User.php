@@ -95,9 +95,9 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
 		return $this->belongsToMany(\App\Repositories\Departments\Department::class, 'department_user')->withPivot(['position_id', 'status']);
 	}
 
-	// public function positions() {
-	// 	return $this->belongsToMany(\App\Repositories\Positions\Position::class, 'department_user')->withPivot(['department_id', 'status']);
-	// }
+	public function positions() {
+		return $this->belongsToMany(\App\Repositories\Positions\Position::class, 'department_user')->withPivot(['department_id', 'status']);
+	}
 
 	public function contracts() {
 		return $this->hasMany(\App\Repositories\Contracts\Contract::class);

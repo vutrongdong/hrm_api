@@ -25,11 +25,11 @@ class UserController extends ApiController
         'departments.*.position_id'     => 'required|exists:positions,id',
         'departments.*.status'          => 'in:',
 
-        'contract.title'             => 'required',
-        'contract.type'              => 'in:',
-        'contract.date_sign'         => 'required|date',
-        'contract.date_effective'    => 'required|date',
-        'contract.status'            => 'in:',
+        // 'contracts.title'             => 'required',
+        // 'contracts.type'              => 'in:',
+        // 'contracts.date_sign'         => 'required|date',
+        // 'contracts.date_effective'    => 'required|date',
+        // 'contracts.status'            => 'in:',
     ];
     protected $validationMessages = [
         'name.required'                         => 'Tên không được để trông',
@@ -51,13 +51,13 @@ class UserController extends ApiController
         'departments.*.position_id.exists'      => 'Chức vụ không tồn tại trên hệ thống',
         'departments.*.status.in'               => 'Trạng thái không hợp lệ',
 
-        'contract.title.required'            => 'Tiêu đề hợp đồng không được để trống',
-        'contract.type.in'                   => 'Loại hợp đồng không hợp lệ',
-        'contract.date_sign.required'        => 'Ngày ký không được để trống',
-        'contract.date_sign.date'            => 'Ngày ký không hợp lệ',
-        'contract.date_effective.required'   => 'Ngày có hiệu lực không được để trống',
-        'contract.date_effective.date'       => 'Ngày có hiệu lực không hợp lệ',
-        'contract.status.in'                 => 'Trạng thái không hợp lệ',
+        // 'contracts.title.required'            => 'Tiêu đề hợp đồng không được để trống',
+        // 'contracts.type.in'                   => 'Loại hợp đồng không hợp lệ',
+        // 'contracts.date_sign.required'        => 'Ngày ký không được để trống',
+        // 'contracts.date_sign.date'            => 'Ngày ký không hợp lệ',
+        // 'contracts.date_effective.required'   => 'Ngày có hiệu lực không được để trống',
+        // 'contracts.date_effective.date'       => 'Ngày có hiệu lực không hợp lệ',
+        // 'contracts.status.in'                 => 'Trạng thái không hợp lệ',
     ];
 
     /**
@@ -106,14 +106,14 @@ class UserController extends ApiController
         $this->validationRules['gender'] .= $this->user->getAllGender();
         $this->validationRules['status'] .= $this->user->getAllStatus();
         $this->validationRules['departments.*.status'] .= $this->user->getAllStatus();
-        $this->validationRules['contract.type'] .= app()->make(ContractRepository::class)->getAllType();
-        $this->validationRules['contract.status'] .= app()->make(ContractRepository::class)->getAllStatus();
+        // $this->validationRules['contracts.type'] .= app()->make(ContractRepository::class)->getAllType();
+        // $this->validationRules['contracts.status'] .= app()->make(ContractRepository::class)->getAllStatus();
         DB::beginTransaction();
         try {
             $this->authorize('user.create');
-            $this->validate($request, [
-                'contract.date_expiration' => new DateExpirationRule($request->contract['date_sign'], $request->contract['date_effective'])
-            ]);
+            // $this->validate($request, [
+            //     'contracts.date_expiration' => new DateExpirationRule($request->contract['date_sign'], $request->contract['date_effective'])
+            // ]);
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->user->store($request->all());
             DB::commit();
@@ -139,15 +139,15 @@ class UserController extends ApiController
         $this->validationRules['gender'] .= $this->user->getAllGender();
         $this->validationRules['status'] .= $this->user->getAllStatus();
         $this->validationRules['departments.*.status'] .= $this->user->getAllStatus();
-        $this->validationRules['contract.type'] .= app()->make(ContractRepository::class)->getAllType();
-        $this->validationRules['contract.status'] .= app()->make(ContractRepository::class)->getAllStatus();
+        // $this->validationRules['contracts.type'] .= app()->make(ContractRepository::class)->getAllType();
+        // $this->validationRules['contracts.status'] .= app()->make(ContractRepository::class)->getAllStatus();
         unset($this->validationRules['password']);
         DB::beginTransaction();
         try {
             $this->authorize('user.update');
-            $this->validate($request, [
-                'contract.date_expiration' => new DateExpirationRule($request->contract['date_sign'], $request->contract['date_effective'])
-            ]);
+            // $this->validate($request, [
+            //     'contracts.date_expiration' => new DateExpirationRule($request->contract['date_sign'], $request->contract['date_effective'])
+            // ]);
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->user->update($id, $request->all());
             DB::commit();

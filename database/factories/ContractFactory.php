@@ -24,7 +24,6 @@ $factory->define(\App\Repositories\Contracts\Contract::class, function (Faker\Ge
     return [
         'title' => 'Hợp đồng '.$faker->jobTitle,
         'type' => rand(0, 4),
-        'user_id' => factory(\App\User::class)->create()->id,
         'date_sign' => $date->format('Y-m-d'),
         'date_effective' => $date->format('Y-m-d'),
         'date_expiration' => $date->addMonths(rand(1, 12))->format('Y-m-d'),
