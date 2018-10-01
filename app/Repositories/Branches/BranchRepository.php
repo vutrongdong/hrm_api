@@ -25,4 +25,14 @@ class BranchRepository extends BaseRepository
     {
         return implode(',', Branch::ALL_STATUS);
     }
+
+    public function changeStatus($id)
+    {
+        $branch = parent::getById($id);
+        if ($branch->status === 0) {
+            parent::update($id, ['status' => 1]);
+        } else {
+            parent::update($id, ['status' => 0]);
+        }
+    }
 }

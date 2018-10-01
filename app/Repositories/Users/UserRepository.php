@@ -69,18 +69,11 @@ class UserRepository extends BaseRepository
 
     public function changeStatus($id)
     {
-        $users = User::where('id',$id)->get();
-        foreach ($users as $user) {
-            if ($user->status==0) {
-                User::where('id',$id)->update([
-                    'status'=>1,
-                ]);
-            }
-            else{
-                User::where('id',$id)->update([
-                    'status'=>0,
-                ]);
-            }
+        $user = parent::getById($id);
+        if ($user->status === 0) {
+            parent::update($id, ['status' => 1]);
+        } else {
+            parent::update($id, ['status' => 0]);
         }
     }
 }

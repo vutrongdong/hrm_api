@@ -40,6 +40,26 @@ class DepartmentController extends ApiController
         return $this->successResponse($this->department->getByQuery($request->all(), $pageSize));
     }
 
+    public function changeStatus($id)
+    {
+        try {
+            $model = $this->department->changeStatus($id);
+
+            return $this->successResponse(['data' => ['message' => 'Cập nhật trạng thái thành công']], false);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors' => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage()
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
     public function getByBranch(Request $request, $id)
     {
         $this->authorize('department.view');

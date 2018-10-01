@@ -12,7 +12,6 @@
 */
 $router->group(['middleware' => 'auth'], function ($router) {
     resource('/users', 'UserController', $router);
-    $router->put('/users/change-status/{id}', 'UserController@changeStatus');
 
     $router->get('/profile', 'ProfileController@index');
     $router->put('/profile', 'ProfileController@update');
@@ -39,6 +38,12 @@ $router->group(['middleware' => 'auth'], function ($router) {
     resource('/plans', 'PlanController', $router);
     resource('/candidates', 'CandidateController', $router);
     resource('/plan_details', 'PlanDetailController', $router);
+
+    $router->put('/users/change-status/{id}', 'UserController@changeStatus');
+    $router->put('/branches/change-status/{id}', 'BranchController@changeStatus');
+    $router->put('/settings/change-status/{id}', 'SettingController@changeStatus');
+    $router->put('/departments/change-status/{id}', 'DepartmentController@changeStatus');
+    $router->put('/positions/change-status/{id}', 'PositionController@changeStatus');
 });
 
 

@@ -25,9 +25,9 @@ class StoreContractUserListener
      * @param  ExampleEvent  $event
      * @return void
      */
-public function handle(StoreContractUserEvent $event) {
-    $event->contract['user_id'] = $event->user->id;
-    $this->contract->store($event->contract);
+    public function handle(StoreContractUserEvent $event) {
+        $event->contracts['user_id'] = $event->user->id;
+        $this->contract->store($event->contracts);
 
     // $insertData = [];
     // foreach ($event->contracts as $key => $value) {
@@ -44,5 +44,5 @@ public function handle(StoreContractUserEvent $event) {
     //     ];
     // }
     // $this->contract->storeArray($insertData);
-  }
+    }
 }

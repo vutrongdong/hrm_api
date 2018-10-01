@@ -30,4 +30,14 @@ class DepartmentRepository extends BaseRepository
     {
         return $this->model->where('branch_id', $id)->get();
     }
+
+    public function changeStatus($id)
+    {
+        $department = parent::getById($id);
+        if ($department->status === 0) {
+            parent::update($id, ['status' => 1]);
+        } else {
+            parent::update($id, ['status' => 0]);
+        }
+    }
 }

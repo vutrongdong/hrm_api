@@ -20,4 +20,14 @@ class SettingRepository extends BaseRepository
     {
         $this->model = $setting;
     }
+
+    public function changeStatus($id)
+    {
+        $setting = parent::getById($id);
+        if ($setting->status === 0) {
+            parent::update($id, ['status' => 1]);
+        } else {
+            parent::update($id, ['status' => 0]);
+        }
+    }
 }

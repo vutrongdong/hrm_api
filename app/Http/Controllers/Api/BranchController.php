@@ -60,6 +60,26 @@ class BranchController extends ApiController
         return $this->successResponse($this->branch->getByQuery($request->all(), $pageSize));
     }
 
+    public function changeStatus($id)
+    {
+        try {
+            $model = $this->branch->changeStatus($id);
+
+            return $this->successResponse(['data' => ['message' => 'Cập nhật trạng thái thành công']], false);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors' => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage()
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
     public function show($id)
     {
         try {
