@@ -2,13 +2,11 @@
 
 namespace App\Repositories\Users;
 
-use Event;
 use App\User;
+use DB;
+
 use App\Repositories\BaseRepository;
 use App\Repositories\Contracts\ContractRepository;
-use App\Events\StoreContractUserEvent;
-use App\Events\UpdateContractUserEventactUserEvent;
-use App\Events\StoreOrUpdateDepartmentUserEvent;
 
 class UserRepository extends BaseRepository
 {
@@ -31,7 +29,6 @@ class UserRepository extends BaseRepository
     {
         return implode(',', User::ALL_GENDER);
     }
-
     public function getAllStatus()
     {
         return implode(',', User::ALL_STATUS);
@@ -42,12 +39,12 @@ class UserRepository extends BaseRepository
         $record = parent::update($id, $data);
         $departments = array_get($data, 'departments', []);
         if ($departments) {
-            event(new StoreOrUpdateDepartmentUserEvent($record, $departments));
-       }
+            $this->storeOrUpdateDepartmentUser($record, $departments);
+        }
 
-        $contract = array_get($data, 'contract', []);
-        if ($contract) {
-            event(new UpdateContractUserEvent($record, $contract));
+        $contracts = array_get($data, 'contracts', []);
+        if ($contracts) {
+            $this->updateContract($record, $contracts);
         }
         return $record;
     }
@@ -57,13 +54,51 @@ class UserRepository extends BaseRepository
         $user = parent::store($data);
         $departments = array_get($data, 'departments', []);
         if ($departments) {
-            event(new StoreOrUpdateDepartmentUserEvent($user, $departments));
+            $this->storeOrUpdateDepartmentUser($user, $departments);
         }
 
-        $contract = array_get($data, 'contract', []);
-        if ($contract) {
-            event(new StoreContractUserEvent($user, $contract));
+        $contracts = array_get($data, 'contracts', []);
+        if ($contracts) {
+            $this->storeContract($user, $contracts);
         }
         return $user;
+    }
+
+    public function storeContract(User $user, $data)
+    {
+        $data['user_id'] = $user->id;
+        app()->make(ContractRepository::class)->store($data);
+    }
+
+    public function updateContract(User $user, $data)
+    {
+        app()->make(ContractRepository::class)->update($data['id'], $data);
+    }
+
+    /**
+     * store to department_user table
+     * @param  User   $user [description]
+     * @param  array  $data [department_id, position_id, status]
+     * @return [type]       [description]
+     */
+    public function storeOrUpdateDepartmentUser(User $user, array $data)
+    {
+        /*department_user
+        [
+            user_id,
+            department_id,
+            position_id,
+            status
+        ]
+        =>
+        [department_id => ['position_id' => '', 'status' => '']]*/
+        $insertData = [];
+        foreach ($data as $key => $value) {
+            $insertData[$value['department_id']] = [
+                'position_id' => $value['position_id'],
+                'status' => array_get($data, $key.'.status', 0)
+            ];
+        }
+        $user->departments()->sync($insertData);
     }
 }
