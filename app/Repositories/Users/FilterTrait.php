@@ -2,109 +2,122 @@
 
 namespace App\Repositories\Users;
 
+use App\Repositories\Departments\DepartmentRepository;
+use App\Repositories\Positions\PositionRepository;
+use App\Repositories\Contracts\ContractRepository;
+
 trait FilterTrait
 {
-	public function scopeQ($query, $q)
-	{
-		if ($q) {
-			#filter by name/phone/email/code
-			// return$query->where('name', 'like', "%${q}%")
-			// ->orWhere('phone', 'like', "%${q}%")
-			// ->orWhere('email', 'like', "%${q}%")
-			// ->orWhere('code', 'like', "%${q}%");
+    /**
+    * Tìm kiếm theo tên, email, mã nhân viên, số điện thoại
+    * @param  [type] $query [description]
+    * @param  string $q     name, email, code, phone
+    * @return Collection User Model
+    */
+    public function scopeQ($query, $q)
+    {
+        if ($q) {
+            return $query->where('name', 'like', "%${q}%")
+            ->orWhere('email', $q)
+            ->orWhere('code', $q)
+            ->orWhere('phone', 'like', "%${q}%");
+        }
+        return $query;
+    }
 
-			#filter by department
+    /**
+    * Tìm kiếm theo phòng ban
+    * @param  [type] $query        [description]
+    * @param  [type] $departmentId departmentId
+    * @return Collection User Model
+    */
+    public function scopeDepartmentID($query, $departmentId)
+    {
+        if ($departmentId) {
+            $departments = app()->make(DepartmentRepository::class)
+            ->getByQuery(['id' => $departmentId], -1)
+            ->pluck('id');
 
-			return $query->whereHas('departments', function ($query) {
-				$query->where('department_user.department_id', '=', '${q}');
-			});
+            return $query->whereHas('departments', function ($query) use ($departments) {
+                $query->whereIn('id', $departments);
+            }); 
+        }
 
-			// return $query->select('users.*')->join('department_user', function ($join) {
-			// 	$join->on('users.id', '=', 'department_user.user_id');
-			// })->where('department_user.department_id', '=', '${q}');
+        return $query;
+    }    
 
-			#filter by position
-			// return $query->select('users.*')->join('department_user', function ($join) {
-			// 	$join->on('users.id', '=', 'department_user.user_id');
-			// })->where('department_user.position_id', '=', "${q}");
+    /**
+     * Tìm kiếm theo chức vụ
+     * @param  [type] $query      [description]
+     * @param  int    $positionId positionId
+     * @return Collection User Model
+     */
+    public function scopePositionID($query, $positionId)
+    {
+        if ($positionId) {
+            $positions = app()->make(positionRepository::class)
+            ->getByQuery(['id' => $positionId], -1)
+            ->pluck('id');
 
-			// return $query->whereHas('positions', function ($query) {
-			// 	$query->where('department_user.position_id', '=', '${position_id}');
-			// });
+            return $query->whereHas('positions', function ($query) use ($positions) {
+                $query->whereIn('id', $positions);
+            }); 
+        }
 
-			// return $query->select('users.*')->join('department_user', function ($join) {
-			// 	$join->on('users.id', '=', 'department_user.user_id');
-			// })->where('department_user.department_id', '=', "${q}");
+        return $query;
+    } 
 
-			// return $query->select('users.*')
-			// ->join('department_user', 'users.id', '=', 'department_user.user_id')
-			// ->join('departments', 'department_user.department_id', '=', 'departments.id')
-			// ->where('departments.branch_id', '=', '${q}');
+    /**
+     * Tìm kiếm theo chi nhánh
+     * @param  [type] $query    [description]
+     * @param  int    $branchId branchId
+     * @return Collection User Model
+     */
+    public function scopeBranchID($query, $branchId)
+    {
+        if ($branchId) {
+            $departments = app()->make(DepartmentRepository::class)
+            ->getByQuery(['branch_id' => $branchId], -1)
+            ->pluck('id');
 
-			// return $query->select('users.*')->join('department_user', function ($join) {
-			// 	$join->on('users.id', '=', 'department_user.user_id');
-			// 	$join->join('departments', function ($join) {
-			// 		$join->on('department_user.department_id', '=', 'departments.id');
-			// 	})->where('departments.branch_id', '=', "${q}");
-			// });
+            return $query->whereHas('departments', function ($query) use ($departments) {
+                $query->whereIn('id', $departments);
+            }); 
+        }
+        return $query;
+    } 
 
-			// return $query->whereHas('departments', function ($query) {
-			// 	$query->whereHas('users', function ($query) {
-			// 		$query->where('departments.branch_id', '=', '${q}');
-			// 	});
-			// });
+    /**
+     * Tìm kiếm theo trạng thái
+     * @param  [type] $query  [description]
+     * @param  [type] $status [description]
+     * @return [type]         [description]
+     */
+    public function scopeStatus($query, $status)
+    {
+        if (in_array($status, self::ALL_STATUS)) {
+            return $query->where('status', $status);
+        }
+        return $query;
+    }   
 
-			// return $query->select('users.*')->join('department_user', function ($join) {
-			// 	$join->on('users.id', '=', 'department_user.user_id');
-			// 	$join->on('departments.id', '=', 'department_user.user_id');
-			// })->where('department_user.department_id', '=', "${q}");
+    /**
+     * Tìm kiếm theo loại hợp đồng
+     * @param  [type] $query        [description]
+     * @param  [type] $contractType [description]
+     * @return [type]               [description]
+     */
+    public function scopeContractType($query, $contractType)
+    {
+        if ($contractType) {
+            $contracts = app()->make(ContractRepository::class)
+            ->getByQuery(['type' => $contractType], -1)
+            ->pluck('user_id');
 
-			// return $query->whereHas('departments', function ($query) {
-			// 	$query->join('departments', function ($join) {
-			// 		$join->on('users.id', '=', 'department_user.user_id');
-			// 	});
-			// });
-		}
-		return $query;
-	}	
-
-	// public function scopeDepartmentID($query, $department_id)
-	// {
-	// 	if ($department_id) {
-	// 		return $query->whereHas('departments', function ($query) {
-	// 			$query->where('department_user.department_id', '=', '${department_id}');
-	// 		});
-
-	// 		// return $query->select('users.*')->join('department_user', function ($join) {
-	// 		// 	$join->on('users.id', '=', 'department_user.user_id');
-	// 		// })->where('department_user.department_id', '=', "${department_id}");
-	// 	}
-	// 	return $query;
-	// }	
-
-// SELECT * 
-// FROM hrm.users 
-// INNER JOIN department_user ON users.id=department_user.user_id
-// INNER JOIN departments ON department_user.department_id=departments.id AND departments.branch_id=1;
-
-	// public function scopeBranchID($query, $branch_id)
-	// {
-	// 	if ($branch_id) {
-	// 		return $query->select('users.*')->join('department_user', function ($join) {
-	// 			$join->on('users.id', '=', 'department_user.user_id');
-	// 		})->where('department_user.department_id', '=', '${department_id}');
-
-			// return $query->whereHas('departments', function ($query) {
-			// 	$query->join('department_user', function ($join) {
-			// 		$join->on('users.id', '=', 'department_user.user_id');
-			// 	});
-			// });
-
-			// return $query->select('users.*')->join('department_user', function ($join) {
-			// 	$join->on('users.id', '=', 'department_user.user_id');
-			// 	$join->on('users.id', '=', 'department_user.user_id');
-			// })->where('department_user.department_id', '=', "${branch_id}");
-	// 	}
-	// 	return $query;
-	// }
+            return $query->whereHas('contracts', function ($query) use ($contracts) {
+                $query->whereIn('user_id', $contracts);
+            }); 
+        }
+        return $query;
+    }
 }

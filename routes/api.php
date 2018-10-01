@@ -12,6 +12,8 @@
 */
 $router->group(['middleware' => 'auth'], function ($router) {
     resource('/users', 'UserController', $router);
+    $router->put('/users/change-status/{id}', 'UserController@changeStatus');
+
     $router->get('/profile', 'ProfileController@index');
     $router->put('/profile', 'ProfileController@update');
     $router->put('/profile/change-password', 'ProfileController@changePassword');

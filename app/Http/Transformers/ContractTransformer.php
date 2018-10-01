@@ -7,9 +7,9 @@ use App\Repositories\Contracts\Contract;
 
 class ContractTransformer extends TransformerAbstract
 {
-    // protected $availableIncludes = [
-    //     'user'
-    // ];
+    protected $availableIncludes = [
+        'user'
+    ];
 
     public function transform(Contract $contract = null)
     {
@@ -35,12 +35,12 @@ class ContractTransformer extends TransformerAbstract
         ];
     }
 
-    // public function includeUser(Contract $contract = null)
-    // {
-    //     if (is_null($contract)) {
-    //         return $this->null();
-    //     }
+    public function includeUser(Contract $contract = null)
+    {
+        if (is_null($contract)) {
+            return $this->null();
+        }
 
-    //     return $this->item($contract->user, new UserTransformer);
-    // }
+        return $this->item($contract->user, new UserTransformer);
+    }
 }

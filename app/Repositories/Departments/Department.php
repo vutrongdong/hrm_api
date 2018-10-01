@@ -29,7 +29,7 @@ class Department extends Entity {
 		'status',
 	];
 
-	public function branch()
+public function branch()
 	{
 		return $this->belongsTo(\App\Repositories\Branches\Branch::class);
 	}

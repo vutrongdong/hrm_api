@@ -15,7 +15,7 @@ class PlanController extends ApiController
         'date_start'                => 'date|before:date_end',
         'date_end'                  => 'date',
         'status'                    => 'in:',
-        'details'                   => 'array',
+        'details'                   => 'required|array',
         'details.*.department_id'   => 'required|exists:departments,id',
         'details.*.position_id'     => 'required|exists:positions,id',
         'details.*.quantity'        => 'required|digits_between:1,2',
@@ -27,13 +27,15 @@ class PlanController extends ApiController
         'date_start.before'                     => 'Ngày bắt đầu phải nhỏ hơn ngày kết thúc',
         'date_end.date_format'                  => 'Ngày kết thúc không hợp lệ',
         'status.in'                             => 'Trạng thái không hợp lệ',
-
-        'details.*.department_id.required'      => 'Phòng ban không được để trống',
-        'details.*.department_id.exists'        => 'Phòng ban không tồn tại trên hệ thống',
-        'details.*.position_id.required'        => 'Chức vụ không được để trống',
-        'details.*.position_id.exists'          => 'Chức vụ không tồn tại trên hệ thống',
-        'details.*.quantity.required'           => 'Số lượng tuyển không được để trống',
-        'details.*.quantity.digits_between'     => 'Số lượng tuyển không hợp lệ',
+        
+        'details.required'                  => 'Vui lòng chọn các phòng ban & chức vụ cần tuyển',
+        'details.array'                     => 'Phòng ban không hợp lệ',
+        'details.*.department_id.required'  => 'Phòng ban không được để trống',
+        'details.*.department_id.exists'    => 'Phòng ban không tồn tại trên hệ thống',
+        'details.*.position_id.required'    => 'Chức vụ không được để trống',
+        'details.*.position_id.exists'      => 'Chức vụ không tồn tại trên hệ thống',
+        'details.*.quantity.required'       => 'Số lượng tuyển không được để trống',
+        'details.*.quantity.digits_between' => 'Số lượng tuyển không hợp lệ',
     ];
 
     /**
