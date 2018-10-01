@@ -17,5 +17,6 @@ class StoreContractUserEvent extends Event
     {
         $this->user = $user;
         $this->contracts = $contracts;
+        // dd($this->contracts);
     }
 }

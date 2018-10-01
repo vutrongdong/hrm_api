@@ -2,6 +2,7 @@
 
 namespace App\Repositories\Users;
 
+use Event;
 use App\User;
 use App\Repositories\BaseRepository;
 use App\Repositories\Contracts\ContractRepository;
@@ -30,6 +31,7 @@ class UserRepository extends BaseRepository
     {
         return implode(',', User::ALL_GENDER);
     }
+
     public function getAllStatus()
     {
         return implode(',', User::ALL_STATUS);
@@ -40,12 +42,11 @@ class UserRepository extends BaseRepository
         $record = parent::update($id, $data);
         $departments = array_get($data, 'departments', []);
         if ($departments) {
-            $this->storeOrUpdateDepartmentUser($record, $departments);
-        }
+            event(new StoreOrUpdateDepartmentUserEvent($record, $departments));
+       }
 
         $contracts = array_get($data, 'contracts', []);
         if ($contracts) {
-            $this->updateContract($record, $contracts);
             event(new UpdateContractUserEvent($record, $contracts));
         }
         return $record;
@@ -56,12 +57,11 @@ class UserRepository extends BaseRepository
         $user = parent::store($data);
         $departments = array_get($data, 'departments', []);
         if ($departments) {
-            $this->storeOrUpdateDepartmentUser($user, $departments);
+            event(new StoreOrUpdateDepartmentUserEvent($user, $departments));
         }
 
         $contracts = array_get($data, 'contracts', []);
         if ($contracts) {
-            $this->storeContract($user, $contracts);
             event(new StoreContractUserEvent($user, $contracts));
         }
         return $user;
