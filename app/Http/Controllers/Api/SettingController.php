@@ -10,6 +10,7 @@ class SettingController extends ApiController
 {
     protected $validationRules = [
         'name'   => 'required|unique:settings,name',
+        'slug'   => 'required|unique:settings,slug',
         'value'  => 'required',
         'status' => 'boolean',
     ];
@@ -106,6 +107,7 @@ class SettingController extends ApiController
     public function update($id, Request $request)
     {
         $test = $this->validationRules['name'] .= ',' . $id;
+        $test = $this->validationRules['slug'] .= ',' . $id;
         try {
             $this->authorize('setting.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);

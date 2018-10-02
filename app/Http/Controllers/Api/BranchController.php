@@ -13,7 +13,7 @@ class BranchController extends ApiController
     protected $validationRules = [
         'name'        => 'required',
         'address'     => 'required',
-        'phone'       => 'digits_between:10,12',
+        'phone'       => 'nullable|digits_between:10,12',
         'tax_number'  => 'required|unique:branches,tax_number',
         'email'       => 'required|email|unique:branches,email',
         'city_id'     => 'exists:cities,id',

@@ -55,7 +55,7 @@ trait FilterTrait
     public function scopePositionID($query, $positionId)
     {
         if ($positionId) {
-            $positions = app()->make(positionRepository::class)
+            $positions = app()->make(PositionRepository::class)
             ->getByQuery(['id' => $positionId], -1)
             ->pluck('id');
 
