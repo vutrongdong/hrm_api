@@ -18,8 +18,8 @@ trait FilterTrait
     {
         if ($q) {
             return $query->where('name', 'like', "%${q}%")
-            ->orWhere('email', $q)
-            ->orWhere('code', $q)
+            ->orWhere('email', 'like', "%${q}%")
+            ->orWhere('code', 'like', "%${q}%")
             ->orWhere('phone', 'like', "%${q}%");
         }
         return $query;
@@ -28,7 +28,7 @@ trait FilterTrait
     /**
     * Tìm kiếm theo phòng ban
     * @param  [type] $query        [description]
-    * @param  [type] $departmentId departmentId
+    * @param  int $departmentId     departmentId
     * @return Collection User Model
     */
     public function scopeDepartmentID($query, $departmentId)
@@ -48,8 +48,8 @@ trait FilterTrait
 
     /**
      * Tìm kiếm theo chức vụ
-     * @param  [type] $query      [description]
-     * @param  int    $positionId positionId
+     * @param  [type] $query        [description]
+     * @param  int    $positionId   positionId
      * @return Collection User Model
      */
     public function scopePositionID($query, $positionId)
@@ -69,8 +69,8 @@ trait FilterTrait
 
     /**
      * Tìm kiếm theo chi nhánh
-     * @param  [type] $query    [description]
-     * @param  int    $branchId branchId
+     * @param  [type] $query        [description]
+     * @param  int    $branchId     branchId
      * @return Collection User Model
      */
     public function scopeBranchID($query, $branchId)
@@ -90,7 +90,7 @@ trait FilterTrait
     /**
      * Tìm kiếm theo trạng thái
      * @param  [type] $query  [description]
-     * @param  [type] $status [description]
+     * @param  int $status    status
      * @return [type]         [description]
      */
     public function scopeStatus($query, $status)
@@ -104,7 +104,7 @@ trait FilterTrait
     /**
      * Tìm kiếm theo loại hợp đồng
      * @param  [type] $query        [description]
-     * @param  [type] $contractType [description]
+     * @param  int $contractType    type
      * @return [type]               [description]
      */
     public function scopeContractType($query, $contractType)
