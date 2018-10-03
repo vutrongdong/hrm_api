@@ -43,12 +43,12 @@ class UserRepository extends BaseRepository
         $departments = array_get($data, 'departments', []);
         if ($departments) {
             event(new StoreOrUpdateDepartmentUserEvent($record, $departments));
-       }
-
-        $contracts = array_get($data, 'contracts', []);
-        if ($contracts) {
-            event(new UpdateContractUserEvent($record, $contracts));
         }
+
+        // $contracts = array_get($data, 'contracts', []);
+        // if ($contracts) {
+        //     event(new UpdateContractUserEvent($record, $contracts));
+        // }
         return $record;
     }
 

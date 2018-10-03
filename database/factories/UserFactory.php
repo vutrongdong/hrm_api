@@ -18,11 +18,10 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'password' => '123456',
         'remember_token' => str_random(10),
         'qualification' => $faker->randomElement(['Đại học', 'Cao đẳng', 'Trung cấp']),
-        // 'phone' => '0'.$faker->randomNumber($nbDigits = 9),
         'phone' => '0'.$faker->numberBetween($min = 100000000, $max = 999999999),
         'address' => $faker->address,
         'date_of_birth' => $faker->date($format = 'Y-m-d', $max = '-18 years'),
-        'avatar' => 'tmp/'.$faker->randomNumber($nbDigits = 9).'.jpg',
+        // 'avatar' => 'tmp/'.$faker->randomNumber($nbDigits = 9).'.jpg',
         'gender' => rand(0, 2),
         'status' => rand(0, 1)
     ];

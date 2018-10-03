@@ -60,12 +60,12 @@ return [
     ],
     
     'position' => [
-        'title' => 'Quản lý chức vụ',
+        'title' => 'Quản lý chức danh',
         'list' => [
-            'view' => 'Xem chức vụ',
-            'create' => 'Tạo mới chức vụ',
-            'update' => 'Sửa chức vụ',
-            'delete' => 'Xóa chức vụ'
+            'view' => 'Xem chức danh',
+            'create' => 'Tạo mới chức danh',
+            'update' => 'Sửa chức danh',
+            'delete' => 'Xóa chức danh'
         ]
     ],    
 

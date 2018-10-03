@@ -42,6 +42,8 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
 		self::ENABLE 	=> 'Kích hoạt',
 	];
 
+	public $avatarPath = 'storage/images/users';
+
 	/**
 	 * The attributes that are mass assignable.
 	 *

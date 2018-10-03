@@ -14,8 +14,8 @@ class PositionController extends ApiController
         'status'    => 'in:',
     ];
     protected $validationMessages = [
-        'name.required' => 'Tên chức vụ không được để trống',
-        'name.unique'   => 'Tên chức vụ đã tồn tại trên hệ thống',
+        'name.required' => 'Tên chức danh không được để trống',
+        'name.unique'   => 'Tên chức danh đã tồn tại trên hệ thống',
         'status.in'     => 'Trạng thái không hợp lệ',
     ];
 

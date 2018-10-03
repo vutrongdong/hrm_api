@@ -27,6 +27,7 @@ class UserTransformer extends TransformerAbstract
             'phone'         => $user->phone,
             'date_of_birth' => $user->date_of_birth,
             'avatar'        => $user->avatar,
+            'avatar_path'   => $user->getAvatar(),
             'gender'        => $user->gender,
             'gender_txt'    => $user->getGender(),
             'status'        => $user->status,

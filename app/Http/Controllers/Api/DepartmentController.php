@@ -17,7 +17,6 @@ class DepartmentController extends ApiController
     ];
     protected $validationMessages = [
         'name.required'      => 'Tên phòng ban không được để trống',
-        // 'name.unique'        => 'Tên phòng ban đã tồn tại trên hệ thống',
         'branch_id.required' => 'Vui lòng chọn chi nhánh',
         'branch_id.exists'   => 'Chi nhánh không tồn tại trên hệ thống',
         'status.in'          => 'Trạng thái không hợp lệ',
@@ -108,7 +107,6 @@ class DepartmentController extends ApiController
 
     public function update($id, Request $request)
     {
-        $this->validationRules['name'] .= ',' . $id;
         $this->validationRules['status'] .= $this->department->getAllStatus();
         try {
             $this->authorize('department.update');

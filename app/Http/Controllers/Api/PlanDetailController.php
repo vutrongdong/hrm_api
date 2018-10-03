@@ -17,7 +17,7 @@ class PlanDetailController extends ApiController
     protected $validationMessages = [
         // 'plan_id.exists'         => 'Kế hoạch không tồn tại trên hệ thống',
         'department_id.exists'   => 'Phòng ban không tồn tại trên hệ thống',
-        'position_id.exists'     => 'Chức vụ không tồn tại trên hệ thống',
+        'position_id.exists'     => 'Chức danh không tồn tại trên hệ thống',
     ];
 
     /**

@@ -23,7 +23,63 @@ trait FilterTrait
             ->orWhere('phone', 'like', "%${q}%");
         }
         return $query;
+    }  
+
+    /**
+     * Tìm kiếm ngày sinh trong khoảng [$dateOfBirthStart, $dateOfBirthEnd]
+     * @param  [type] $query                [description]
+     * @param  string $dateOfBirthStart     date_of_birth
+     * @return Collection User Model
+     */
+    public function scopeDateOfBirthStart($query, $dateOfBirthStart)
+    {
+        if ($dateOfBirthStart) {
+            return $query->where('date_of_birth', '>=', $dateOfBirthStart);
+        }
+        return $query;
+    }  
+
+    /**
+     * Tìm kiếm ngày sinh trong khoảng [$dateOfBirthStart, $dateOfBirthEnd]
+     * @param  [type] $query            [description]
+     * @param  string $dateOfBirthEnd   date_of_birth 
+     * @return Collection User Model
+     */
+    public function scopeDateOfBirthEnd($query, $dateOfBirthEnd)
+    {
+        if ($dateOfBirthEnd) {
+            return $query->where('date_of_birth', '<=', $dateOfBirthEnd);
+        }
+        return $query;
+    }  
+
+    /**
+     * [scopeMonthOfBirth description]
+     * @param  [type] $query        [description]
+     * @param  [type] $monthOfBirth [description]
+     * @return [type]               [description]
+     */
+    public function scopeMonthOfBirth($query, $monthOfBirth)
+    {
+        if ($monthOfBirth) {
+            return $query->whereMonth('date_of_birth', '=', $monthOfBirth);
+        }
+        return $query;
     }
+
+    /**
+     * [scopeYearOfBirth description]
+     * @param  [type] $query       [description]
+     * @param  [type] $yearOfBirth [description]
+     * @return [type]              [description]
+     */
+    public function scopeYearOfBirth($query, $yearOfBirth)
+    {
+        if ($yearOfBirth) {
+            return $query->whereYear('date_of_birth', '=', $yearOfBirth);
+        }
+        return $query;
+    }  
 
     /**
     * Tìm kiếm theo phòng ban
@@ -47,7 +103,7 @@ trait FilterTrait
     }    
 
     /**
-     * Tìm kiếm theo chức vụ
+     * Tìm kiếm theo chức danh
      * @param  [type] $query        [description]
      * @param  int    $positionId   positionId
      * @return Collection User Model

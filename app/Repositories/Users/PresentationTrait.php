@@ -48,4 +48,9 @@ trait PresentationTrait
     {
         return self::DISPLAY_STATUS[$this->status ?? self::DISABLE];
     }
+
+    public function getAvatar()
+    {
+        return $this->avatar ? asset($this->avatarPath . '/' . $this->avatar) : 'http://via.placeholder.com/170x170';
+    }
 }
