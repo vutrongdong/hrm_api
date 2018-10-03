@@ -23,10 +23,11 @@ trait FilterTrait
             ->orWhere('phone', 'like', "%${q}%");
         }
         return $query;
-    }  
+    }
 
     /**
-     * Tìm kiếm theo ngày/tháng/năm sinh trong khoảng [$dateOfBirthStart, $dateOfBirthEnd]
+     * Tìm kiếm theo ngày/tháng/năm sinh
+     * nằm trong khoảng [$dateOfBirthStart, $dateOfBirthEnd]
      * @param  [type] $query                [description]
      * @param  date $dateOfBirthStart     date_of_birth
      * @return Collection User Model
@@ -37,12 +38,13 @@ trait FilterTrait
             return $query->where('date_of_birth', '>=', $dateOfBirthStart);
         }
         return $query;
-    }  
+    }
 
     /**
-     * Tìm kiếm theo ngày/tháng/năm sinh trong khoảng [$dateOfBirthStart, $dateOfBirthEnd]
+     * Tìm kiếm theo ngày/tháng/năm sinh
+     * nằm trong khoảng [$dateOfBirthStart, $dateOfBirthEnd]
      * @param  [type] $query            [description]
-     * @param  date $dateOfBirthEnd     date_of_birth 
+     * @param  date $dateOfBirthEnd     date_of_birth
      * @return Collection User Model
      */
     public function scopeDateOfBirthEnd($query, $dateOfBirthEnd)
@@ -51,7 +53,7 @@ trait FilterTrait
             return $query->where('date_of_birth', '<=', $dateOfBirthEnd);
         }
         return $query;
-    }  
+    }
 
     /**
      * Tìm kiếm theo tháng sinh
@@ -79,49 +81,21 @@ trait FilterTrait
             return $query->whereYear('date_of_birth', $yearOfBirth);
         }
         return $query;
-    }  
+    }
 
     /**
-    * Tìm kiếm theo phòng ban
-    * @param  [type] $query        [description]
-    * @param  int $departmentId     departmentId
-    * @return Collection User Model
-    */
-    public function scopeDepartmentID($query, $departmentId)
-    {
-        if ($departmentId) {
-            $departments = app()->make(DepartmentRepository::class)
-            ->getByQuery(['id' => $departmentId], -1)
-            ->pluck('id');
-
-            return $query->whereHas('departments', function ($query) use ($departments) {
-                $query->whereIn('id', $departments);
-            }); 
-        }
-
-        return $query;
-    }    
-
-    /**
-     * Tìm kiếm theo chức danh
-     * @param  [type] $query        [description]
-     * @param  int    $positionId   positionId
-     * @return Collection User Model
+     * Tìm kiếm theo trạng thái
+     * @param  [type] $query  [description]
+     * @param  int $status    status
+     * @return [type]         [description]
      */
-    public function scopePositionID($query, $positionId)
+    public function scopeStatus($query, $status)
     {
-        if ($positionId) {
-            $positions = app()->make(PositionRepository::class)
-            ->getByQuery(['id' => $positionId], -1)
-            ->pluck('id');
-
-            return $query->whereHas('positions', function ($query) use ($positions) {
-                $query->whereIn('id', $positions);
-            }); 
+        if (is_numeric($status) && in_array($status, self::ALL_STATUS)) {
+            return $query->where('status', $status);
         }
-
         return $query;
-    } 
+    }
 
     /**
      * Tìm kiếm theo chi nhánh
@@ -138,24 +112,50 @@ trait FilterTrait
 
             return $query->whereHas('departments', function ($query) use ($departments) {
                 $query->whereIn('id', $departments);
-            }); 
+            });
         }
         return $query;
-    } 
+    }
 
     /**
-     * Tìm kiếm theo trạng thái
-     * @param  [type] $query  [description]
-     * @param  int $status    status
-     * @return [type]         [description]
-     */
-    public function scopeStatus($query, $status)
+    * Tìm kiếm theo phòng ban
+    * @param  [type] $query        [description]
+    * @param  int $departmentId     departmentId
+    * @return Collection User Model
+    */
+    public function scopeDepartmentID($query, $departmentId)
     {
-        if (in_array($status, self::ALL_STATUS)) {
-            return $query->where('status', $status);
+        if ($departmentId) {
+            $departments = app()->make(DepartmentRepository::class)
+            ->getByQuery(['id' => $departmentId], -1)
+            ->pluck('id');
+
+            return $query->whereHas('departments', function ($query) use ($departments) {
+                $query->whereIn('id', $departments);
+            });
         }
         return $query;
-    }   
+    }
+
+    /**
+     * Tìm kiếm theo chức danh
+     * @param  [type] $query        [description]
+     * @param  int    $positionId   positionId
+     * @return Collection User Model
+     */
+    public function scopePositionID($query, $positionId)
+    {
+        if ($positionId) {
+            $positions = app()->make(PositionRepository::class)
+            ->getByQuery(['id' => $positionId], -1)
+            ->pluck('id');
+
+            return $query->whereHas('positions', function ($query) use ($positions) {
+                $query->whereIn('id', $positions);
+            });
+        }
+        return $query;
+    }
 
     /**
      * Tìm kiếm theo loại hợp đồng
@@ -165,14 +165,14 @@ trait FilterTrait
      */
     public function scopeContractType($query, $contractType)
     {
-        if ($contractType) {
+        if (is_numeric($contractType)) {
             $contracts = app()->make(ContractRepository::class)
             ->getByQuery(['type' => $contractType], -1)
             ->pluck('user_id');
 
             return $query->whereHas('contracts', function ($query) use ($contracts) {
                 $query->whereIn('user_id', $contracts);
-            }); 
+            });
         }
         return $query;
     }

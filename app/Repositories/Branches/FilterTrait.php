@@ -21,8 +21,8 @@ trait FilterTrait
 
 	/**
 	 * Tìm kiếm theo thành phố
-	 * @param  [type] $query  [description]
-	 * @param  int $cityId 	  city_id
+	 * @param  [type] $query  	[description]
+	 * @param  int    $cityId 	city_id
 	 * @return Collection Branch Model
 	 */
 	public function scopeCityID($query, $cityId)
@@ -35,8 +35,8 @@ trait FilterTrait
 
 	/**
 	 * Tìm kiếm theo quận/huyện
-	 * @param  [type] $query      [description]
-	 * @param  int $districtId 	  district_id
+	 * @param  [type] $query      	  [description]
+	 * @param  int    $districtId 	  district_id
 	 * @return Collection Branch Model
 	 */
 	public function scopeDistrictID($query, $districtId)

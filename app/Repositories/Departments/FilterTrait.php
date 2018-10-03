@@ -5,10 +5,10 @@ namespace App\Repositories\Departments;
 trait FilterTrait
 {
 	/**
-	 * [scopeQ description]
+	 * Tìm kiếm theo tên
 	 * @param  [type] $query [description]
-	 * @param  [type] $q     [description]
-	 * @return [type]        [description]
+	 * @param  string $q     name
+	 * @return Collection Department Model
 	 */
 	public function scopeQ($query, $q)
 	{
@@ -19,10 +19,10 @@ trait FilterTrait
 	}   
 
 	/**
-	 * [scopeBranchID description]
-	 * @param  [type] $query    [description]
-	 * @param  [type] $branchId [description]
-	 * @return [type]           [description]
+	 * Tìm kiếm theo chi nhánh
+	 * @param  [type] $query    	[description]
+	 * @param  int    $branchId 	branch_id
+	 * @return Collection Department Model
 	 */
 	public function scopeBranchID($query, $branchId)
 	{
@@ -33,10 +33,10 @@ trait FilterTrait
 	}	
 
 	/**
-	 * [scopeID description]
+	 * Tìm kiếm theo ID
 	 * @param  [type] $query [description]
-	 * @param  [type] $id    [description]
-	 * @return [type]        [description]
+	 * @param  int    $id    id
+	 * @return Collection Department Model
 	 */
 	public function scopeID($query, $id)
 	{
@@ -45,6 +45,4 @@ trait FilterTrait
 		}
 		return $query;
 	}
-
-
 }

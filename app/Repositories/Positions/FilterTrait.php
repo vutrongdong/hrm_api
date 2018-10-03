@@ -5,10 +5,10 @@ namespace App\Repositories\Positions;
 trait FilterTrait
 {
 	/**
-	 * [scopeQ description]
+	 * Tìm kiếm theo tên
 	 * @param  [type] $query [description]
-	 * @param  [type] $q     [description]
-	 * @return [type]        [description]
+	 * @param  string $q     name
+	 * @return Collection Position Model
 	 */
 	public function scopeQ($query, $q)
 	{
@@ -19,10 +19,10 @@ trait FilterTrait
 	}
 
 	/**
-	 * [scopeID description]
+	 * Tìm kiếm theo ID
 	 * @param  [type] $query [description]
-	 * @param  [type] $id    [description]
-	 * @return [type]        [description]
+	 * @param  int    $id    id
+	 * @return Collection Position Model
 	 */
 	public function scopeID($query, $id)
 	{
