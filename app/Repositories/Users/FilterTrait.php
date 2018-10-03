@@ -26,9 +26,9 @@ trait FilterTrait
     }  
 
     /**
-     * Tìm kiếm ngày sinh trong khoảng [$dateOfBirthStart, $dateOfBirthEnd]
+     * Tìm kiếm theo ngày/tháng/năm sinh trong khoảng [$dateOfBirthStart, $dateOfBirthEnd]
      * @param  [type] $query                [description]
-     * @param  string $dateOfBirthStart     date_of_birth
+     * @param  date $dateOfBirthStart     date_of_birth
      * @return Collection User Model
      */
     public function scopeDateOfBirthStart($query, $dateOfBirthStart)
@@ -40,9 +40,9 @@ trait FilterTrait
     }  
 
     /**
-     * Tìm kiếm ngày sinh trong khoảng [$dateOfBirthStart, $dateOfBirthEnd]
+     * Tìm kiếm theo ngày/tháng/năm sinh trong khoảng [$dateOfBirthStart, $dateOfBirthEnd]
      * @param  [type] $query            [description]
-     * @param  string $dateOfBirthEnd   date_of_birth 
+     * @param  date $dateOfBirthEnd     date_of_birth 
      * @return Collection User Model
      */
     public function scopeDateOfBirthEnd($query, $dateOfBirthEnd)
@@ -54,29 +54,29 @@ trait FilterTrait
     }  
 
     /**
-     * [scopeMonthOfBirth description]
-     * @param  [type] $query        [description]
-     * @param  [type] $monthOfBirth [description]
-     * @return [type]               [description]
+     * Tìm kiếm theo tháng sinh
+     * @param  [type] $query              [description]
+     * @param  int[1-12] $monthOfBirth    [description]
+     * @return Collection User Model
      */
     public function scopeMonthOfBirth($query, $monthOfBirth)
     {
         if ($monthOfBirth) {
-            return $query->whereMonth('date_of_birth', '=', $monthOfBirth);
+            return $query->whereMonth('date_of_birth', $monthOfBirth);
         }
         return $query;
     }
 
     /**
-     * [scopeYearOfBirth description]
+     * Tìm kiếm theo năm sinh
      * @param  [type] $query       [description]
-     * @param  [type] $yearOfBirth [description]
-     * @return [type]              [description]
+     * @param  int $yearOfBirth    [description]
+     * @return Collection User Model
      */
     public function scopeYearOfBirth($query, $yearOfBirth)
     {
         if ($yearOfBirth) {
-            return $query->whereYear('date_of_birth', '=', $yearOfBirth);
+            return $query->whereYear('date_of_birth', $yearOfBirth);
         }
         return $query;
     }  

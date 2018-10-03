@@ -4,6 +4,12 @@ namespace App\Repositories\Contracts;
 
 trait FilterTrait
 {
+	/**
+	 * Tìm kiếm theo tiêu đề hợp đồng
+	 * @param  [type] $query [description]
+	 * @param  [type] $q     [description]
+	 * @return Collection Contract Model
+	 */
 	public function scopeQ($query, $q)
 	{
 		if ($q) {
@@ -12,6 +18,12 @@ trait FilterTrait
 		return $query;
 	}  
 
+	/**
+	 * Tìm kiếm theo loại hợp đồng
+	 * @param  [type] $query [description]
+	 * @param  [type] $type  [description]
+	 * @return Collection Contract Model
+	 */
 	public function scopeType($query, $type)
 	{
 		if (in_array($type, self::ALL_TYPE)) {
@@ -20,6 +32,12 @@ trait FilterTrait
 		return $query;
 	}
 
+	/**
+	 * Tìm kiếm theo ngày ký trong khoảng [$dateSignStart, $dateSignEnd]
+	 * @param  [type] $query         [description]
+	 * @param  [type] $dateSignStart [description]
+	 * @return Collection Contract Model
+	 */
 	public function scopeDateSignStart($query, $dateSignStart)
 	{
 		if ($dateSignStart) {
@@ -28,6 +46,12 @@ trait FilterTrait
 		return $query;
 	}	
 
+	/**
+	 * Tìm kiếm theo ngày ký trong khoảng [$dateSignStart, $dateSignEnd]
+	 * @param  [type] $query       		[description]
+	 * @param  int[1-12] $dateSignEnd   [description]
+	 * @return Collection Contract Model
+	 */
 	public function scopeDateSignEnd($query, $dateSignEnd)
 	{
 		if ($dateSignEnd) {
@@ -36,18 +60,16 @@ trait FilterTrait
 		return $query;
 	}
 
-	public function scopeDateEffective($query, $dateEffective)
+	/**
+	 * Tìm kiếm hợp đồng sắp hết hạn trong 1 tháng cụ thể
+	 * @param  [type] $query          [description]
+	 * @param  int[1-12] $dateExpiration [description]
+	 * @return Collection Contract Model
+	 */
+	public function scopeMonthExpiration($query, $monthExpiration)
 	{
-		if ($dateEffective) {
-			return $query->where('date_effective', '>=', $dateEffective);
-		}
-		return $query;
-	}
-
-	public function scopeDateExpiration($query, $dateExpiration)
-	{
-		if ($dateExpiration) {
-			return $query->where('date_expiration', '>=', $dateExpiration);
+		if ($monthExpiration) {
+			return $query->where('date_expiration', $monthExpiration);
 		}
 		return $query;
 	}

@@ -4,6 +4,12 @@ namespace App\Repositories\Departments;
 
 trait FilterTrait
 {
+	/**
+	 * [scopeQ description]
+	 * @param  [type] $query [description]
+	 * @param  [type] $q     [description]
+	 * @return [type]        [description]
+	 */
 	public function scopeQ($query, $q)
 	{
 		if ($q) {
@@ -12,6 +18,12 @@ trait FilterTrait
 		return $query;
 	}   
 
+	/**
+	 * [scopeBranchID description]
+	 * @param  [type] $query    [description]
+	 * @param  [type] $branchId [description]
+	 * @return [type]           [description]
+	 */
 	public function scopeBranchID($query, $branchId)
 	{
 		if ($branchId) {
@@ -20,6 +32,12 @@ trait FilterTrait
 		return $query;
 	}	
 
+	/**
+	 * [scopeID description]
+	 * @param  [type] $query [description]
+	 * @param  [type] $id    [description]
+	 * @return [type]        [description]
+	 */
 	public function scopeID($query, $id)
 	{
 		if ($id) {
