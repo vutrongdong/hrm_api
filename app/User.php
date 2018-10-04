@@ -4,20 +4,20 @@ namespace App;
 
 use App\Repositories\Entity;
 use App\Repositories\Users\FilterTrait;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Repositories\Users\PresentationTrait;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Lumen\Auth\Authorizable;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Entity implements AuthenticatableContract, AuthorizableContract {
-	use Authenticatable, Authorizable, HasApiTokens, FilterTrait, PresentationTrait;
+	use SoftDeletes, Authenticatable, Authorizable, HasApiTokens, FilterTrait, PresentationTrait;
 
-	const FEMALE 	= 0;
-	const MALE 		= 1;
-	const OTHER 	= 2;
+	const FEMALE = 0;
+	const MALE = 1;
+	const OTHER = 2;
 
 	const ALL_GENDER = [
 		self::FEMALE,
@@ -25,21 +25,21 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
 		self::OTHER,
 	];
 	const DISPLAY_GENDER = [
-		self::FEMALE 	=> 'Nữ',
-		self::MALE 		=> 'Nam',
-		self::OTHER 	=> 'Khác',
+		self::FEMALE => 'Nữ',
+		self::MALE => 'Nam',
+		self::OTHER => 'Khác',
 	];
 
-	const DISABLE 	= 0;
-	const ENABLE	= 1;
+	const DISABLE = 0;
+	const ENABLE = 1;
 
 	const ALL_STATUS = [
 		self::DISABLE,
 		self::ENABLE,
 	];
 	const DISPLAY_STATUS = [
-		self::DISABLE 	=> 'Không kích hoạt',
-		self::ENABLE 	=> 'Kích hoạt',
+		self::DISABLE => 'Không kích hoạt',
+		self::ENABLE => 'Kích hoạt',
 	];
 
 	public $avatarPath = 'storage/images/users';

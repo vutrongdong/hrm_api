@@ -2,9 +2,9 @@
 
 namespace App\Http\Transformers;
 
-use League\Fractal\TransformerAbstract;
 use App\Repositories\Departments\Department;
 use App\Repositories\Positions\PositionRepository;
+use League\Fractal\TransformerAbstract;
 
 class DepartmentTransformer extends TransformerAbstract {
 
@@ -12,19 +12,19 @@ class DepartmentTransformer extends TransformerAbstract {
 		'branch', 'users',
 	];
 
-	public function transform(Department $department = null)
-	{
+	public function transform(Department $department = null) {
 		if (is_null($department)) {
 			return [];
 		}
 
 		$data = [
-			'id'            => $department->id,
-			'name'          => $department->name,
-			'branch_id'     => $department->branch_id,
-			'branch_name'   => $department->branch->name,
-			'status'        => $department->status,
-			'status_txt'    => $department->getStatus(),
+			'id' => $department->id,
+			// 'department_id' => $department->id,
+			'name' => $department->name,
+			'branch_id' => $department->branch_id,
+			'branch_name' => $department->branch->name,
+			'status' => $department->status,
+			'status_txt' => $department->getStatus(),
 			// 'created_at' => $department->created_at,
 			// 'updated_at' => $department->updated_at,
 		];
